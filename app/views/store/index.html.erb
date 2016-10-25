@@ -1,4 +1,24 @@
-<h1>Store#index</h1>
+<p id="notice"><%= notice %></p>
 
+<h1>You Progmatic Catalog</h1>
+
+<% cache @products do %>
+	<% @products.each do |product| %>
+		<% cache product do %>	
+			<div class="entry">
+				<%= image_tag(product.image_url) %>
+				<h3> <%= product.title %></h3>
+				<p><%= sanitize(product.description) %></p>
+				<div class="price_line">
+					<span class="price"> 
+					<!-- 	<%= sprintf("$%0.02f",product.price)%>  -->
+							<%= number_to_currency(product.price)%>
+					</span>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>
+<!-- <p>
 <%= link_to "products_path",products_path %>
-</p>
+</p> -->
