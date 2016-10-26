@@ -1,18 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <h1>You Progmatic Catalog</h1>
-
+<%= @session_greeting_msg %>
 <% cache @products do %>
 	<% @products.each do |product| %>
 		<% cache product do %>	
 			<div class="entry">
-				<%= image_tag(product.image_url) %>
+				<%=link_to(image_tag(product.image_url),
+					line_items_path(product_id: product),
+					html_options = {:method => :post})
+				 %>
+
 				<h3> <%= product.title %></h3>
 				<p><%= sanitize(product.description) %></p>
 				<div class="price_line">
 					<span class="price"> 
 					<!-- 	<%= sprintf("$%0.02f",product.price)%>  -->
 							<%= number_to_currency(product.price)%>
+
+							<%= button_to 'Add to Cart ',line_items_path(product_id: product) %>
 					</span>
 				</div>
 			</div>

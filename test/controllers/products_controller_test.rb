@@ -44,6 +44,66 @@ test "should update product" do
   assert_redirected_to product_url(@product)
 end
 
+test "assert_select method" do
+
+    get products_url
+    assert_response :success
+  #     # At least one form element
+  #   assert_select "form"
+
+  #   # Form element includes four input fields
+  #   assert_select "form input", 4
+
+  #   # Page title is "Welcome"
+  #   assert_select "title", "Welcome"
+
+  #   # Page title is "Welcome" and there is only one title element
+  #   assert_select "title", {count: 1, text: "Welcome"},
+  #       "Wrong title or more than one title element"
+
+  #   # Page contains no forms
+  #   assert_select "form", false, "This page must contain no forms"
+
+  #   # Test the content and style
+  #   assert_select "body div.header ul.menu"
+
+  #   # Use substitution values
+  #   assert_select "ol>li#?", /item-\d+/
+
+  #   # All input fields in the form have a name
+  #   assert_select "form input" do
+  #     assert_select "[name=?]", /.+/  # Not empty
+
+  #       # Selects all div tags
+  #     divs = css_select("div")
+
+  #     # Selects all paragraph tags and does something interesting
+  #     pars = css_select("p")
+  #     pars.each do |par|
+  #       # Do something fun with paragraphs here...
+  #     end
+
+  #     # Selects all list items in unordered lists
+  #     items = css_select("ul>li")
+
+  #     # Selects all form tags and then all inputs inside the form
+  #     forms = css_select("form")
+  #     forms.each do |form|
+  #       inputs = css_select(form, "input")
+  #     end
+  # end 
+
+end
+
+test "can't delete product in cart" do
+  assert_difference('Product.count',0) do 
+    delete product_url(products(:two))
+  end
+
+  assert_redirected_to products_url
+end
+
+
 test "should destroy product" do
   assert_difference('Product.count', -1) do
     delete product_url(@product)
