@@ -18,12 +18,13 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
   test "should create line_item" do
     assert_difference('LineItem.count') do
       #在fixtures 文件下product 的：ruby 下的为测试数据
-      post line_items_url, params: { product_id: products(:ruby).id } }
+      post line_items_url, params: { product_id: products(:ruby).id  }
     end
 
     follow_redirect!
+
     assert_select 'h2','Your Pragmatic Cart'
-     assert_select 'li','Programming Ruby 1.9'
+    assert_select 'td','Programming Ruby 1.9'
     assert_redirected_to line_item_url(LineItem.last)
   end
 
@@ -38,7 +39,8 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update line_item" do
-    patch line_item_url(@line_item), params: { line_item: { cart_id: @line_item.cart_id, product_id: @line_item.product_id } }
+    patch line_item_url(@line_item),
+     params: { line_item: {  product_id: @line_item.product_id } }
     assert_redirected_to line_item_url(@line_item)
   end
 

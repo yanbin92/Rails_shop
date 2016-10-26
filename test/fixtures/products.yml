@@ -8,7 +8,7 @@ one:
   price: 9.99
 
 two:
-  title: ruby
+  title: MyString
   description: MyText
   image_url: rails.png
   price: 9.99
