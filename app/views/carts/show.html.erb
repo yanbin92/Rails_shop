@@ -8,6 +8,9 @@
 		<td><%=item.quantity %> &times;</td>
 		<td><%=item.product.title %></td>
 		<td class="item_price"><%= number_to_currency(item.total_price) %></td>
+		<td><%=button_to 'del',line_item_path(line_item_id: item),method: :delete,data: { confirm: 'Are you sure?' } %>
+		</td>
+		
 	</tr>
 	<% end%>
 	<tr class="total_line">
@@ -17,7 +20,7 @@
 	
 </table>
 
-<%= button_to 'Clear Cart',@cart, :method => :delete, :confirm => 'Are u sure'
+<%= button_to 'Clear Cart', @cart, :method => :delete,  data: { confirm: 'Are you sure?' }
 
 %>
 
