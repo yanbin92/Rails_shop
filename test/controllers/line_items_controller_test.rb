@@ -31,6 +31,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
   test "should show line_item" do
     get line_item_url(@line_item)
     assert_response :success
+    
   end
 
   test "should get edit" do
