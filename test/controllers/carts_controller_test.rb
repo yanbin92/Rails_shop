@@ -45,7 +45,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy cart" do
-    assert_difference('Cart.count') do
+    assert_difference('Cart.count', -1) do
       delete cart_url(@cart)
     end
 
