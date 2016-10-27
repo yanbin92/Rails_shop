@@ -1,0 +1,19 @@
+<h2>Your Cart</h2>
+
+<table>
+	<!-- 向局部模板传递一个集合  这个自动为集合中的每一项调用一次模板-->
+	<%= render(cart.line_items) %>
+
+	<tr class="total_line">
+		<td colspan="2">Total</td>
+		<td class="total_cell"><%= number_to_currency(cart.total_price) %></td>
+	</tr>
+	
+</table>
+
+<%= button_to 'Clear Cart', cart, :method => :delete,  data: { confirm: 'Are you sure?' }
+
+%>
+
+
+

@@ -9,7 +9,8 @@ class Product < ApplicationRecord
 		:message => 'must be a URL for gif,jpg,png,wbp'
 	}
 
-
+    validates :image_url,uniqueness: true
+    
 	private 
 		def ensure_not_referenced_by_any_line_ltem
 			unless line_items.empty?

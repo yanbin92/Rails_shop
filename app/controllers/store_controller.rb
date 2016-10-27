@@ -1,12 +1,12 @@
 class StoreController < ApplicationController
+ # before_action :set_cart
+  before_action :set_cart
   def index
   	@products = Product.order(:title)
   	@time = Time.now
   	@count = increment_count
   	#@shown_message = "You've been here #{@count} times" if increment_counter >5
   	@session_greeting_msg = "You've been here #{@count} times" if @count >5 #session_greeting
-
-  	
   end
 
  def increment_count

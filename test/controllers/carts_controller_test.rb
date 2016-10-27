@@ -2,8 +2,14 @@ require 'test_helper'
 
 class CartsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @cart = carts(:one)
+    @cart = new_cart_with_one_product(:one)
   end
+
+  def new_cart_with_one_product(product_name)
+    cart = Cart.create
+    cart.add_product(products(product_name))
+    cart
+   end
 
   test "should get index" do
     get carts_url
@@ -39,7 +45,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy cart" do
-    assert_difference('Cart.count', -1) do
+    assert_difference('Cart.count') do
       delete cart_url(@cart)
     end
 
