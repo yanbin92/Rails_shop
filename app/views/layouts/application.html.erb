@@ -15,9 +15,7 @@
 	<div id="columns">
 		<div id="side">
 			<div id="cart">
-		<!-- 		<% if @cart.line_items.empty? %>
-					style="display: none "
-				<% end %> -->
+		
 
 				<% if @cart %>
 					<%= hidden_div_if(@cart.line_items.empty?,id: 'cart') do %>
@@ -36,7 +34,7 @@
 		</div>
 	</div>
 	<div id="main">
-   	 <%= yield %> <!--  -->
+   		 <%= yield %> 
 	</div>
   </body>
 </html>
