@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20161028100443) do
     t.datetime "updated_at",             null: false
     t.integer  "quantity",   default: 1
     t.decimal  "price"
-    t.         "order"
     t.integer  "order_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
