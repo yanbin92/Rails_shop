@@ -5,5 +5,5 @@ App.products = App.cable.subscriptions.create "ProductsChannel",
   disconnected: ->
     # Called when the subscription has been terminated by the server
 
-  received: (data) ->
-  	$(".store #main").html(data.html)
+  received: (data) -> 
+  	$(".store #main").html(data.html) #没有奏效
