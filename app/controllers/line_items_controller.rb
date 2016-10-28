@@ -37,7 +37,7 @@ class LineItemsController < ApplicationController
         format.js {@current_item = @line_item}
         format.json { render :show, status: :created, location: @line_item }
       else
-        format.html { render :new }
+        format.html { render :new }  #点击过快会到这边
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Yan Bin
+  address: MyText
+  email: ybinbin@outlook.com
+  pay_type: paypal支付
+
+two:
+  name: MyString
+  address: MyText
+  email: MyString
+  pay_type: 1

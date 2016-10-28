@@ -13,9 +13,8 @@
 	
 </table>
 
-<%= button_to 'Clear Cart', cart, :method => :delete,  data: { confirm: 'Are you sure?' },remote: true
+<%= button_to 'CheckOut', new_order_path, method: :get%>
 
-%>
-
+<%= button_to 'Clear Cart', cart, :method => :delete,  data: { confirm: 'Are you sure?' },remote: true%>
 
 <% end %>
