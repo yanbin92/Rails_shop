@@ -71,6 +71,9 @@ class ProductsController < ApplicationController
     if stale?(@lastest_order)
       respond_to do |format|
         format.atom
+        format.html 
+        format.xml {render :xml => @product.to_xml(include: :orders)}
+        format.json {render :json => @product.to_json(include: :orders)}
       end
     end
   end
