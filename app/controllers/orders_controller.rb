@@ -30,9 +30,10 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        @cart.destroy
+        Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to store_index_url, notice: 'Order was successfully created.' }
+        format.html { redirect_to store_index_url, 
+          notice: 'Order was successfully created.' }
         format.js {}
         format.json { render :show, status: :created, location: @order }
       else

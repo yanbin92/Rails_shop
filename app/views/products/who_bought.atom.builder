@@ -3,6 +3,7 @@ atom_feed do |feed|
 
 	feed.updated @lastest_order.try(:update_at)
 
+	print(@product.orders)
 	@product.orders.each do |order|
 		feed.entry(order) do |entry|
 			entry.title "Order #{order.id}"
