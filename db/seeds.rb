@@ -32,3 +32,9 @@ Enjoy exploring the various corners of Rails!
 </p>},
 image_url: 'rails.jpg',
 price: 186.00)
+#"微信支付" => 0,
+#		"支付宝支付" => 1,
+#		"paypal支付" => 2
+PaymentType.create(:name => "paypal支付")
+PaymentType.create(:name => "微信支付")
+PaymentType.create(:name => "支付宝支付")

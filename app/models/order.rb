@@ -6,7 +6,7 @@ class Order < ApplicationRecord
 		"paypal支付" => 2
 	}
 	validates :name, :address, :email, presence: true
-	validates :pay_type, inclusion: pay_types.keys
+	validates :pay_type, inclusion: PaymentType.names
 
 
 	def add_line_items_from_cart(cart)
