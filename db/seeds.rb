@@ -38,3 +38,5 @@ price: 186.00)
 PaymentType.create(:name => "paypal支付")
 PaymentType.create(:name => "微信支付")
 PaymentType.create(:name => "支付宝支付")
+
+User.create(name:"yanbin",password:"123456")
