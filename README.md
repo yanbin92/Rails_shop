@@ -24,3 +24,8 @@ Things you may want to cover:
 * ...
 #at begin run 
 rails db:seed  
+bundle install
+
+#rails g mailer Order received shipped
+#rails  g integration_test user_stories
+
