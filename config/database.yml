@@ -2,7 +2,7 @@
 #   gem install sqlite3
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
+#   gem 'sqlite3'  gem 'mysql2'
 #
 default: &default
   adapter: sqlite3
@@ -21,5 +21,12 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  databse: rails_db
+  pool: 5
+  username: root
+  password: Yb112233!
+  host: localhost
+  timeout: 5000

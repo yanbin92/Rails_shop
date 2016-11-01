@@ -52,4 +52,13 @@ each to delete the last two users if their timing is right. Fixing this
 would require more database wizardry than we have space for here.
 
 
-TODO playtime task I
+TODO playtime task I  broadcast don't work   当数据库中product.price change orderitem中price不change
+http://url.cn/4115TZ8
+
+rails db:setup RAILS_ENV="production"
+
+
+部署服务器时 使用capistrano 时修改 apach服务器的config  DocumentRoot
+/home/rubys/deploy/depot/current/public/
+<Directory
+/home/rubys/deploy/depot/current/public>
