@@ -1,4 +1,5 @@
 # config valid only for current version of Capistrano
+#远程部署相关
 lock '3.6.1'
 #---
 # Excerpted from "Agile Web Development with Rails 5",
