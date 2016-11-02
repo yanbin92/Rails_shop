@@ -57,8 +57,22 @@ http://url.cn/4115TZ8
 
 rails db:setup RAILS_ENV="production"
 
-
+https://ruby-china.org/topics/26185
+https://www.phusionpassenger.com/library/install/apache/install/oss/osx/
 部署服务器时 使用capistrano 时修改 apach服务器的config  DocumentRoot
 /home/rubys/deploy/depot/current/public/
 <Directory
 /home/rubys/deploy/depot/current/public>
+Apache 启动问题
+http://www.cnblogs.com/snandy/archive/2012/11/13/2765381.html
+http://vin-zhou.github.io/2014/10/27/%E5%90%AF%E7%94%A8Mac%E8%87%AA%E5%B8%A6%E7%9A%84Apache/ 
+
+你的apache还是很顽固地403、403，那么，你就应该考虑网站目录的权限问题了，首先是目录的基本权限，apache要求目录具有执行权限，也就是x，而其中要注意的，你的目录树都应该拥有这些权限，目前我设置的是755，网上有文章说705就可以搞定，我还没具体测试，比如我的网站根目录是/usr/local/site/test，那么，你要保证/usr、/usr/local、/usr/local/site、/usr/local/site/test这四个层级的目录都是755权限，而我本人就只注意到最末的子目录test，却忽视了site层级，就悲催地弄了许久....
+
+    chmod 755 /usr/local/site　　　　　　　　　　　　　　　　　 　　　　　　　　　　
+
+    chmod 755 /usr/local/site/test　　　　　　　　　　　　　　　　　　　　　　　　　
+
+　　小提示：上面这两段命令可以简化成（不过这样设置之后，文件夹中的所有文件都会是755权限，所以请在网站目录内还没有文件时进行此设置）：
+
+    chmod -R 755 /usr/local/site*　　　　　　　　　　　　　　　　 　　　　　　　　　
