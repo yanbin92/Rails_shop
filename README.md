@@ -101,4 +101,23 @@ cap production deploy:rollback
 bin/rails generate controller Admin::Book action1 action2 # controller 分组
 config/initializers/inflections.rb  #修改词形变化文件  另一种方式是在model 的class中设置self.table_name="xxxz"
 数据库表扩充字段 rails 有据可查  比其他的更便捷
-　　　　　　　　　　　　　 　　　　　　　　　
+# Doesn't work
+User.where( "name like '?%'", params[:name])
+#Works
+User.where("name like ?", params[:name]+"%")
+#order
+orders= Order.where(name:'Dave').order("pay_type,shipped_at DESC")
+orders= Order.where(name:'Dave').order("pay_type,shipped_at DESC").limit(10)
+list= Talk.select("title,speaker,recorded_on")
+ineItem.select('li.quantity').where("pr.title= 'Programming Ruby 1.9'").joins("as li inner join products as pr on li.product_id= pr.id")
+
+summary = LineItem.select( "sku, sum(amount) as amount").group("sku")
+#lock 锁
+Account.transaction do
+	ac = Account.where(id: id).lock("LOCKIN SHAREMODE").firstac.balance-= amount if ac.balance> amount
+	ac.save
+end
+#writing our own sql 
+Order.find_by_sql("select * from orders")
+
+　　　　　　　 　　　　　　　　　

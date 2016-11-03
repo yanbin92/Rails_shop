@@ -20,4 +20,6 @@ class Order < ApplicationRecord
 		end
 		#self.line_items = cart.line_items
 	end
+	# scope 函数
+	scope :check,-> {where(pay_type: "微信支付")}
 end
