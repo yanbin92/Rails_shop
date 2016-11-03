@@ -10,15 +10,15 @@ lock '3.6.1'
 # Visit http://www.pragmaticprogrammer.com/titles/rails5 for more book information.
 #---
 # be sure to change these values
-user = 'rubys'
-domain = 'depot.pragprog.com'
+user = 'expand'
+domain = '127.0.0.1'
 
 # adjust if you are using RVM, remove if you are not
 set :rvm_type, :system
 set :rvm_ruby_string, 'ruby-2.3.1'
 
 # name of your application
-set :application, 'depot'
+set :application, 'rails_shop'
 
 # file paths
 set :repo_url, "#{user}@#{domain}:git/#{fetch(:application)}.git" 

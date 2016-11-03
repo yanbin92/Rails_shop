@@ -53,7 +53,7 @@ would require more database wizardry than we have space for here.
 
 
 TODO playtime task I  broadcast don't work   当数据库中product.price change orderitem中price不change
-http://url.cn/4115TZ8
+http://url.cn/4115TZ8   Task K playtime
 
 rails db:setup RAILS_ENV="production"
 
@@ -75,4 +75,30 @@ http://vin-zhou.github.io/2014/10/27/%E5%90%AF%E7%94%A8Mac%E8%87%AA%E5%B8%A6%E7%
 
 　　小提示：上面这两段命令可以简化成（不过这样设置之后，文件夹中的所有文件都会是755权限，所以请在网站目录内还没有文件时进行此设置）：
 
-    chmod -R 755 /usr/local/site*　　　　　　　　　　　　　　　　 　　　　　　　　　
+cap deploy:setup
+cap deploy:check
+cap deploy:migrations
+cap production deploy
+cap production deploy:rollback
+
+
+<VirtualHost *:80>
+    ServerName www.railshop.com
+    DocumentRoot "/Users/Expand/Documents/rubyshop/Rails_shop/public/"
+    RailsEnv development 
+    SetEnv SECRET_KEY_BASE "0123456789abcdef"
+      ErrorLog "/private/var/log/apache2/www.railshop.com-error_log"
+   CustomLog "/private/var/log/apache2/www.railshop.com-access_log" common
+        <Directory "/Users/Expand/Documents/rubyshop/Rails_shop/public">
+            AllowOverride all
+            Options -MultiViews
+            Require all granted
+        </Directory>
+</VirtualHost>
+    chmod -R 755 /usr/local/site*　　　
+
+
+bin/rails generate controller Admin::Book action1 action2 # controller 分组
+config/initializers/inflections.rb  #修改词形变化文件  另一种方式是在model 的class中设置self.table_name="xxxz"
+数据库表扩充字段 rails 有据可查  比其他的更便捷
+　　　　　　　　　　　　　 　　　　　　　　　
