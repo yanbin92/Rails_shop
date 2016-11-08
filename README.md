@@ -52,4 +52,29 @@ each to delete the last two users if their timing is right. Fixing this
 would require more database wizardry than we have space for here.
 
 
-TODO playtime task I
+TODO playtime task I   fix test error
+
+def sales_graph
+	png_data = Sales.plot_for(Date.today.month)
+	send_data(png_data, type: "image/png", disposition: "inline")
+end
+
+def send_secret_file
+	send_file("/files/secret_list")
+	headers["Content-Description"] = "Top secret"
+end
+#objects in a session must be
+#serializable (using Ruby’s Marshal functions).
+<!-- session_store = :cookie_store #4kb default
+If you have a high-volume site, keeping the size of the session data small and
+going with cookie_store is the way to go
+session_store = :active_record_store
+session_store = :drb_store
+session_store = :mem_cache_store
+session_store = :memory_store
+session_store = :file_store -->
+
+# If you’d like an easier way of dealing with uploading and storing images, take
+#TODO use  Paperclip4 attachment_fu5 plugins 
+
+

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'upload/picture'
+  get 'upload/get'
+  get 'upload/show'
+  post 'upload/save'#create
   get 'admin' => 'admin#index'
 
   controller :sessions do
@@ -26,5 +30,16 @@ Rails.application.routes.draw do
   resources :products do
     get :who_bought, on: :member
   end
+
+  # concern :reviewable do
+  #   resources :reviews
+  # end
+  # resources :products, concern: :reviewable
+
+  #shallow route nesting 
+  # resources :products, shallow: true do
+  #   resources :reviews
+  # end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
