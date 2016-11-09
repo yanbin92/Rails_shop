@@ -27,4 +27,24 @@ class StoreController < ApplicationController
     end
   end
 
+#layout demo
+  layout "standard" except: [:rss,:atom]# view/layout/standard.html.erb  overload layout  all action's view
+  layout :determine_layout
+  # ...
+  private
+  def determine_layout
+    if Store.is_closed?
+     "store_down"
+    else
+      "standard"  # Rails supports this need with dynamic layouts
+    end
+  end
+  def rss
+    render(layout: false) # never use a layout
+  end
+  def checkout
+    render(layout: "layouts/simple")
+  end
+
+
 end

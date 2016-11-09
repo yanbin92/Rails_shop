@@ -76,5 +76,15 @@ session_store = :file_store -->
 
 # If you’d like an easier way of dealing with uploading and storing images, take
 #TODO use  Paperclip4 attachment_fu5 plugins 
+#helpers method rails 
+http://doc.rubyfans.com/rails/api/v4.1.0/
 
+<%= link_to(image_tag("delete.png", size: "50x22"),
+product_path(@product),
+data: { confirm: "Are you sure?" },
+method: :delete)
+%>
 
+<%= mail_to("support@pragprog.com", "Contact Support",
+subject: "Support question from #{@user.name}",
+encode: "javascript") %>
