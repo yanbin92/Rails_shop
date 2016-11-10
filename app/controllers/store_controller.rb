@@ -7,6 +7,7 @@ class StoreController < ApplicationController
   	@count = increment_count
   	#@shown_message = "You've been here #{@count} times" if increment_counter >5
   	@session_greeting_msg = "You've been here #{@count} times" if @count >5 #session_greeting
+    @title = "My Wonderful Life"
   end
 
  def increment_count
@@ -27,6 +28,8 @@ class StoreController < ApplicationController
     end
   end
 
+  
+
 
  def rss
     render(layout: false) # never use a layout
@@ -35,7 +38,7 @@ class StoreController < ApplicationController
     render(layout: "layouts/simple")
   end
 #layout demo
-  #layout "standard", except: [:rss,:atom]# view/layout/standard.html.erb  overload layout  all action's view
+  layout "standard", except: [:rss,:atom]# view/layout/standard.html.erb  overload layout  all action's view
   #layout :determine_layout
   # ...
   private

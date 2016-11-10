@@ -8,6 +8,8 @@ class AddPriceToLineItems < ActiveRecord::Migration[5.0]
   end
 
   def down 
-  	remove_column :line_items, :price
+  	remove_column :line_items, :price  
+	# wo wan't can't do reversed wo can do this:
+  	#raise ActiveRecord::IrreversibleMigration 
   end
 end

@@ -9,8 +9,17 @@
 
   <body class='<%= controller.controller_name %>'>
 	<h1> stand layout test</h1>
+
+	<!-- <h1><%= @title %></h1> -->
+
 	<div id="main">
    		 <%= yield %> 
+
+		
+
 	</div>
+	<div class="page-specific-sidebar">
+		<%= yield :sidebar %>
+		</div>
   </body>
 </html>

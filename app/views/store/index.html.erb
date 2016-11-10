@@ -2,7 +2,6 @@
 
 <h1>Your Progmatic Catalog</h1>
 <h3><%= page_title  %></h3>
-<%= distance_of_time_in_words(Time.now, Time.local(2016, 12, 25)) %>
 
 <%= @session_greeting_msg %>
 <% cache @products do %>
@@ -32,3 +31,16 @@
 <!-- <p>
 <%= link_to "products_path",products_path %>
 </p> -->
+
+<h1>Regular Template</h1>
+<% content_for(:sidebar) do %>
+<ul>
+<li>this text will be rendered</li>
+<li>and saved for later</li>
+<li>it may contain <%= "dynamic" %> stuff</li>
+</ul>
+<% end %>
+<p>
+Here's the regular stuff that will appear on
+the page rendered by this template.
+</p>
