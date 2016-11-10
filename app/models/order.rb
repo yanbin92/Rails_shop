@@ -24,6 +24,7 @@ class Order < ApplicationRecord
 		#self.line_items = cart.line_items
 	end
 
+
 	def get_city_statistics
 		run_with_index(:city) do
 		# .. calculate stats
@@ -33,14 +34,15 @@ class Order < ApplicationRecord
 
 	#However,that index isn’t needed during the day-to-day running of the application, and  tests have shown that maintaining it slows the application appreciably
 
-def run_with_index(*columns)
-	connection.add_index(:orders, *columns)
-	begin
-		yield
-	ensure
-		connection.remove_index(:orders, *columns)
+	def run_with_index(*columns)
+		connection.add_index(:orders, *columns)
+		begin
+			yield
+		ensure
+			connection.remove_index(:orders, *columns)
+		end
 	end
-end
 
-
+	# scope 函数
+	scope :check,-> {where(pay_type: "微信支付")}
 end

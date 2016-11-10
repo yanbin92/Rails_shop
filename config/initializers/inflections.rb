@@ -11,6 +11,7 @@
 # end
 
 # These inflection rules are supported but not enabled by default:
-# ActiveSupport::Inflector.inflections(:en) do |inflect|
-#   inflect.acronym 'RESTful'
-# end
+ ActiveSupport::Inflector.inflections(:en) do |inflect|
+   #inflect.acronym 'RESTful'
+   inflect.irregular 'tax','taxes'  #model  和数据库 tablename 对应
+ end

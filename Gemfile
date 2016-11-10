@@ -38,7 +38,14 @@ end
 
 gem 'will_paginate','>= 3.0.pre'
 
+group :production do
+	gem 'mysql2'#, '~>0.4.0'
+end
 
+gem 'capistrano-rails',group: :development
+gem 'capistrano-rvm',group: :development
+gem 'capistrano-bundler',group: :development
+gem 'capistrano-passenger',group: :development
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

@@ -35,8 +35,16 @@ price: 186.00)
 #"微信支付" => 0,
 #		"支付宝支付" => 1,
 #		"paypal支付" => 2
-PaymentType.create(:name => "paypal支付")
-PaymentType.create(:name => "微信支付")
-PaymentType.create(:name => "支付宝支付")
+PaymentType.delete_all
+PaymentType.create([{:name => "paypal支付"},
+	{:name => "微信支付"},
+	{:name => "支付宝支付"}
+	)
+#PaymentType.create()
+#PaymentType.create() #自动保存到数据库 an_order= Order.new 
+					#an_order.name="DaveThomas" ...an_order.save
 
+
+
+User.delete_all
 User.create(name:"yanbin",password:"123456")
