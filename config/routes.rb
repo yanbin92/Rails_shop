@@ -1,4 +1,6 @@
+require './app/store'
 Rails.application.routes.draw do
+  match 'catalog' => StoreApp.new,via: all
   get 'upload/picture'
   get 'upload/get'
   get 'upload/show'

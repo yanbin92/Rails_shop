@@ -289,5 +289,89 @@ def get_city_statistics
 	end
 
 	#However,that index isn’t needed during the day-to-day running of the application, and  tests have shown that maintaining it slows the application appreciably
+#Cheaper 23 Nonbrowser Applications
+In this chapter, you'll see:
+• Invoking Rails methods
+• Accessing Rails application data
+• Manipulating databases remotely
+
+#Accessing Rails application data  hard way 
+	require "active_record"
+	ActiveRecord::Base.establish_connection(adapter: "sqlite3",
+	database: "db/development.sqlite3")
+	class Order < ApplicationRecord
+	end
+	order = Order.find(1)
+	order.name = "Dave Thomas"
+	order.save
+
+#easy way
+That’s all there is to it—in this case no configuration information (apart from
+the database connection stuff) is required. Active Record figured out what we
+needed based on the database schema and took care of all the necessary
+details.
+Now that you have seen the “hard” way, let’s see the easy way—the one where
+Rails will handle the connection for you and load all of your models:
+	require "config/environment.rb"
+	order = Order.find(1)
+	order.name = "Dave Thomas"
+	order.save
+
+#active_support  lib
+#you can simply require what you need (for example, require"active_support/basic_object" or require "active_support/core_ext") or pull in everything with require "active_support/all".
+
+require "active_support/time"
+Time.zone = 'Eastern Time (US & Canada)'
+puts Time.zone.now
+
+##Using Action View Helpers
+require "action_view"
+require "action_view/helpers"
+include ActionView::Helpers::DateHelper
+puts distance_of_time_in_words_to_now(Time.parse("December 25"))
+
+##finally
 
 
+
+#CHAPTER 24
+Rails’ Dependencies
+
+In this chapter, you'll see:
+• Using XML and HTML templates
+• Managing application dependencies
+• Scripting tasks
+• Interfacing with a web server
+#Generating XML with Builder
+#see doc
+
+render()
+With no overriding parameter, the render() method renders the default
+template for the current controller and action. The following code will
+render the template app/views/blog/index.html.erb:
+class BlogController < ApplicationController
+def index
+render
+end
+end
+
+
+#erb g html
+<% ["<em>need eascape item </em>"].map do |str| %>
+Ho!<%=raw(str)%><br/>
+
+Ho!<%=sanitize(str)%><br/>
+<% end %>
+#Managing Dependencies with Bundler
+#Interfacing with the Web Server with Rack
+ In earlier releases of Rails,
+this was true; as of Rails 2.3, this integration was delegated to a gem named
+Rack
+So, Rails integrates with Rack, Rack integrates with (for example) Passenger,
+and Passenger integrates with Apache httpd.
+
+
+
+
+#Interfacing with the Web Server with Rack
+#don't  work ????

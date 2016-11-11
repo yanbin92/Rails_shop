@@ -17,6 +17,11 @@ ActiveRecord::Schema.define(version: 20161108071729) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "legacy_books", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "line_items", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cart_id"

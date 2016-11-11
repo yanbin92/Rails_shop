@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
+<% ["<em>need eascape item </em>"].map do |str| %>
+Ho!<%=raw(str)%><br/>
 
+Ho!<%=sanitize(str)%><br/>
+<% end %>
 <h1>Products</h1>
 <table>
 <%= render(partial: "product",collection: @products) %>

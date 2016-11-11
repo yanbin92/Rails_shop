@@ -38,7 +38,7 @@ class StoreController < ApplicationController
     render(layout: "layouts/simple")
   end
 #layout demo
-  layout "standard", except: [:rss,:atom]# view/layout/standard.html.erb  overload layout  all action's view
+ # layout "standard", except: [:rss,:atom]# view/layout/standard.html.erb  overload layout  all action's view
   #layout :determine_layout
   # ...
   private
