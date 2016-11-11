@@ -29,6 +29,6 @@ production:
   databse: rails_db
   pool: 5
   username: root
-  password: Yb112233!
+  password: 112233
   host: localhost
   timeout: 5000

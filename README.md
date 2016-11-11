@@ -374,4 +374,44 @@ and Passenger integrates with Apache httpd.
 
 
 #Interfacing with the Web Server with Rack
-#don't  work ????
+#don't  work ????   ok
+https://github.com/JuanitoFatas/Guides/blob/master/guides/edge-translation/rails-on-rack-zh_CN.md
+Rack 提供了简单、精简、模组化的介面，在 Ruby 里开发 web 应用程序的介面。Rack 将 HTTP request 与 response 包装成最简单的形式，统整了 web 服务器、web 框架、使用者与服务器之间所需的软件、API（这也是为什么会称为 middleware），全包装成一个简单的方法，call。
+#Automating Tasks with Rake
+rake --tasks
+lib/tasks   define rake task
+# back up the production database
+namespace :db do
+desc "Backup the production database"
+task :backup => :environment do
+backup_dir = ENV['DIR'] || File.join(Rails.root, 'db', 'backup')
+source = File.join(Rails.root, 'db', "production.db")
+dest = File.join(backup_dir, "production.backup")
+makedirs backup_dir, :verbose => true
+require 'shellwords'
+sh "sqlite3 #{Shellwords.escape source} .dump > #{Shellwords.escape dest}"
+end
+end
+rake namespace:taskname #process define task
+http://rubygems.org/  search gem
+
+
+#Rails Plugins cheapter 25
+•Adding new classes to your application
+• Adding a new templating language
+
+#script下文件运行cmmand
+rails runner script/creditcard.rb
+
+#Beautifying Our Markup with Haml
+
+• Dashes indicate a Ruby statement that does not produce any output
+• Percent signs (%) indicate an HTML element
+• Equal signs (=) indicate a Ruby expression that does produce output to
+be displayed. This can be used either on lines by themselves or following
+HTML elements.
+• Dots (.) and hash (#) characters may be used to define class and id
+attributes, respectively. This can be combined with percent signs or used
+stand-alone. When used by itself, a div element is implied.
+•A comma at the end of a line containing an expression implies a continuation. In the prior example, the button_to() call is continued across two lines
+!!!!An important thing to note is that indentation is important in Haml
