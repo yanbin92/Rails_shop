@@ -415,3 +415,37 @@ attributes, respectively. This can be combined with percent signs or used
 stand-alone. When used by itself, a div element is implied.
 •A comma at the end of a line containing an expression implies a continuation. In the prior example, the button_to() call is continued across two lines
 !!!!An important thing to note is that indentation is important in Haml
+
+
+#TODO use authlogic and devise to user authentication and session management
+
+##Some plugins replace large portions of rails. For example, datamapper7
+replaces ActiveRecord. The combination of cucumber,
+rspec,and webrat
+can be used separately or together to replace test scripts with plain test
+stories, specifications, and browser simulation
+##airbrake and exception_notification12 will help you monitor errors in your
+deployed servers
+
+2 https://github.com/rails/prototype-rails#readme
+3. https://github.com/rails/acts_as_tree#readme
+4. https://github.com/rails/rails_xss
+5. https://github.com/plataformatec/devise#readme
+6. https://github.com/binarylogic/authlogic#readme
+7. http://datamapper.org/
+8. http://cukes.info/
+9. http://rspec.info/
+10. https://github.com/brynary/webrat#readme
+11. https://airbrakeapp.com/pages/home
+12. https://github.com/rails/exception_notification#readme
+13. http://guides.rubyonrails.org/plugins.html
+14. http://api.rubyonrails.org/classes/Rails/Railtie.html
+
+
+#CHAPTER 26 Where to Go from Here
+	• Reviewing Rails concepts: model, view, controller, config
+	uration, testing, and deployment
+	• Links to places for further exploration
+##TODO 回头审视之前的博客设计和《Agile Web Development with Rails 5》的区别，可以再重新搞个博客;
+
+##end the book  Agile Web Development with Rails 5
