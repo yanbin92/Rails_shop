@@ -9,13 +9,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   #Alternatives to :smtp include :sendmail and :test
   config.action_mailer.smtp_settings = {
-    address: "smtp-mail.outlook.com",
+    address: "smtp.163.com",
     port: 587,
     #domain: "",
-    authentication: "tls",
-    user_name: "ybinbin@outlook.com",
-    password: "yb112233",
-    enable_starttls_auto: true
+    authentication: "plain",
+    user_name: "3271941995@qq.com",
+    password: "hello123",
+    enable_starttls_auto: true 
   }
 
 end
