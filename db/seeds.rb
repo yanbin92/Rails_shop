@@ -39,6 +39,7 @@ PaymentType.delete_all
 PaymentType.create([{:name => "paypal支付"},
 	{:name => "微信支付"},
 	{:name => "支付宝支付"}
+]
 	)
 #PaymentType.create()
 #PaymentType.create() #自动保存到数据库 an_order= Order.new 

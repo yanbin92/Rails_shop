@@ -54,18 +54,7 @@ Rails.application.configure do
 
   config.action_cable.disable_request_forgery_protection = true
 
-  #add email
-  config.action_mailer.delivery_method = :smtp
-  #Alternatives to :smtp include :sendmail and :test
-  config.action_mailer.smtp_settings = {
-    address: "smtp-mail.outlook.com",
-    port: 587,
-   # domain: "",
-    authentication: "plain",
-    user_name: "ybinbin",
-    password: "yb112233",
-    enable_starttls_auto: true
-  }
+ 
 end
 
 

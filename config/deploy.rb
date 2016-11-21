@@ -23,6 +23,7 @@ set :application, 'rails_shop'
 # file paths
 set :repo_url, "#{user}@#{domain}:git/#{fetch(:application)}.git" 
 set :deploy_to, "/home/#{user}/deploy/#{fetch(:application)}" 
+set :passenger_restart_with_touch, true
 
 # distribute your applications across servers (the instructions below put them
 # all on the same server, defined above as 'domain', adjust as necessary)
