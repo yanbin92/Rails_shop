@@ -25,7 +25,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select 'h2','Your Cart'
     assert_select 'td','Programming Ruby 1.9'
-    assert_redirected_to line_item_url(LineItem.last)
+    assert_redirected_to store_index_url
   end
 
 

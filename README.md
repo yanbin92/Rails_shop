@@ -446,6 +446,12 @@ deployed servers
 	• Reviewing Rails concepts: model, view, controller, config
 	uration, testing, and deployment
 	• Links to places for further exploration
+
+
 ##TODO 回头审视之前的博客设计和《Agile Web Development with Rails 5》的区别，可以再重新搞个博客;
 
 ##end the book  Agile Web Development with Rails 5
+
+
+
+#rails db:structure:dump     # PostgreSql use pg_dump 

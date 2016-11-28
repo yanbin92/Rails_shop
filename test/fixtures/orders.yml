@@ -10,4 +10,4 @@ two:
   name: MyString
   address: MyText
   email: MyString
-  pay_type: 1
+  pay_type: paypal支付
