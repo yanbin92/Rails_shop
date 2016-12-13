@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authorize
 
+
+  	
   	private 
 	# we place the set_cart() method in a CurrentCart module and place thatmodule in the 
 	#app/controllers/concernsdirectory.

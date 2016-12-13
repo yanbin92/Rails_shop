@@ -29,6 +29,14 @@
     <%= f.password_field :password_confirmation,size: 40%>
   </div>
 
+  <div class="field">
+    <%= f.label :is_access,'用户协议:'%>
+   
+
+      <iframe src="/users/page1" width="100%" height="20%"></iframe>
+       <%= f.check_box :is_access%> 同意
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

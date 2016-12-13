@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  layout "users", only: [:page1]
   # GET /users
   # GET /users.json
   def index
@@ -10,6 +10,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+  end
+
+  def page1
+    # respond_to do |format|
+   #        format.html #page1.html.erb
+   #    end
   end
 
   # GET /users/new
