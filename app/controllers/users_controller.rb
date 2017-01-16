@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "users", only: [:page1]
+  layout "application", except: [:page1]
   # GET /users
   # GET /users.json
   def index

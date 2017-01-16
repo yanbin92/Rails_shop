@@ -6,7 +6,8 @@ class Order < ApplicationRecord
 	#	"paypal支付" => 2
 	#}
 	validates :name, :address, :email, presence: true
-	validates :pay_type, inclusion: PaymentType.names
+	validates :pay_type, inclusion: PaymentType.names  
+	#exclusion  与inclusion  哪些值不是某个属性的选择值  validates :pay_type,exclusion: {in: %w{www us ou jp}}
 	validates_each :pay_type do |model, attr, value|
   
   	if !PaymentType.names.include?(value)
