@@ -21,7 +21,8 @@ class Product < ApplicationRecord
 
 	# end
 
-	# after_destory MyCallBack.new   如果定义为类方法更好 就不需要实例化 
+	# after_destory MyCallBack.new   如果定义为类方法更好 就不需要实例化  
+	# after_commit after_rollback 会在事务完成时触发  这两个回调如果抛出异常 会被忽略 不会干扰其他回调  
 
 	validates(:title,:description,:image_url,:presence => true)
 	validates :price,:numericality=>{:greater_than_or_equal_to=>0.01}
