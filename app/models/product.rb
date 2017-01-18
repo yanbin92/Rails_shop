@@ -1,7 +1,9 @@
 class Product < ApplicationRecord
 	has_many :line_items ,inverse_of :product #  如果要验证关联的对象是否存在 需要指定inverse_of 选项  在lin_items中指定 validates :
 	has_many :orders,through: :line_items
-	before_destroy :ensure_not_referenced_by_any_line_ltem
+
+	before_destroy :ensure_not_referenced_by_any_line_ltem #回调  对象生命周期时刻执行的方法
+
 	validates(:title,:description,:image_url,:presence => true)
 	validates :price,:numericality=>{:greater_than_or_equal_to=>0.01}
 	#numericality  检查属性的值是否包含数字  greater_than(_or_)equal_to less_than odd 奇数 even: true 偶数
