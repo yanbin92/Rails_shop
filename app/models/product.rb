@@ -9,6 +9,19 @@ class Product < ApplicationRecord
 
 	####终止回调  整个回调链是一个事务中 如果任何一个before_*回调方法返回false或抛出异常  整个回调链终止  而after_*只有抛出异常会造成此效果  可以和条件if: unless: 连用 见文档   
 	#end
+	#回调类 
+
+	# class MyCallBack
+	# 	def after_destory
+	# 		puts 'callback destory '
+	# 	end
+		# def self.after_destory
+		# 	puts 'callback destory '
+		# end 
+
+	# end
+
+	# after_destory MyCallBack.new   如果定义为类方法更好 就不需要实例化 
 
 	validates(:title,:description,:image_url,:presence => true)
 	validates :price,:numericality=>{:greater_than_or_equal_to=>0.01}
