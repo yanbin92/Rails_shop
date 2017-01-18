@@ -1,15 +1,16 @@
 class Product < ApplicationRecord
-	has_many :line_items ,inverse_of :product #  如果要验证关联的对象是否存在 需要指定inverse_of 选项  在lin_items中指定 validates :
+	has_many :line_items ,inverse_of :product #  如果要验证关联的对象是否存在 需要指定inverse_of 选项 inverse_of 选项意义注意见Record 关联文档 在lin_items中指定 validates :
 	has_many :orders,through: :line_items   #关联的作用 文档有讲的清楚 模型之间有关系  方便级联删除等操作 
-	#has_many :orders,through:   多对多关联  has_many 1对多关联  has_one  1对1  
-	#自连接   有点意思  使用方式 见文档 下面是示例 
+	#has_many :orders,through:   多对多关联  has_many 1对多关联  has_one  1对1          
+	#自连接   有点意思  使用方式 见文档 下面是示例   
 	# class Employee < ApplicationRecord
 	# 	has_many :subordinates, class_name: "Employee",
 	# 							foreign_key: "manager_id"
 	# 	belongs_to :manager,class_name: "Employee"
 
 	# end
-
+	#多态关联  :ploymorphic  true
+	#touch: true    保存或销魂对象时  关联对象的updated_at 会自动设为当前时间戳  见文档
 
 	before_destroy :ensure_not_referenced_by_any_line_ltem #注册回调  对象生命周期时刻执行的方法
 	#before_create do
