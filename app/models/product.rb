@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-	has_many :line_items ,inverse_of :product #  如果要验证关联的对象是否存在 需要指定inverse_of 选项
+	has_many :line_items ,inverse_of :product #  如果要验证关联的对象是否存在 需要指定inverse_of 选项  在lin_items中指定 validates :
 	has_many :orders,through: :line_items
 	before_destroy :ensure_not_referenced_by_any_line_ltem
 	validates(:title,:description,:image_url,:presence => true)
