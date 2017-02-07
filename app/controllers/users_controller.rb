@@ -92,5 +92,21 @@ class UsersController < ApplicationController
     end
 
   
+  #layout :dynamic_choose_layout
+
+  #def dynamic_choose_layout
+  #  @name.exit? ? "xx layout":"";
+ # end
+ #条件布局
+#在控制器中指定布局时可以使用 :only 和 :except 选项。这两个选项的值可以是一个方法名或者一个方法名数组，这些方法都是控制器中的动作：
+
+#class ProductsController < ApplicationController
+ # layout "product", except: [:index, :rss]
+#end
+#这么声明后，除了 rss 和 index 动作之外，其他动作都使用 product 布局渲染视图。
+
+# 布局继承
+
+#布局声明按层级顺序向下顺延，专用布局比通用布局优先级高
 
 end

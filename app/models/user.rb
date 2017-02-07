@@ -8,6 +8,8 @@ class User < ApplicationRecord
   #length: is指定长度   in 指定长度范围
   validates :is_access,acceptance: true
 
+
+
   class Error < StandardError
 
   end
