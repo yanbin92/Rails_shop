@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: paypal支付
 
 two:
-  name: MyString
+  name: 微信支付
+
+three:
+  name: 支付宝支付

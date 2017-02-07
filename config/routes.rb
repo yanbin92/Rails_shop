@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   post 'upload/save'#create
   get 'admin' => 'admin#index'
 
+  controller :users do
+   get 'users/page1' => :page1
+  end
   controller :sessions do
     get 'login' => :new
     post 'login' => :create

@@ -446,8 +446,14 @@ deployed servers
 	• Reviewing Rails concepts: model, view, controller, config
 	uration, testing, and deployment
 	• Links to places for further exploration
+
+
 ##TODO 回头审视之前的博客设计和《Agile Web Development with Rails 5》的区别，可以再重新搞个博客;
 搞明白 Gem, RVM, Bundler 是什么；
 看 http://railscasts.com 的视频教程，从 第一页 开始看，可以学到很多技巧，以免走弯路。
 
 ##end the book  Agile Web Development with Rails 5
+
+
+
+#rails db:structure:dump     # PostgreSql use pg_dump 
