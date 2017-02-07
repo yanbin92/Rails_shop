@@ -58,7 +58,10 @@ content_for 方法在布局的具名 yield 区域插入内容。例如，下面�
 </html>
 如果布局不同的区域需要不同的内容，例如侧边栏和底部，就可以使用 content_for 方法。content_for 方法还可用来在通用布局中引入特定页面使用的 JavaScript 文件或 CSS 文件。
 
+layouts_and_rendering.html
+视图可以使用布局一样，局部视图也可使用自己的布局文件。例如，可以这样调用局部视图：
 
+	<%= render partial: "link_area", layout: "graybar" %>
 
 -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
