@@ -2,6 +2,65 @@
 <html>
   <head>
     <title>Haitaoshop</title>
+
+ <!--    静态资源标签帮助方法
+静态资源帮助方法用来生成链接到 Feed、JavaScript、样式表、图片、视频和音频的 HTML 代码。Rails 提供了六个静态资源标签帮助方法：
+
+auto_discovery_link_tag  
+
+Rails 生成的 script 标签如下：
+
+<script src='/assets/javascript/application.js'></script>
+
+javascript_include_tag
+stylesheet_link_tag
+image_tag 必须指定图片的扩展名。 <%= image_tag "header.png" %>
+video_tag 默认情况下，视频文件存放在 public/videos 文件夹中。
+
+<%= video_tag "movie.ogg" %>
+
+audio_tag 默认情况下，音频文件存放在 public/audio 文件夹中。
+
+<%= audio_tag "music.mp3" %>
+还可指定音频文件的路径：
+
+<%= audio_tag "music/first_song.mp3" %>
+
+布局中可以标明多个区域：
+
+<html>
+  <head>
+  <%= yield :head %>
+  </head>
+  <body>
+  <%= yield %>
+  </body>
+</html>
+视图的主体会插入未命名的 yield 区域。要想在具名 yield 区域插入内容，得使用 content_for 方法。
+
+3.3 使用 content_for 方法
+content_for 方法在布局的具名 yield 区域插入内容。例如，下面的视图会在前一节的布局中插入内容：
+
+<% content_for :head do %>
+  <title>A simple page</title>
+<% end %>
+ 
+<p>Hello, Rails!</p>
+套入布局后生成的 HTML 如下：
+
+<html>
+  <head>
+  <title>A simple page</title>
+  </head>
+  <body>
+  <p>Hello, Rails!</p>
+  </body>
+</html>
+如果布局不同的区域需要不同的内容，例如侧边栏和底部，就可以使用 content_for 方法。content_for 方法还可用来在通用布局中引入特定页面使用的 JavaScript 文件或 CSS 文件。
+
+
+
+-->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
