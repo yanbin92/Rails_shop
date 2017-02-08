@@ -3,3 +3,7 @@
 <%= render 'form', product: @product %>
 
 <%= link_to 'Back', products_path %>
+
+<!-- 因此除了 GET 和 POST 请求之外，还要处理 PATCH 和 DELETE 请求。但是大多数浏览器不支持从表单中提交 GET 和 POST 之外的请求。
+
+为了解决这个问题，Rails 使用 POST 请求进行模拟，并在表单中加入一个名为 _method 的隐藏字段，其值表示真正希望使用的请求方法： -->
