@@ -61,13 +61,7 @@ content_for 方法在布局的具名 yield 区域插入内容。例如，下面�
 layouts_and_rendering.html
 视图可以使用布局一样，局部视图也可使用自己的布局文件。例如，可以这样调用局部视图：
 
-	<%= render partial: "link_area", layout: "graybar" %>
-<h1>New zone</h1>
-<%= render partial: "form", locals: {zone: @zone} %>
-
-<h1>Editing zone</h1>
-<%= render partial: "form",locals:{zone: @zone}%>
-
+see guides      
 -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
