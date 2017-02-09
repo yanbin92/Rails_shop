@@ -5,3 +5,10 @@
 	Upload your picture: <%= form.file_field("uploaded_picture") %><br/>
 	<%= submit_tag("Upload file") %>
 <% end %>
+
+<!--
+<%= form_tag({action: :save}, multipart: true) do %>
+  <%= file_field_tag 'uploaded_picture' %>
+<% end %>
+ -->
+
