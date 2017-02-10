@@ -12,3 +12,4 @@ module CurrentCart
 		end
 end
 
+#注意，删除会话中的数据是把键的值设为 nil，但要删除 cookie 中的值，要使用 cookies.delete(:key) 方法
