@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authorize
+  before_action :authorize 
+
+  #过滤器 除了前置过滤器之外，还可以在动作运行之后，或者在动作运行前后执行过滤器around_action :wrap_in_transaction, only: :show
 
 
   	
