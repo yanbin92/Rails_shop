@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
 		
 	protected
 		def authorize
+			#可以使用实例方法 session 获取会话
 			unless User.find_by(id: session[:user_id])
 				redirect_to login_url,notice: "Please log in"
 			end
