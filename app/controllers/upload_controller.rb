@@ -44,9 +44,19 @@ class UploadController < ApplicationController
 	type: @picture.content_type,
 	disposition: "inline")
   end
+  #GET /show/1
   #show
   def show
-	@picture = Picture.find(params[:id])
+  	@picture = Picture.find(params[:id])
+    # 使用 REST 的方式下载文件
+    # respond_to do |format|    
+    #   format.html
+    #   format.pdf {render pdf: }
+    # end
+#     在 config/initializers/mime_types.rb 文件中加入下面这行代码即可：
+
+# Mime::Type.register "application/pdf", :pdf
+
   end
 
   private 

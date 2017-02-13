@@ -52,6 +52,6 @@ Rails.application.routes.draw do
   #get '/clients/:status' => 'clients#index', foo: 'bar'
 
   #在这个例子中，用户访问 /clients/active 时，params[:status] 的值是 "active"。同时，params[:foo] 的值也会被设为 "bar"，就像通过请求参数传入的一样。params[:action] 也是一样，其值为 "index"
-
+  ###WEBrick 会缓冲所有响应，因此引入 ActionController::Live 也不会有任何效果。你应该使用不自动缓冲响应的服务器。
 
 end

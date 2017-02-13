@@ -1,6 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authorize 
+# rescue_from 截获所有 ActiveRecord::RecordNotFound 异常，然后做相应的处理。
+
+# class ApplicationController < ActionController::Base
+#   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+ 
+#   private
+ 
+#     def record_not_found
+#       render plain: "404 Not Found", status: 404
+#     end
+# end
 
   #过滤器 除了前置过滤器之外，还可以在动作运行之后，或者在动作运行前后执行过滤器around_action :wrap_in_transaction, only: :show
   #在每个控制器中都有两个存取器方法，分别用来获取当前请求循环的请求对象和响应对象。request 方法的返回值是 AbstractRequest 对象的实例；response 方法的返回值是一个响应对象，表示回送客户端的数据。
