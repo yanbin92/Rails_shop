@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   skip_before_action :authorize,only: [:create, :update, :destroy]
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound,with: :invalid_cart
+  #环绕过滤器会把动作拉入（yield）过滤器中，工作方式类似 Rack 中间件。
   # GET /carts
   # GET /carts.json
   def index
