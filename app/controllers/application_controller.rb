@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
 #       render plain: "404 Not Found", status: 404
 #     end
 # end
+#这段代码对异常的处理并不详尽，比默认的处理也没好多少。不过只要你能捕获异常，就可以做任何想做的处理。例如，可以新建一个异常类，用户无权查看页面时抛出：
+
+
 
   #过滤器 除了前置过滤器之外，还可以在动作运行之后，或者在动作运行前后执行过滤器around_action :wrap_in_transaction, only: :show
   #在每个控制器中都有两个存取器方法，分别用来获取当前请求循环的请求对象和响应对象。request 方法的返回值是 AbstractRequest 对象的实例；response 方法的返回值是一个响应对象，表示回送客户端的数据。
