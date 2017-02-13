@@ -27,6 +27,14 @@ class UploadController < ApplicationController
     filename: @picture.name,
     type: @picture.content_type)
   end
+  ####不建议通过 Rails 以数据流的方式发送静态文件，你可以把静态文件放在服务器的公共文件夹中，使用 Apache 或其他服务器下载效率更高，因为不用经由整个 Rails 处理
+  # Stream a file that has already been generated and stored on disk.
+  def download_pdf
+    client = Client.find(params[:id])
+    send_file("#{Rails.root}/files/clients/#{client.id}.pdf",
+              filename: "#{client.name}.pdf",
+              type: "application/pdf")
+  end
 
 
   def picture  #Paperclip4 attachment_fu5 plugins 
