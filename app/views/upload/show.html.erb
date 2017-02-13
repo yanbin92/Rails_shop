@@ -1,3 +1,5 @@
 <h3><%= @picture.comment %></h3>
 <%= debug(params) %>
 <img src="<%= url_for(:action => 'picture', :id => @picture.id) %>"/>
+
+<%= link_to 'download_img', action: "download_img", id: @picture%>
