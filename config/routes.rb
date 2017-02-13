@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   match 'catalog' => StoreApp.new,via: :all
   get 'upload/picture'
   get 'upload/get'
-  get 'upload/show'  
+  get 'upload/:id',to: 'upload#show'#那么这个请求就交给 upload 控制器的 show 动作处理，并把 { id: '17' } 传入 params。
+
+
   get 'upload/download_img'
   post 'upload/save'#create
   get 'admin' => 'admin#index'
