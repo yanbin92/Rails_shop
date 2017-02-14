@@ -65,7 +65,7 @@ Rails.application.routes.draw do
 # GET /magazines/:magazine_id/ads/:id/edit  ads#edit  显示编辑广告的表单，该广告属于指定的杂志
 # PATCH/PUT /magazines/:magazine_id/ads/:id ads#update  更新属于指定杂志的指定广告
 # DELETE  /magazines/:magazine_id/ads/:id ads#destroy 删除属于指定杂志的指定广告
-
+####!!!嵌套资源不可超过一层。
 
 
   # concern :reviewable do
