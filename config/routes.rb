@@ -2,9 +2,8 @@ require './app/store'
 Rails.application.routes.draw do
   match 'catalog' => StoreApp.new,via: :all
   get 'upload/picture'
-  get 'upload/get'
+  get 'upload',to: 'upload#get'#as 'upload' #as 'upload'== upload_path() 
   get 'upload/:id',to: 'upload#show'#那么这个请求就交给 upload 控制器的 show 动作处理，并把 { id: '17' } 传入 params。
-
 
   get 'upload/download_img'
   post 'upload/save'#create
@@ -24,7 +23,7 @@ Rails.application.routes.draw do
 
   # get 'sessions/destroy'
 
-  resources :users
+  resources :users #使用资源路径可以快速声明资源式控制器所有的常规路由，无需分别为 index、show、new、edit、create、update 和 destroy 动作分别声明路由，只需一行代码就能搞定。
   resources :orders
   resources :line_items do
   	#member do 
@@ -39,6 +38,11 @@ Rails.application.routes.draw do
     get :who_bought, on: :member
   end
 
+  #控制器命名空间和路由
+  # namespace :admin do
+  #   resources :articles, :comments
+  # end
+  
   # concern :reviewable do
   #   resources :reviews
   # end
