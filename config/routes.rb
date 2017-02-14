@@ -78,6 +78,32 @@ Rails.application.routes.draw do
   #   resources :reviews
   # end
 
+#避免深层嵌套的方法之一，是把控制器集合动作放在父级资源中，表明层级关系，但不嵌套成员动作。也就是说，用最少的信息表明资源的路由关系，如下所示：
+
+  # resources :articles do
+  #   resources :comments, only: [:index, :new, :create]
+  # end
+  # resources :comments, only: [:show, :edit, :update, :destroy]
+
+  #scope 方法有两个选项可以定制浅层嵌套路由。:shallow_path 选项在成员路径前加上指定的前缀：
+  #routing 
+  # scope shallow_path: "sekret" do
+  #   resources :articles do
+  #     resources :comments, shallow: true
+  #   end
+  # end
+  # 上述代码为 comments 资源生成的路由如下：
+
+  # HTTP 方法 路径  控制器#动作  具名帮助方法
+  # GET /articles/:article_id/comments(.:format)  comments#index  article_comments_path
+  # POST  /articles/:article_id/comments(.:format)  comments#create article_comments_path
+  # GET /articles/:article_id/comments/new(.:format)  comments#new  new_article_comment_path
+  # GET /sekret/comments/:id/edit(.:format) comments#edit edit_comment_path
+  # GET /sekret/comments/:id(.:format)  comments#show comment_path
+  # PATCH/PUT /sekret/comments/:id(.:format)  comments#update comment_path
+  # DELETE  /sekret/comments/:id(.:format)  comments#destroy  comment_path
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   #get '/clients/:status' => 'clients#index', foo: 'bar'
