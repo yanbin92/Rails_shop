@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   # resources :comments, only: [:show, :edit, :update, :destroy]
 
   #scope 方法有两个选项可以定制浅层嵌套路由。:shallow_path 选项在成员路径前加上指定的前缀：
-  #routing 
+  #routing :shallow_path 选项在成员路径前加上指定的前缀：
   # scope shallow_path: "sekret" do
   #   resources :articles do
   #     resources :comments, shallow: true
@@ -102,7 +102,7 @@ Rails.application.routes.draw do
   # GET /sekret/comments/:id(.:format)  comments#show comment_path
   # PATCH/PUT /sekret/comments/:id(.:format)  comments#update comment_path
   # DELETE  /sekret/comments/:id(.:format)  comments#destroy  comment_path
-
+#:shallow_prefix 选项在具名帮助方法前加上指定的前缀：
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -110,5 +110,37 @@ Rails.application.routes.draw do
 
   #在这个例子中，用户访问 /clients/active 时，params[:status] 的值是 "active"。同时，params[:foo] 的值也会被设为 "bar"，就像通过请求参数传入的一样。params[:action] 也是一样，其值为 "index"
   ###WEBrick 会缓冲所有响应，因此引入 ActionController::Live 也不会有任何效果。你应该使用不自动缓冲响应的服务器。
+
+
+##2.8Routing Concerns 用来声明通用路由，可在其他资源和路由中重复使用。定义 concern 的方式如下：
+
+  # concern :commentable do
+  #   resources :comments
+  # end
+   
+  # concern :image_attachable do
+  #   resources :images, only: :index
+  # end
+  # Concerns 可在资源中重复使用，避免代码重复：
+
+  # resources :messages, concerns: :commentable
+   
+  # resources :articles, concerns: [:commentable, :image_attachable]
+  # 上述声明等价于：
+
+  # resources :messages do
+  #   resources :comments
+  # end
+   
+  # resources :articles do
+  #   resources :comments
+  #   resources :images, only: :index
+  # end
+  # Concerns 在路由的任何地方都能使用，例如，在作用域或命名空间中：
+
+  # namespace :articles do
+  #   concerns :commentable
+  # end
+
 
 end
