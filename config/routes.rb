@@ -42,7 +42,32 @@ Rails.application.routes.draw do
   # namespace :admin do
   #   resources :articles, :comments
   # end
-  
+  #嵌套资源
+#   class Magazine < ActiveRecord::Base
+#   has_many :ads
+# end
+ 
+# class Ad < ActiveRecord::Base
+#   belongs_to :magazine
+# end
+# 在路由中可以使用“嵌套路由”反应这种关系。针对这个例子，可以声明如下路由：
+
+# resources :magazines do
+#   resources :ads
+# end
+# 除了创建 MagazinesController 的路由之外，上述声明还会创建 AdsController 的路由。广告的 URL 要用到杂志资源：
+
+# HTTP 方法 路径  控制器#动作  作用
+# GET /magazines/:magazine_id/ads ads#index 显示指定杂志的所有广告
+# GET /magazines/:magazine_id/ads/new ads#new 显示新建广告的表单，该告属于指定的杂志
+# POST  /magazines/:magazine_id/ads ads#create  创建属于指定杂志的广告
+# GET /magazines/:magazine_id/ads/:id ads#show  显示属于指定杂志的指定广告
+# GET /magazines/:magazine_id/ads/:id/edit  ads#edit  显示编辑广告的表单，该广告属于指定的杂志
+# PATCH/PUT /magazines/:magazine_id/ads/:id ads#update  更新属于指定杂志的指定广告
+# DELETE  /magazines/:magazine_id/ads/:id ads#destroy 删除属于指定杂志的指定广告
+
+
+
   # concern :reviewable do
   #   resources :reviews
   # end
