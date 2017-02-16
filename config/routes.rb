@@ -1,8 +1,20 @@
 require './app/store'
 Rails.application.routes.draw do
   match 'catalog' => StoreApp.new,via: :all
+  #非资源式路由
   get 'upload/picture'
   get 'upload',to: 'upload#get'#as 'upload' #as 'upload'== upload_path() 
+ 
+  # 绑定参数
+  # 声明常规路由时，可以提供一系列 Symbol，做为 HTTP 请求的一部分，传入 Rails 程序。其中两个 Symbol 有特殊作用：:controller 映射程序的控制器名，:action 映射控制器中的动作名。例如，有下面的路由：
+  # get ':controller(/:action(/:id))'
+
+# 动态路径片段
+# 在常规路由中可以使用任意数量的动态片段。:controller 和 :action 之外的参数都会存入 params 传给动作。如果有下面的路由：
+
+# get ':controller/:action/:id/:user_id'
+# /photos/show/1/2 请求会映射到 PhotosController 的 show 动作。params[:id] 的值是 "1"，params[:user_id] 的值是 "2"。
+
   get 'upload/:id',to: 'upload#show'#那么这个请求就交给 upload 控制器的 show 动作处理，并把 { id: '17' } 传入 params。
 
   get 'upload/download_img'
@@ -142,5 +154,34 @@ Rails.application.routes.draw do
   #   concerns :commentable
   # end
 
+# <%= link_to 'Edit Ad', [:edit, @magazine, @ad] %>
+###添加额外的集合路由或成员路由
+# resources :photos do
+#   member do
+#     get 'preview'
+#   end
+# end
+# 这段路由能识别 /photos/1/preview 是个 GET 请求，映射到 PhotosController 的 preview 动作上，资源的 ID 传入 params[:id]。同时还生成了 preview_photo_url 和 preview_photo_path 两个帮助方法。
+###添加集合路由  添加集合路由的方式如下：
+  # resources :photos do   
+  #   collection do     
+  #     get 'search'  
+  #    end
+  #   end 
+  #   这段路由能识别 /photos/search 是个 GET 请求，映射到 PhotosController 的 search 动作上。同时还会生成 search_photos_url 和 search_photos_path 两个帮助方法。
+
+  #集合和成员的区别 是生成的路径不同 mem有资源id
+
+
+# 添加额外新建动作的路由
+
+# 要添加额外的新建动作，可以使用 :on 选项：
+
+# resources :comments do
+#   get 'preview', on: :new
+# end
+# 这段代码能识别 /comments/new/preview 是个 GET 请求，映射到 CommentsController 的 preview 动作上。同时还会生成 preview_new_comment_url 和 preview_new_comment_path 两个路由帮助方法。
+
+#####如果在资源式路由中添加了过多额外动作，这时就要停下来问自己，是不是要新建一个资源。
 
 end
