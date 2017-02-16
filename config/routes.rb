@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   match 'catalog' => StoreApp.new,via: :all
   #非资源式路由
   get 'upload/picture'
+#    定义默认值
+# 在路由中无需特别使用 :controller 和 :action，可以指定默认值：
+
+# get 'photos/:id', to: 'photos#show'
   get 'upload',to: 'upload#get'#as 'upload' #as 'upload'== upload_path() 
  
   # 绑定参数
