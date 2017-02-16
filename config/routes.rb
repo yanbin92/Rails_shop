@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 # get ':controller/:action/:id/:user_id'
 # /photos/show/1/2 请求会映射到 PhotosController 的 show 动作。params[:id] 的值是 "1"，params[:user_id] 的值是 "2"。
 
+#声明路由时可以指定静态路径片段，片段前不加冒号即可：
+
+# get ':controller/:action/:id/with_user/:user_id'
+# 这个路由能响应 /photos/show/1/with_user/2 这种路径。此时，params 的值为 { controller: 'photos', action: 'show', id: '1', user_id: '2' }。
+
   get 'upload/:id',to: 'upload#show'#那么这个请求就交给 upload 控制器的 show 动作处理，并把 { id: '17' } 传入 params。
 
   get 'upload/download_img'
