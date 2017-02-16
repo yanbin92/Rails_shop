@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   match 'catalog' => StoreApp.new,via: :all
   #非资源式路由
   get 'upload/picture'
-#    定义默认值
+####定义默认值
 # 在路由中无需特别使用 :controller 和 :action，可以指定默认值：
 
 # get 'photos/:id', to: 'photos#show'
+# get 'photos/:id', to: 'photos#show', defaults: { format: 'jpg' }
+# Rails 会把 photos/12 请求映射到 PhotosController 的 show 动作上，把 params[:format] 的值设为 "jpg"。
   get 'upload',to: 'upload#get'#as 'upload' #as 'upload'== upload_path() 
  
   # 绑定参数
@@ -53,8 +55,9 @@ Rails.application.routes.draw do
   	put 'decrement', on: :member
   end
   resources :carts
+  #使用 :as 选项可以为路由起个名字：
   root 'store#index',as: 'store_index'
-
+  #这段路由会生成 store_index_path 和 store_index_url 这两个具名路由帮助方法。调用 logout_path 方法会返回 /exit。
   resources :products do
     get :who_bought, on: :member
   end
@@ -193,4 +196,13 @@ Rails.application.routes.draw do
 
 #####如果在资源式路由中添加了过多额外动作，这时就要停下来问自己，是不是要新建一个资源。
 
+
+## HTTP 方法约束
+# 使用 match 方法，可以通过 :via 选项一次指定多个 HTTP 方法：
+
+# match 'photos', to: 'photos#show', via: [:get, :post]
+# 如果某个路由想使用所有 HTTP 方法，可以使用 via: :all：
+
+# match 'photos', to: 'photos#show', via: :all
+# 同个路由即处理 GET 请求又处理 POST 请求有安全隐患。一般情况下，除非有特殊原因，切记不要允许在一个动作上使用所有 HTTP 方法。
 end
