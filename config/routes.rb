@@ -267,7 +267,21 @@ Rails.application.routes.draw do
 
 
 # :controller 选项用来指定资源使用的控制器。例如：
-
 # resources :photos, controller: 'images'
+
+  #指定约束
+  # constraints(id: /[A-Z][A-Z][0-9]+/) do
+  #   resources :photos
+  #   resources :accounts
+  # end
+
+# :path_names 选项可以改写路径中自动生成的 "new" 和 "edit" 片段：
+
+# resources :photos, path_names: { new: 'make', edit: 'change' }
+# 这样设置后，路由就能识别如下的路径：
+
+# /photos/make
+# /photos/1/change
+# 这个选项并不能改变实际处理请求的动作名。上述两个路径还是交给 new 和 edit 动作处理。
 
 end
