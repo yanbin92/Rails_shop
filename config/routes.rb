@@ -205,4 +205,47 @@ Rails.application.routes.draw do
 
 # match 'photos', to: 'photos#show', via: :all
 # 同个路由即处理 GET 请求又处理 POST 请求有安全隐患。一般情况下，除非有特殊原因，切记不要允许在一个动作上使用所有 HTTP 方法。
+
+####路径片段约束
+# 可使用 :constraints 选项限制动态路径片段的格式：
+
+# get 'photos/:id', to: 'photos#show', constraints: { id: /[A-Z]\d{5}/ }
+# 这个路由能匹配 /photos/A12345，但不能匹配 /photos/893。上述路由还可简化成：
+
+# get 'photos/:id', to: 'photos#show', id: /[A-Z]\d{5}/
+# :constraints 选项中的正则表达式不能使用“锚记”。例如，下面的路由是错误的：
+
+# get '/:id', to: 'photos#show', constraints: {id: /^\d/}
+# 之所以不能使用锚记，是因为所有正则表达式都从头开始匹配。
+
+# 例如，有下面的路由。如果 to_param 方法得到的值以数字开头，例如 1-hello-world，就会把请求交给 articles 控制器处理；如果 to_param 方法得到的值不以数字开头，例如 david，就交给 users 控制器处理。
+
+# get '/:id', to: 'articles#show', constraints: { id: /\d.+/ }
+# get '/:username', to: 'users#show'
+  
+#约束还可以根据任何一个返回值为字符串的 Request 方法设定。
+
+# 基于请求的约束和路径片段约束的设定方式一样：
+
+# get 'photos', constraints: {subdomain: 'admin'} 
+
+###高级约束 
+# 如果约束很复杂，可以指定一个能响应 matches? 方法的对象。假设要用 BlacklistConstraint 过滤所有用户，可以这么做：
+
+# class BlacklistConstraint
+#   def initialize
+#     @ips = Blacklist.retrieve_ips
+#   end
+ 
+#   def matches?(request)
+#     @ips.include?(request.remote_ip)
+#   end
+# end
+ 
+# TwitterClone::Application.routes.draw do
+#   get '*path', to: 'blacklist#index',
+#     constraints: BlacklistConstraint.new
+# end
+
+
 end
