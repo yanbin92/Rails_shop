@@ -1,5 +1,9 @@
 require './app/store'
 Rails.application.routes.draw do
+  #使用 :as 选项可以为路由起个名字：
+  #root 路由应该放在文件的顶部，因为这是最常用的路由，应该先匹配。
+  root 'store#index',as: 'store_index'
+
   match 'catalog' => StoreApp.new,via: :all
   #非资源式路由
   get 'upload/picture'
@@ -55,8 +59,7 @@ Rails.application.routes.draw do
   	put 'decrement', on: :member
   end
   resources :carts
-  #使用 :as 选项可以为路由起个名字：
-  root 'store#index',as: 'store_index'
+
   #这段路由会生成 store_index_path 和 store_index_url 这两个具名路由帮助方法。调用 logout_path 方法会返回 /exit。
   resources :products do
     get :who_bought, on: :member
