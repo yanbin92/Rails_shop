@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   #使用 :as 选项可以为路由起个名字：
   #root 路由应该放在文件的顶部，因为这是最常用的路由，应该先匹配。
   root 'store#index',as: 'store_index'
+  #root 路由只处理映射到动作上的 GET 请求。
+
 
   match 'catalog' => StoreApp.new,via: :all
   #非资源式路由
@@ -262,5 +264,10 @@ Rails.application.routes.draw do
 # 在路由中可以使用 redirect 帮助方法把一个路径重定向到另一个路径：
 
 # get '/stories', to: redirect('/articles')
+
+
+# :controller 选项用来指定资源使用的控制器。例如：
+
+# resources :photos, controller: 'images'
 
 end
