@@ -109,6 +109,10 @@ Rails.application.routes.draw do
 
 #避免深层嵌套的方法之一，是把控制器集合动作放在父级资源中，表明层级关系，但不嵌套成员动作。也就是说，用最少的信息表明资源的路由关系，如下所示：
 
+#   :except 选项指定不用生成的路由：
+
+# resources :photos, except: :destroy  #此时，Rails 会生成除 destroy（向 /photos/:id 发起的 DELETE 请求）之外的所有常规路由。
+
   # resources :articles do
   #   resources :comments, only: [:index, :new, :create]
   # end
@@ -283,5 +287,20 @@ Rails.application.routes.draw do
 # /photos/make
 # /photos/1/change
 # 这个选项并不能改变实际处理请求的动作名。上述两个路径还是交给 new 和 edit 动作处理。
+
+# 使用 scope 时，可以改写资源生成的路径名：
+
+# scope(path_names: { new: 'neu', edit: 'bearbeiten' }) do
+#   resources :categories, path: 'kategorien'
+# end
+
+# http://localhost:3000/rails/info/routes
+# CONTROLLER=users rake routes
+# ce试路由
+# 和程序的其他部分一样，路由也要测试。Rails 内建了三个断言，可以简化测试：
+# assert_generates
+# assert_recognizes
+# assert_routing
+#assert_routing 做双向测试：检测路径是否能生成选项，以及选项能否生成路径。因此，综合了 assert_generates 和 assert_recognizes 两个断言。
 
 end
