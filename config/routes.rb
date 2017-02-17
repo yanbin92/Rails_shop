@@ -247,5 +247,17 @@ Rails.application.routes.draw do
 #     constraints: BlacklistConstraint.new
 # end
 
+#   get '*path', to: 'blacklist#index',
+#    constraints: lambda { |request| Blacklist.retrieve_ips.include?(request.remote_ip) }
+
+# 通配片段 难理解 语法
+# 路由中的通配符可以匹配其后的所有路径片段。例如：
+
+# get 'photos/*other', to: 'photos#unknown'
+
+#重定向
+# 在路由中可以使用 redirect 帮助方法把一个路径重定向到另一个路径：
+
+# get '/stories', to: redirect('/articles')
 
 end
