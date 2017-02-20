@@ -160,3 +160,22 @@ end
 # Active Support 为 load 增加了常量自动加载功能。
 File.open(file_name) { |f| Marshal.load(f) }
 
+# NameError 的扩展
+# Active Support 为 NameError 增加了 missing_name? 方法，测试异常是不是由于参数的名称引起的。
+
+# 参数的名称可以使用符号或字符串指定。指定符号时，使用裸常量名测试；指定字符串时，使用完全限定常量名测试。
+
+# 提示
+# 符号可以表示完全限定常量名，例如 :"ActiveRecord::Base"，因此这里符号的行为是为了便利而特别定义的，不是说在技术上只能如此。
+# 例如，调用 ArticlesController 的动作时，Rails 会乐观地使用 ArticlesHelper。如果那个模块不存在也没关系，因此，由那个常量名引起的异常要静默。不过，可能是由于确实是未知的常量名而由 articles_helper.rb 抛出的 NameError 异常。此时，异常应该抛出。missing_name? 方法能区分这两种情况：
+
+def default_helper_module!
+  module_name = name.sub(/Controller$/, '')
+  module_path = module_name.underscore
+  helper module_path
+rescue LoadError => e
+  raise e unless e.is_missing? "helpers/#{module_path}_helper"
+rescue NameError => e
+  raise e unless e.missing_name? "#{module_name}Helper"
+end
+
