@@ -51,3 +51,112 @@ class User < ActiveRecord::Base
 
   delegate :name, :age, :address, :twitter, to: :profile
 end
+
+"hello".at(0)  # => "h"
+"hello".at(4)  # => "o"
+"hello".at(-1) # => "o"
+"hello".at(10) # => nil
+
+"hello".from(0)  # => "hello"
+"hello".from(2)  # => "llo"
+"hello".from(-2) # => "lo"
+"hello".from(10) # => "" if < 1.9, nil in 1.9
+
+"hello".to(0)  # => "h"
+"hello".to(2)  # => "hel"
+"hello".to(-2) # => "hell"
+"hello".to(10) # => "hello"
+
+ #Extensions to Enumerable
+[1, 2, 3].sum # => 6
+
+# Adding Elements
+#prepend
+
+#This method is an alias of Array#unshift.
+
+%w(a b c d).prepend('e')  # => %w(e a b c d)
+[].prepend(10)            # => [10]
+
+%w(a b c d).append('e')  # => %w(a b c d e)
+
+User.exists?(email: params[:email])
+
+[0, 1, -5, 1, 1, "foo", "bar"].split(1)
+# => [[0], [-5], [], ["foo", "bar"]]
+#  Extensions to Hash
+# 11.1 Conversions
+# 11.1.1 to_xml
+
+# The method to_xml returns a string containing an XML representation of its receiver:
+
+{"foo" => 1, "bar" => 2}.to_xml
+{a: 1, b: 2}.except(:a) # => {:b=>2}
+
+{nil => nil, 1 => 1, a: :a}.transform_keys { |key| key.to_s.upcase }
+
+{a: 1, b: 2, c: 3}.slice(:a, :c)
+# => {:c=>3, :a=>1}
+ 
+{a: 1, b: 2, c: 3}.slice(:b, :X)
+# => {:b=>2} # non-existing keys are ignored
+
+(Date.today..Date.tomorrow).to_s
+
+(1..10).include?(3..7)  # => true
+
+
+d = Date.current
+# => Mon, 09 Aug 2010
+d + 1.year
+# => Tue, 09 Aug 2011
+d - 3.hours
+# => Sun, 08 Aug 2010 21:00:00 UTC +00:00
+
+date = Date.new(2010, 6, 7)
+date.beginning_of_day # => Mon Jun 07 00:00:00 +0200 2010
+
+#Extensions to DateTime
+
+# yesterday
+# tomorrow
+# beginning_of_week (at_beginning_of_week)
+# end_of_week (at_end_of_week)
+# monday
+# sunday
+# weeks_ago
+# prev_week (last_week)
+# next_week
+# months_ago
+# months_since
+# beginning_of_month (at_beginning_of_month)
+# end_of_month (at_end_of_month)
+# prev_month (last_month)
+# next_month
+# beginning_of_quarter (at_beginning_of_quarter)
+# end_of_quarter (at_end_of_quarter)
+# beginning_of_year (at_beginning_of_year)
+# end_of_year (at_end_of_year)
+# years_ago
+# years_since
+# prev_year (last_year)
+# next_year
+
+DateTime.current
+
+now = Time.current
+# => Mon, 09 Aug 2010 23:20:05 UTC +00:00
+now.all_day
+# => Mon, 09 Aug 2010 00:00:00 UTC +00:00..Mon, 09 Aug 2010 23:59:59 UTC +00:00
+
+ #Extensions to File
+
+ File.atomic_write(joined_asset_path) do |cache|
+  cache.write(join_asset_file_contents(asset_paths))
+end
+
+ #Marshal 的扩展
+
+# Active Support 为 load 增加了常量自动加载功能。
+File.open(file_name) { |f| Marshal.load(f) }
+
