@@ -301,6 +301,6 @@ Rails.application.routes.draw do
 # assert_generates
 # assert_recognizes
 # assert_routing
-#assert_routing 做双向测试：检测路径是否能生成选项，以及选项能否生成路径。因此，综合了 assert_generates 和 assert_recognizes 两个断言。
+# assert_routing 做双向测试：检测路径是否能生成选项，以及选项能否生成路径。因此，综合了 assert_generates 和 assert_recognizes 两个断言。
 
 end

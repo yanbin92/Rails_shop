@@ -9,6 +9,7 @@ class CartsController < ApplicationController
   # GET /carts.json
   def index
     @carts = Cart.all
+    
   end
 
   # GET /carts/1
@@ -83,7 +84,7 @@ class CartsController < ApplicationController
       logger.error "Attempt to access invalid cart #{params[:id]}"
       redirect_to store_index_url,notice: 'Invalid card'
     end
-
+    
 
 
 end
