@@ -1,4 +1,4 @@
-class SslController
+class SslController < ApplicationController
   force_ssl only: :cheeseburger
   # or
   force_ssl except: :cheeseburger

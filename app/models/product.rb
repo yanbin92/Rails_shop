@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
-	has_many :line_items ,inverse_of :product #  如果要验证关联的对象是否存在 需要指定inverse_of 选项 inverse_of 选项意义注意见Record 关联文档 在lin_items中指定 validates :
+	#  如果要验证关联的对象是否存在 需要指定inverse_of: 选项 inverse_of 选项意义注意见Record 关联文档 在lin_items中指定 validates :
+	has_many :line_items ,inverse_of: :product 
 	has_many :orders,through: :line_items   #关联的作用 文档有讲的清楚 模型之间有关系  方便级联删除等操作 
 	#has_many :orders,through:   多对多关联  has_many 1对多关联  has_one  1对1          
 	#自连接   有点意思  使用方式 见文档 下面是示例   

@@ -1,10 +1,12 @@
- require 'builder'
+require 'builder'
 require 'active_record'
-ActiveRecord::Base.establish_connection(
-adapter: 'sqlite3',
-database: 'db/development.sqlite3')
-class Product < ActiveRecord::Base
-end
+# ActiveRecord::Base.establish_connection(
+# # adapter: 'sqlite3',
+# # database: 'db/development.sqlite3')
+# # adapter: 'postgresql',
+# # database: 'db/rails_db')
+# class Product < ActiveRecord::Base
+# end
 class StoreApp
 	def call(env)
 	x = Builder::XmlMarkup.new :indent=>2

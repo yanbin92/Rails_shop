@@ -13,22 +13,44 @@ development:
   <<: *default
   database: db/development.sqlite3
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
+# # Warning: The database defined as "test" will be erased and
+# # re-generated from your development database when you run "rake".
+# # Do not set this db to the same as development or production.
 test:
   <<: *default
   database: db/test.sqlite3
 
 production:
-  adapter: mysql2
+  adapter: postgresql
   # host:127.0.0.1
   # port:3306
   encoding: utf8
   reconnect: false
-  databse: rails_db
   pool: 5
-  username: root
-  password: 112233
-  host: localhost
+  databse: postgres://twjjavjjtqnbul:b606eb25aa6b4b6fc5eee4d3a81606cf1e316f50ea7246934ab0b045e6815bd3@ec2-54-163-246-165.compute-1.amazonaws.com:5432/dd53vvt81b8m24
+  # databse: db/rails_db
+  # username: postgresql
+  # password: 112233
+  # host: localhost
   timeout: 5000
+
+# default: &default
+#   adapter: postgresql
+#   username: postgres
+#   password: 112233
+#   pool: 5
+#   timeout: 5000
+#   host: localhost
+
+# development:
+#   <<: *default
+#   database: my_database_development
+
+# test:
+#   <<: *default
+#   database: my_database_test
+
+# production:
+#   <<: *default
+#   database: my_database_production
+  
