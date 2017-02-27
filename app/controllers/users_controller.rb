@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize,only: [:new,:create] #if User.count === 0
+  skip_before_action :authorize,only: [:new,:create,:page1] #if User.count === 0
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "users", only: [:page1]
   layout "application", except: [:page1]

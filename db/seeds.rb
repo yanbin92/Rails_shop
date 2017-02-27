@@ -43,8 +43,8 @@ PaymentType.create([{:name => "paypal支付"},
 	)
 
 User.delete_all
+#TODO  user
 User.create(name:"admin",password:"123456")
-User.create(name:"yanbin",password:"123456")
 
 #PaymentType.create() #自动保存到数据库 an_order= Order.new 
 					#an_order.name="DaveThomas" ...an_order.save
