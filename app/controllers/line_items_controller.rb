@@ -71,9 +71,10 @@ class LineItemsController < ApplicationController
   #PUT /line_iitems/1
   #PUT /line_items/1.json
   def decrement
-    @line_item.decrement
+    @line_item.decrement #see model
     respond_to do |format|
       if(@line_item.save)
+        # byebug
         format.html {redirect_to store_index_url}
         format.js { @current_item = @line_item}  #don't work
         format.json {head:ok}

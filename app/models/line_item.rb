@@ -11,6 +11,7 @@ class LineItem < ApplicationRecord
   end
 
   def decrement
+    # byebug
   	if(self.quantity > 1)
   		self.quantity -= 1
   	else

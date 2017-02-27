@@ -2,6 +2,62 @@
 <html>
   <head>
     <title>Haitaoshop</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+
+  <body class='<%= controller.controller_name %>'>
+	<div id="banner">
+		<%= image_tag'logo.png',alt:'ThePragmaticBookshelf'%>
+		<span class="title"><%= @page_title%></span>
+	</div>
+	<div id="columns">
+		<div id="side">
+			
+				<% if @cart %>
+					<%= hidden_div_if(@cart.line_items.empty?,id: 'cart') do %>
+						<%= render(@cart) %>
+					<%end%>
+				<% end %> 
+	
+
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="http://www..../faq">Questions</a></li>
+				<li><a href="http://www..../news">News</a></li>
+				<li><a href="http://www..../contact">Contact</a></li>
+				<li><a href="#"><%= Time.now%></a></li>
+			</ul>
+			<% if session[:user_id] %>
+				<ul>
+					<li><%= link_to 'Orders',orders_path %></li>
+					<li><%= link_to 'Products',products_path %></li>
+					<li><%= link_to 'Users',users_path %></li>
+				</ul>
+				<%= button_to 'Logout', logout_path, method: :delete %>
+			<%end %>
+		</div>
+	</div>
+	<div id="main">
+   		 <%= yield %> 
+	</div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  <!--    静态资源标签帮助方法
 静态资源帮助方法用来生成链接到 Feed、JavaScript、样式表、图片、视频和音频的 HTML 代码。Rails 提供了六个静态资源标签帮助方法：
@@ -63,46 +119,3 @@ layouts_and_rendering.html
 
 see guides      
 -->
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= csrf_meta_tags %>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  </head>
-
-  <body class='<%= controller.controller_name %>'>
-	<div id="banner">
-		<%= image_tag'logo.png',alt:'ThePragmaticBookshelf'%>
-		<span class="title"><%= @page_title%></span>
-	</div>
-	<div id="columns">
-		<div id="side">
-			
-				<% if @cart %>
-					<%= hidden_div_if(@cart.line_items.empty?,id: 'cart') do %>
-						<%= render(@cart) %>
-					<%end%>
-				<% end %> 
-	
-
-			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="http://www..../faq">Questions</a></li>
-				<li><a href="http://www..../news">News</a></li>
-				<li><a href="http://www..../contact">Contact</a></li>
-				<li><a href="#"><%= Time.now%></a></li>
-			</ul>
-			<% if session[:user_id] %>
-				<ul>
-					<li><%= link_to 'Orders',orders_path %></li>
-					<li><%= link_to 'Products',products_path %></li>
-					<li><%= link_to 'Users',users_path %></li>
-				</ul>
-				<%= button_to 'Logout', logout_path, method: :delete %>
-			<%end %>
-		</div>
-	</div>
-	<div id="main">
-   		 <%= yield %> 
-	</div>
-  </body>
-</html>
