@@ -8,9 +8,13 @@ class SessionsController < ApplicationController
     #@person.try(:spouse).try(:name)
     # instead of
     # @person.spouse.name if @person && @person.spouse
-    logger.debug "New post: #{user.inspect}"
-    #从 2.0 版本开始，Rails 内置了调试功能。在任何 Rails 程序中都可以使用 debugger 方法调出调试器。
-    byebug 
+    # logger.debug "New post: #{user.inspect}"
+    # #从 2.0 版本开始，Rails 内置了调试功能。在任何 Rails 程序中都可以使用 debugger 方法调出调试器。
+    # byebug 
+    # if !user
+    #   user=User.create(name:"admin",password:"123456")
+    #   user.save
+    # end
   	if user.try(:authenticate, params[:password])
   		session[:user_id] = user.id
   		redirect_to admin_url

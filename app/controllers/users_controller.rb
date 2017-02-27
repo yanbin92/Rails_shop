@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :authorize,only: [:new,:create] #if User.count === 0
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "users", only: [:page1]
   layout "application", except: [:page1]
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+
     @user = User.new
   end
 
@@ -31,10 +33,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
 
+    @user = User.new(user_params)
+    # byebug
     respond_to do |format|
       if @user.save
+          # byebug
         format.html { redirect_to users_url, notice: 'User #{@user.name} was uccessfully created.' }
         format.json { render :show, status: :created, location: @user }
       else

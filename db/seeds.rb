@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-# Product.delete_all
+Product.delete_all
 # . . .
 Product.create(title: 'Seven Mobile Apps in Seven Weeks',
 description:
@@ -42,10 +42,10 @@ PaymentType.create([{:name => "paypal支付"},
 ]
 	)
 
-# User.delete_all
+User.delete_all
 User.create(name:"admin",password:"123456")
 User.create(name:"yanbin",password:"123456")
-#PaymentType.create()
+
 #PaymentType.create() #自动保存到数据库 an_order= Order.new 
 					#an_order.name="DaveThomas" ...an_order.save
 
