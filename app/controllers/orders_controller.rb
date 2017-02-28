@@ -32,6 +32,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+        #如果想立即发送电子邮件（例如，使用 cronjob），调用 deliver_now 即可：
         OrderMailer.received(@order).deliver_later
         
         format.html { redirect_to store_index_url, 

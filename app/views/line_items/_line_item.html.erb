@@ -3,10 +3,11 @@
 <% else %>
 	<tr>
 <% end %>
+	<!-- 	<%console %> -->
 		<!--  对象的名称要与模板名称一致-->
 		<td><%=line_item.quantity %> &times;</td>
-		<% #console 如果只想当对象不为 nil 时在其上调用方法 try%>
-		<td><%=line_item.product.try(@title) %></td>
+		<!-- #console 如果只想当对象不为 nil 时在其上调用方法 try -->
+		<td><%=line_item.product.title %></td>
 		<td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
 		<td><%=button_to 'decrease',decrement_line_item_path(id: line_item),method: :put,remote: true%>
 		</td>
