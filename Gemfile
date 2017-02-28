@@ -23,8 +23,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+
 # Use ActiveModel has_secure_password
  gem 'bcrypt', '~> 3.1.7'
 
@@ -60,7 +59,8 @@ end
 #搭建 Heroku 部署环境 Run `bundle install` to install missing gems.
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: [:production]
-
+# Use Redis adapter to run Action Cable in production
+gem 'redis', '~> 3.0', group: [:production]
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
