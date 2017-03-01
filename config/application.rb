@@ -14,9 +14,13 @@ module Haitaoshop
     config.autoload_paths += %w(#{Rails.root}/lib)
     config.active_record.schema_format = :sql
 
-# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-# config.i18n.default_locale = :de
+	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+	# config.i18n.default_locale = :de
+	#ctive Job 为多种队列后端（Sidekiq、Resque、Delayed Job，等等）内置了适配器。最新的适配器列表参见 ActiveJob::QueueAdapters 的 API 文档。
+	# 要把适配器的 gem 写入 Gemfile
+	# 请参照适配器的具体安装和部署说明
+    # config.active_job.queue_adapter = :sidekiq
     
   end
 end
