@@ -1,8 +1,8 @@
 class LineItemsController < ApplicationController 
   skip_before_action :authorize, only: [:new, :create]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
  # include CurrentCart
-  before_action :set_cart,only: [:create]
+  before_action :set_cart
   before_action :set_line_item,only: [:show, :edit, :update, :destroy,:decrement]
   # GET /line_items
   # GET /line_items.json
@@ -76,7 +76,7 @@ class LineItemsController < ApplicationController
       if(@line_item.save)
         # byebug
         format.html {redirect_to store_index_url}
-        format.js { @current_item = @line_item}  #don't work
+        format.js { @current_item = @line_item}  #
         format.json {head:ok}
       else
         format.html { render action: "edit" }
