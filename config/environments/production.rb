@@ -35,9 +35,17 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Mount Action Cable outside main process or domain
+  #config.action_cable.mount_path 选项指定监听路径
   # config.action_cable.mount_path = nil
+  # 要想配置 URL 地址，可以在 HTML 布局文件的 <head> 元素中添加 action_cable_meta_tag 标签。这个标签会使用环境配置文件中 config.action_cable.url 选项设置的 URL 地址或路径。
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  #应用于每个连接记录器的日志标签 关于所有配置选项的完整列表，请参阅 ActionCable::Server::Configuration 类的 API 文档。
+  # config.action_cable.log_tags = [
+  #   -> request { request.env['bc.account_id'] || "no-account" },
+  #   :action_cable,
+  #   -> request { request.uuid }
+  # ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true

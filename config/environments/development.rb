@@ -54,7 +54,12 @@ Rails.application.configure do
 
   config.action_cable.disable_request_forgery_protection = true
 
-  
+  #Action Cable 仅接受来自指定来源的请求。这些来源是在服务器配置文件中以数组的形式设置的，每个来源既可以是字符串，也可以是正则表达式。对于每个请求，都要对其来源进行检查，看是否和允许的请求来源相匹配。
+  # config.action_cable.allowed_request_origins = ['http://rubyonrails.com', %r{http://ruby.*}]
+  # 若想禁用来源检查，允许任何来源的请求：
+  # config.action_cable.disable_request_forgery_protection = true
+  # 在开发环境中，Action Cable 默认允许来自 localhost:3000 的所有请求。
+    
  
 end
 

@@ -46,8 +46,9 @@ class ProductsController < ApplicationController
         format.json { render :show, status: :ok, location: @product }
 
         @products = Product.all
+        #发送广播 当频道订阅者使用流接收某个广播时，发布者发布的内容会被直接发送给订阅者。
         ActionCable.server.broadcast 'products',
-         html: render_to_string('store/index',layout: false)
+        html: render_to_string('store/index',layout: false)
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }

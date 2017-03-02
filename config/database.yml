@@ -24,6 +24,7 @@ production:
   adapter: postgresql
   # host:127.0.0.1
   # port:3306
+  
   encoding: utf8
   reconnect: false
   pool: 5
