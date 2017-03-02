@@ -60,7 +60,7 @@ end
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: [:production]
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 3.0', group: [:production]
+# gem 'redis', '~> 3.0', group: [:production]
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
