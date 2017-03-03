@@ -89,4 +89,21 @@ class ActionDispatch::IntegrationTest
   # flunk( [msg] )
   # 确保失败。可以用这个断言明确标记未完成的测试。
   # 以上是 Minitest 支持的部分断言，完整且最新的列表参见 Minitest API 文档，尤其是 Minitest::Assertions 模块的文档
+  #   在 Minitest 框架的基础上，Rails 添加了一些自定义的断言。
+
+  # 断言  作用
+  # assert_difference(expressions, difference = 1, message = nil) {…​}
+  # 运行代码块前后数量变化了多少（通过 expression 表示）。
+  # assert_no_difference(expressions, message = nil, &block)
+  # 运行代码块前后数量没变多少（通过 expression 表示）。
+  # assert_recognizes(expected_options, path, extras={}, message=nil)
+  # 断言正确处理了指定路径，而且解析的参数（通过 expected_options 散列指定）与路径匹配。基本上，它断言 Rails 能识别 expected_options 指定的路由。
+  # assert_generates(expected_path, options, defaults={}, extras = {}, message=nil)
+  # 断言指定的选项能生成指定的路径。作用与 assert_recognizes 相反。extras 参数用于构建查询字符串。message 参数用于为断言失败定制错误消息。
+  # assert_response(type, message = nil)
+  # 断言响应的状态码。可以指定表示 200-299 的 :success，表示 300-399 的 :redirect，表示 404 的 :missing，或者表示 500-599 的 :error。此外，还可以明确指定数字状态码或对应的符号。详情参见完整的状态码列表及其与符号的对应关系。
+  # assert_redirected_to(options = {}, message=nil)
+  # 断言传入的重定向选项匹配最近一个动作中的重定向。重定向参数可以只指定部分，例如 assert_redirected_to(controller: "weblog")，也可以完整指定，例如 redirect_to(controller: "weblog", action: "show")。此外，还可以传入具名路由，例如 assert_redirected_to root_path，以及 Active Record 对象，例如 assert_redirected_to @article。
+
+  
 end
