@@ -13,6 +13,8 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
+  #为了避免代码重复，可以自定义测试辅助方法。下面实现用于登录的辅助方法
+  #辅助方法在任何控制器测试用例中都可用
   def login_as(user)
     post '/login', params: {name: user.name, password: 'secret'}
   end
@@ -104,6 +106,6 @@ class ActionDispatch::IntegrationTest
   # 断言响应的状态码。可以指定表示 200-299 的 :success，表示 300-399 的 :redirect，表示 404 的 :missing，或者表示 500-599 的 :error。此外，还可以明确指定数字状态码或对应的符号。详情参见完整的状态码列表及其与符号的对应关系。
   # assert_redirected_to(options = {}, message=nil)
   # 断言传入的重定向选项匹配最近一个动作中的重定向。重定向参数可以只指定部分，例如 assert_redirected_to(controller: "weblog")，也可以完整指定，例如 redirect_to(controller: "weblog", action: "show")。此外，还可以传入具名路由，例如 assert_redirected_to root_path，以及 Active Record 对象，例如 assert_redirected_to @article。
+  # assert_select 断言很强大，高级用法请参阅文档。
 
-  
 end
