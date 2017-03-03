@@ -1,7 +1,7 @@
 require 'test_helper'
 #Unit Testing of Models
 class ProductTest < ActiveSupport::TestCase
-	fixtures :products #load fixtures
+	#fixtures :products #load fixtures
 	#The name of the fixture file determines the table that’s loaded,
 	# => so using :products will cause the products.yml fixture file to be used.
 
@@ -48,7 +48,7 @@ class ProductTest < ActiveSupport::TestCase
 	end
 
 	test "product is not valid without a unique title" do
-		description: "yyy",
+		product = Product.new(description: "yyy",
 		price: 1,
 		image_url: "fred.gif")
 		assert product.invalid?

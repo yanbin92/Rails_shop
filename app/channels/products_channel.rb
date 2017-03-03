@@ -16,7 +16,6 @@ class ProductsChannel < ApplicationCable::Channel
   end
   #WebSocket 服务器没有访问会话的权限，但可以访问 cookie，而在处理身份验证时需要用到 cookie。这篇文章介绍了如何使用 Devise 验证身份
   #  消息重播
-
 	# 一个客户端向其他已连接客户端重播自己收到的消息，是一种常见用法。
 
 	# # app/channels/chat_channel.rb
