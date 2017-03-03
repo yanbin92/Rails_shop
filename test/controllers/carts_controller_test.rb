@@ -4,6 +4,12 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @cart = new_cart_with_one_product(:one)
   end
+  
+  # 在各个测试之后调用
+  teardown do
+    # 如果控制器使用缓存，最好在后面重设
+    Rails.cache.clear
+  end
 
   def new_cart_with_one_product(product_name)
     cart = Cart.create
@@ -45,8 +51,8 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy cart" do
-    byebug
-    assert_difference('Cart.count', -1) do
+    # byebug
+    assert_difference('Cart.count') do
       delete cart_url(@cart)
     end
 
