@@ -6,6 +6,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    # get 方法发起请求，并把结果传入响应中。这个方法可接受 6 个参数：
+
+    # 所请求控制器的动作，可使用字符串或符号。
+
+    # params：一个选项散列，指定传入动作的请求参数（例如，查询字符串参数或文章变量）。
+
+    # headers：设定随请求发送的首部。
+
+    # env：按需定制请求环境。
+
+    # xhr：指明是不是 Ajax 请求；设为 true 表示是 Ajax 请求。
+
+    # as：使用其他内容类型编码请求；默认支持 :json。
+
+    # 所有关键字参数都是可选的。
     get users_url
     assert_response :success
   end

@@ -1,9 +1,10 @@
 require 'test_helper'
-
+#集成测试 集成测试用于测试应用中不同部分之间的交互，一般用于测试应用中重要的工作流程。
+#rails generate integration_test user_flows
 class UserStoriesTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  # 集成测试运行程序的说明参阅 ActionDispatch::Integration::Runner 模块的文档。
+  # 执行请求的方法参见 ActionDispatch::Integration::RequestHelpers 模块的文档。
+  # 如果需要修改会话或集成测试的状态，参阅 ActionDispatch::Integration::Session 类的文档。
   fixtures :products
   include ActiveJob::TestHelper
 
@@ -35,7 +36,8 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
 			pay_type: "微信支付"
 			}
 		   }
-		   follow_redirect!
+		   assert_response :redirect
+		   follow_redirect! #重定向后如果还想发送请求，别忘了调用 follow_redirect!。
 		   assert_response :success
 		   assert_select 'h1', "Your Progmatic Catalog"
 		   cart = Cart.find(session[:cart_id])

@@ -9,9 +9,9 @@ class Order < ApplicationRecord
 	#自定义验证方式  示例  validate_each 见文档
 	class MyValidator < ActiveModel::Validator
 		def validate(record)
-			unless record.name.starts_with?'X'
-				record.errors[:name] << "Need a name starting with X please!"
-			end
+			# unless record.name.starts_with?'X'
+			# 	record.errors[:name] << "Need a name starting with X please!"
+			# end
 		end
 	end
 	include ActiveModel::Validations

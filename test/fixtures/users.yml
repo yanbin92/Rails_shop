@@ -1,5 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 #在 Rails 中，测试数据由固件（fixture）提供。关于固件的全面说明，参见 API 文档。
+#如果想一次获取多个固件，可以传入一个固件名称列表。例如：
+# 返回一个数组，包含 david 和 steve 两个固件
+#users(:david, :steve)
 one:
   name: yanbin
   password_digest: <%= BCrypt::Password.create('secret') %>
