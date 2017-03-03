@@ -19,8 +19,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     # xhr：指明是不是 Ajax 请求；设为 true 表示是 Ajax 请求。
 
     # as：使用其他内容类型编码请求；默认支持 :json。
-
-    # 所有关键字参数都是可选的。
+    # 所有关键字参数都是可选的。调用 :show 动作，把 params 中的 id 设为 12，并且设定 HTTP_REFERER 首部：
+    # get :show, params: { id: 12 }, headers: { "HTTP_REFERER" => "http://example.com/home" }
+    #@controller：处理请求的控制器
+    # @request：请求对象
+    # @response：响应对象
     get users_url
     assert_response :success
   end
