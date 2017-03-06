@@ -13,7 +13,9 @@ module Haitaoshop
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += %w(#{Rails.root}/lib)
     config.active_record.schema_format = :sql
-
+    # 一个应用的 :host 参数一般是不变的，可以在 config/application.rb 文件中做全局配置：
+    config.action_mailer.default_url_options = { host: 'example.com' }  
+    
 	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
 	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 	# config.i18n.default_locale = :de

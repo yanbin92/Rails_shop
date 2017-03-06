@@ -23,7 +23,7 @@ class OrderMailer < ApplicationMailer
   def received(order)
     @order = order
     #传入文件名和内容，Action Mailer 和 Mail gem 会自动猜测附件的 MIME 类型，设置编码并创建附件
-    attachments['filename.jpg'] = File.read('/assets/images/av.jpg')
+    attachments['filename.jpg'] = File.read(Rails.root.join('app', 'assets', 'images', 'av.jpg'))
     #mail：用于发送邮件的方法，我们传入了 :to 和 :subject 邮件头。
     mail to: order.email,subject: "Pragmatic Store Order Confirmation"
 
