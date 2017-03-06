@@ -67,11 +67,11 @@ class ProductTest < ActiveSupport::TestCase
   	)
 	end
 
-test "product is not valid without a unique image_url" do
-  product = new_product_with_url(products(:ruby).image_url)
-  assert !product.save
-  assert_equal "has already been taken", product.errors[:image_url].join('; ')
-end
+	test "product is not valid without a unique image_url" do
+	  product = new_product_with_url(products(:ruby).image_url)
+	  assert !product.save
+	  assert_equal "has already been taken", product.errors[:image_url].join('; ')
+	end
 
 
 end
