@@ -33,7 +33,7 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   #所以邮件并不会真的发送出去（避免测试时骚扰用户），而是添加到一个数组中（ActionMailer::Base.deliveries）。
-  # config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :smtp
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -41,5 +41,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  
+
 end

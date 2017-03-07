@@ -94,7 +94,7 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     address: "smtp.163.com",
-    port: 25,#587
+    port: 587,#587
     domain: ".163.com",
     user_name: "18036096795",
     password: "hello123",
