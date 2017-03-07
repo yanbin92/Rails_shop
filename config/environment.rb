@@ -18,10 +18,10 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.163.com",
     port: 25,#587
-    #domain: ".163.com",
-    authentication: "plain",
+    domain: ".163.com",
     user_name: "18036096795",
     password: "hello123",
+    authentication: "plain",
     enable_starttls_auto: true ,
     authentication: 'plain'
   }

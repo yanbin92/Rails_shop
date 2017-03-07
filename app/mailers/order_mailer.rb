@@ -51,6 +51,13 @@ class OrderMailer < ApplicationMailer
 
   # 也可设置 before_action、after_action 和 around_action。
   # 与控制器中的回调一样，可以指定块，或者方法名的符号形式；
+  #   拦截电子邮件
+  # 有时，在邮件发送之前需要做些修改。Action Mailer 提供了相应的钩子，可以拦截每封邮件。你可以注册一个拦截器，在交给发送程序之前修改邮件。
 
-
+  # class SandboxEmailInterceptor
+  #   def self.delivering_email(message)
+  #     message.to = ['sandbox@example.com']
+  #   end
+  # end
+  
 end

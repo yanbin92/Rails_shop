@@ -3,6 +3,11 @@ require 'test_helper'
 class OrderMailerTest < ActionMailer::TestCase
   test "received" do
     mail = OrderMailer.received(orders(:one))
+    # byebug
+    # 发送邮件，测试有没有入队
+    assert_emails 1 do
+        mail.deliver_now
+    end
     assert_equal "Pragmatic Store Order Confirmation", mail.subject
     assert_equal ["ybinbin@outlook.com"], mail.to
     assert_equal ["ybinbin@outlook.com"], mail.from
