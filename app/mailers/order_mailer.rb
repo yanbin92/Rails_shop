@@ -20,6 +20,8 @@ class OrderMailer < ApplicationMailer
   #   若想使用这个功能，要在应用中做下述配置：
 
   # config.action_mailer.perform_caching = true
+
+  #有时可能不想使用布局，而是直接使用字符串渲染邮件内容，为此可以使用 :body 选项。但是别忘了指定 :content_type 选项，否则 Rails 会使用默认值 text/plain。
   def received(order)
     @order = order
     #传入文件名和内容，Action Mailer 和 Mail gem 会自动猜测附件的 MIME 类型，设置编码并创建附件
@@ -45,4 +47,10 @@ class OrderMailer < ApplicationMailer
 
     mail to: order.email,subject: "Pragmatic Store Order Shipped"
   end
+
+
+  # 也可设置 before_action、after_action 和 around_action。
+  # 与控制器中的回调一样，可以指定块，或者方法名的符号形式；
+
+
 end

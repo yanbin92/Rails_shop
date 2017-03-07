@@ -16,8 +16,8 @@ module Haitaoshop
     # 一个应用的 :host 参数一般是不变的，可以在 config/application.rb 文件中做全局配置：
     # config.action_mailer.default_url_options = { host: 'example.com' }  
     #!!!!鉴于此，在邮件视图中不能使用任何 *_path 辅助方法，而要使用相应的 *_url 辅助方法
-    #在邮件视图中添加图像
-    config.action_mailer.asset_host = 'http://localhost:3000'
+    #在邮件视图中添加图像 http://localhost:3000
+    config.action_mailer.asset_host = 'http://myrailsshop.herokuapp.com'
 
   	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
