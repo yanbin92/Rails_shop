@@ -8,9 +8,9 @@
 		<!-- #console 如果只想当对象不为 nil 时在其上调用方法 try -->
 		<td><%=line_item.product.title %></td>
 		<td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
-		<td><%=button_to 'decrease',decrement_line_item_path(id: line_item),method: :put,remote: true%>
+		<td><%=button_to 'decrease',decrement_line_item_url(id: line_item),method: :put,remote: true%>
 		</td>
 
-		<td><%=button_to 'del',line_item_path(id: line_item),method: :delete,data: { confirm: 'Are you sure?' } ,remote: true%>
+		<td><%=button_to 'del',line_item_url(id: line_item),method: :delete,data: { confirm: 'Are you sure?' } ,remote: true%>
 		</td>
 	</tr>

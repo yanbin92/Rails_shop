@@ -1,6 +1,6 @@
 class OrderMailer < ApplicationMailer
   #default：一个散列，该邮件程序发出邮件的默认设置。上例中，我们把 :from 邮件头设为一个值，这个类中的所有动作都会使用这个值
-  default from: 'Haitao shop <ybinbin@outlook.com>'
+  default from: 'Haitao shop <18036096795@163.com>'
   # 把邮件发给多个收件人
   # 若想把一封邮件发送给多个收件人，例如通知所有管理员有新用户注册，可以把 :to 键的值设为一组邮件地址。这一组邮件地址可以是一个数组；也可以是一个字符串，使用逗号分隔各个地址。
   # default to: Proc.new { Admin.pluck(:email) }
@@ -25,7 +25,7 @@ class OrderMailer < ApplicationMailer
   def received(order)
     @order = order
     #传入文件名和内容，Action Mailer 和 Mail gem 会自动猜测附件的 MIME 类型，设置编码并创建附件
-    attachments['filename.jpg'] = File.read(Rails.root.join('app', 'assets', 'images', 'av.jpg'))
+    attachments['show.jpg'] = File.read(Rails.root.join('app', 'assets', 'images', 'av.jpg'))
 
     # 如果在发送邮件时想覆盖发送选项（例如，SMTP 凭据），可以在邮件程序的动作中设定 delivery_method_options 选项。
     # delivery_options = { user_name: company.smtp_user,
@@ -33,13 +33,15 @@ class OrderMailer < ApplicationMailer
     #                        address: company.smtp_host }
 
     #mail：用于发送邮件的方法，我们传入了 :to 和 :subject 邮件头。
-    mail to: order.email,subject: "Pragmatic Store Order Confirmation"
-
+    mail to: order.email,subject: "Pragmatic Store Order Confirmation" do|format|
+      format.text
+    end
     #如果想获得更多灵活性，可以传入一个块，渲染指定的模板，或者不使用模板，渲染行间代码或纯文本：
     # mail(to: @user.email,
     #          subject: 'Welcome to My Awesome Site') do |format|
     #       format.html { render 'another_template' }
     #       format.text { render text: 'Render text' }
+    #end
 
   end
 

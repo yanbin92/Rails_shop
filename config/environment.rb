@@ -17,11 +17,10 @@ Rails.application.configure do
   #Alternatives to :smtp include :sendmail and :test
   config.action_mailer.smtp_settings = {
     address: "smtp.163.com",
-    port: 587,
-    domain: ".163.com",
-    user_name: "18036096795",
+    port: 25,
+    domain: "163.com",
+    user_name: "18036096795@163.com",
     password: "hello123",
-    authentication: "plain",
     enable_starttls_auto: true ,
     authentication: 'plain'
   }
