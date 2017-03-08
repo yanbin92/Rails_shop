@@ -60,7 +60,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   # 在开发环境中，Action Cable 默认允许来自 localhost:3000 的所有请求。
     
- 
+   # config.force_ssl = true
 end
 
 

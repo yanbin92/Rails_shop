@@ -49,7 +49,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   #在不安全的网络中嗅探 cookie。无线局域网就是一个例子。在未加密的无线局域网中，监听所有已连接客户端的流量极其容易。因此，Web 应用开发者应该通过 SSL 提供安全连接。在 Rails 3.1 和更高版本中，可以在应用配置文件中设置强制使用 SSL 连接：
-  config.force_ssl = true
+  # config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

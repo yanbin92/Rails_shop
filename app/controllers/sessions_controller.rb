@@ -20,6 +20,8 @@ class SessionsController < ApplicationController
     #   user.save
     # end
   	if user.try(:authenticate, params[:password])
+      #会话固定攻击的对策
+      reset_session
   		session[:user_id] = user.id
   		redirect_to admin_url
   	else
