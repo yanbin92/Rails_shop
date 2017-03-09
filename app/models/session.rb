@@ -1,5 +1,5 @@
 class Session < ApplicationRecord
-  #会话过期
+  #会话过期   session save in db can use activerecord-session_store
   # 注意
   # 永不过期的会话增加了跨站请求伪造（CSRF）、会话劫持和会话固定攻击的风险。
   # cookie 的过期时间可以通过会话 ID 设置。然而，客户端能够修改储存在 Web 浏览器中的 cookie，因此在服务器上使会话过期更安全。下面的例子演示如何使储存在数据库中的会话过期。通过调用 Session.sweep("20 minutes")，可以使闲置超过 20 分钟的会话过期。
@@ -13,4 +13,19 @@ class Session < ApplicationRecord
 	  created_at < '#{2.days.ago.to_s(:db)}'"
     # delete_all "updated_at < '#{time.ago.to_s(:db)}'"
   end
+
+  #跨站请求伪造（CSRF）
+# 跨站请求伪造的工作原理是，通过在页面中包含恶意代码或链接，访问已验证用户才能访问的 Web 应用。如果该 Web 应用的会话未超时，攻击者就能执行未经授权的操作。
+# csrf
+# 在 19.2 节中，我们了解到大多数 Rails 应用都使用基于 cookie 的会话。它们或者把会话 ID 储存在 cookie 中并在服务器端储存会话散列，或者把整个会话散列储存在客户端。不管是哪种情况，只要浏览器能够找到某个域名对应的 cookie，就会自动在发送请求时包含该 cookie。有争议的是，即便请求来源于另一个域名上的网站，浏览器在发送请求时也会包含客户端的 cookie。让我们来看个例子：
+# Bob 在访问留言板时浏览了一篇黑客发布的帖子，其中有一个精心设计的 HTML 图像元素。这个元素实际指向的是 Bob 的项目管理应用中的某个操作，而不是真正的图像文件：<img src="http://www.webapp.com/project/1/destroy">。
+# Bob 在 www.webapp.com 上的会话仍然是活动的，因为几分钟前他访问这个应用后没有退出。
+# 当 Bob 浏览这篇帖子时，浏览器发现了这个图像标签，于是尝试从 www.webapp.com 中加载图像。如前文所述，浏览器在发送请求时包含 cookie，其中就有有效的会话 ID。
+# www.webapp.com 上的 Web 应用会验证对应会话散列中的用户信息，并删除 ID 为 1 的项目，然后返回结果页面。由于返回的并非浏览器所期待的结果，图像无法显示。
+# Bob 当时并未发觉受到了攻击，但几天后，他发现 ID 为 1 的项目不见了。
+# 有一点需要特别注意，像上面这样精心设计的图像或链接，并不一定要出现在 Web 应用所在的域名上，而是可以出现在任何地方，例如论坛、博客帖子，甚至电子邮件中。
+
+# CSRF 对策
+# 注意
+# 首先，根据 W3C 的要求，应该适当地使用 GET 和 POST HTTP 方法。其次，在非 GET 请求中使用安全令牌（security token）可以防止应用受到 CSRF 攻击。
 end
