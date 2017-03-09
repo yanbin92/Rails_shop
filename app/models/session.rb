@@ -27,5 +27,21 @@ class Session < ApplicationRecord
 
 # CSRF 对策
 # 注意
-# 首先，根据 W3C 的要求，应该适当地使用 GET 和 POST HTTP 方法。其次，在非 GET 请求中使用安全令牌（security token）可以防止应用受到 CSRF 攻击。
+# 首先根据 W3C 的要求，应该适当地使用 GET 和 POST HTTP 方法。其次，在非 GET 请求中使用安全令牌（security token）可以防止应用受到 CSRF 攻击。
+
+
+#POST 请求也可以自动发送。在下面的例子中，链接 www.harmless.com 在浏览器状态栏中显示为目标地址，实际上却动态新建了一个发送 POST 请求的表单：
+
+# <a href="http://www.harmless.com/" onclick="
+#   var f = document.createElement('form');
+#   f.style.display = 'none';
+#   this.parentNode.appendChild(f);
+#   f.method = 'POST';
+#   f.action = 'http://www.example.com/account/destroy';
+#   f.submit();
+#   return false;">To the harmless survey</a>
+# 攻击者还可以把代码放在图片的 onmouseover 事件句柄中：
+
+# <img src="http://www.harmless.com/img" width="400" height="400" onmouseover="..." />
+# CSRF 还有很多可能的攻击方式，例如使用 <script> 标签向返回 JSONP 或 JavaScript 的 URL 地址发起跨站请求。对跨站请求的响应，返回的如果是攻击者可以设法运行的可执行代码，就有可能导致敏感数据泄露。为了避免发生这种情况，必须禁用跨站 <script> 标签。不过 Ajax 请求是遵循同源原则的（只有在同一个网站中才能初始化 XmlHttpRequest），因此在响应 Ajax 请求时返回 JavaScript 是安全的，不必担心跨站请求问题
 end

@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  #为了防止其他各种伪造请求，我们引入了安全令牌，这个安全令牌只有我们自己的网站知道，其他网站不知道。我们把安全令牌包含在请求中，并在服务器上进行验证。安全令牌在应用的控制器中使用下面这行代码设置，这也是新建 Rails 应用的默认值：
+  # protect_from_forgery with: :exception
+  # 这行代码会在 Rails 生成的所有表单和 Ajax 请求中包含安全令牌。如果安全令牌验证失败，就会抛出异常。
   protect_from_forgery with: :exception
   before_action :authorize 
 # rescue_from 截获所有 ActiveRecord::RecordNotFound 异常，然后做相应的处理。
