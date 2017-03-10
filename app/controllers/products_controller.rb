@@ -82,7 +82,15 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
+      #Ruby on Rails 内置了针对特殊 SQL 字符的过滤器，用于转义 '、"、NULL 和换行符。当我们使用 Model.find(id) 和 Model.find_by_something(something) 方法时，Rails 会自动应用这个过滤器。但在 SQL 片段中，尤其是在条件片段（where("…​")）中，需要为 connection.execute() 和 Model.find_by_sql() 方法手动应用这个过滤器
       @product = Product.find(params[:id])
+      #为了净化受污染的字符串，在提供查询条件的选项时，我们应该传入数组而不是直接传入字符串：
+
+      # Model.where("login = ? AND password = ?", entered_user_name, entered_password).first
+      # 如上所示，数组的第一个元素是包含问号的 SQL 片段，从第二个元素开始都是需要净化的变量，净化后的变量值将用于代替 SQL 片段中的问号。我们也可以传入散列来实现相同效果：
+
+      # Model.where(login: entered_user_name, password: entered_password).first
+      # 只有在模型实例上，才能通过数组或散列指定查询条件。对于其他情况，我们可以使用 sanitize_sql() 方法。遇到需要在 SQL 中使用外部字符串的情况时，请养成考虑安全问题的习惯。
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
