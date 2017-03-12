@@ -3,6 +3,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "users", only: [:page1]
   layout "application", except: [:page1]
+
+  #如果登录时用户名或密码不正确，大多数 Web 应用都会显示较为模糊的错误信息，如“用户名或密码不正确”。如果提示“未找到您输入的用户名”，攻击者就可以根据错误信息，自动生成精简后的有效用户名列表，从而提高攻击效率。
+  #容易被大多数 Web 应用设计者忽略的，是忘记密码页面。通过这个页面，通常能够确认用户名或电子邮件地址是否有效，攻击者可以据此生成用于暴力破解的用户名列表。
+  #为了规避这种攻击，忘记密码页面也应该显示较为模糊的错误信息
   # GET /users
   # GET /users.json
   def index
