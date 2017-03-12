@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     # end
   	if user.try(:authenticate, params[:password])
       #会话固定攻击的对策 
-      byebug
+      # byebug
       reset_session
   		session[:user_id] = user.id
   		redirect_to admin_url
