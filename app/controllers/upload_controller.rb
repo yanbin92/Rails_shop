@@ -17,6 +17,14 @@ class UploadController < ApplicationController
     #文件上传 如果我们把上传的文件储存在 /var/www/uploads 文件夹中，而用户输入了类似 ../../../etc/passwd 的文件名，在没有对文件名进行过滤的情况下，passwd 这个重要文件就有可能被覆盖
     #注意请确保文件上传时不会覆盖重要文件，同时对于媒体文件应该采用异步上传方式。
     #最佳策略是使用白名单，只允许在文件名中使用白名单中的字符。黑名单的做法是尝试删除禁止使用的字符，白名单的做法恰恰相反。对于无效的文件名，可以直接拒绝（或者把禁止使用的字符都替换掉），但不要尝试删除禁止使用的字符
+    #通过同步方式上传文件（attachment_fu 插件也能用于上传图像）的一个明显缺点是，存在受到拒绝服务攻击（denial-of-service，简称 DoS）的风险
+    #最佳解决方案是，对于媒体文件采用异步上传方式：保存媒体文件，并通过数据库调度程序处理请求。由另一个进程在后台完成文件上传。
+    # threads = []
+    # threads << Thread.new { func1 }
+    # threads << Thread.new { func2 }
+    # threads << Thread.new { func3 }
+
+    # threads.each { |t| t.join }
     uploaded_io = params[:picture][:uploaded_picture]
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
       file.write(uploaded_io.read)
@@ -41,11 +49,11 @@ class UploadController < ApplicationController
 
 
   def picture  #Paperclip4 attachment_fu5 plugins 
-	@picture = Picture.find(params[:id])
-	send_data(@picture.data,
-	filename: @picture.name,
-	type: @picture.content_type,
-	disposition: "inline")
+  	@picture = Picture.find(params[:id])
+  	send_data(@picture.data,
+  	filename: @picture.name,
+  	type: @picture.content_type,
+  	disposition: "inline")
   end
   #GET /show/1
   #show
@@ -56,9 +64,9 @@ class UploadController < ApplicationController
     #   format.html
     #   format.pdf {render pdf: }
     # end
-#     在 config/initializers/mime_types.rb 文件中加入下面这行代码即可：
+    # 在 config/initializers/mime_types.rb 文件中加入下面这行代码即可：
 
-# Mime::Type.register "application/pdf", :pdf
+    # Mime::Type.register "application/pdf", :pdf
 
   end
 
