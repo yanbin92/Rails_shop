@@ -14,6 +14,9 @@ class UploadController < ApplicationController
   end
   #文件上传完毕后可以做很多操作，例如把文件存储在某个地方（服务器的硬盘，Amazon S3 等）；把文件和模型关联起来；缩放图片，生成缩略图。这些复杂的操作已经超出了本文范畴。有很多代码库可以协助完成这些操作，其中两个广为人知的是 CarrierWave 和 Paperclip。
   def upload
+    #文件上传 如果我们把上传的文件储存在 /var/www/uploads 文件夹中，而用户输入了类似 ../../../etc/passwd 的文件名，在没有对文件名进行过滤的情况下，passwd 这个重要文件就有可能被覆盖
+    #注意请确保文件上传时不会覆盖重要文件，同时对于媒体文件应该采用异步上传方式。
+    #最佳策略是使用白名单，只允许在文件名中使用白名单中的字符。黑名单的做法是尝试删除禁止使用的字符，白名单的做法恰恰相反。对于无效的文件名，可以直接拒绝（或者把禁止使用的字符都替换掉），但不要尝试删除禁止使用的字符
     uploaded_io = params[:picture][:uploaded_picture]
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
       file.write(uploaded_io.read)
