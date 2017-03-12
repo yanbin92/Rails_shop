@@ -33,6 +33,10 @@ class UploadController < ApplicationController
 
   #send_data 和 send_file 方法。这两个方法都会以数据流的方式发送数据。send_file 方法很方便，只要提供硬盘中文件的名字，就会用数据流发送文件内容
   def download_img
+    #请确保用户不能随意下载文件。
+    #正如在上传文件时必须过滤文件名，在下载文件时也必须进行过滤。send_file() 方法用于把服务器上的文件发送到客户端。如果传递给 send_file() 方法的文件名参数是由用户输入的，却没有进行过滤，用户就能够下载服务器上的任何文件：
+    #send_file('/var/www/uploads/' + params[:filename])
+    #对此，一个简单的解决方案是，检查所请求的文件是否在规定的文件夹中
     @picture = Picture.find(params[:id])
     send_data(@picture.data,
     filename: @picture.name,
