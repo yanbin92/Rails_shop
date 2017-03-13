@@ -21,21 +21,25 @@ module Haitaoshop
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    #接受一个路径数组，让 Rails 自动加载里面的常量。默认值是 app 目录中的全部子目录。
     config.autoload_paths += %w(#{Rails.root}/lib)
     config.active_record.schema_format = :sql
     # 一个应用的 :host 参数一般是不变的，可以在 config/application.rb 文件中做全局配置：
     config.action_mailer.default_url_options = { host: 'myrailsshop.herokuapp.com' }  
     #!!!!鉴于此，在邮件视图中不能使用任何 *_path 辅助方法，而要使用相应的 *_url 辅助方法
     #在邮件视图中添加图像 http://localhost:3000
+    #config.asset_host 设定静态资源文件的主机名
     config.action_mailer.asset_host = 'http://myrailsshop.herokuapp.com'
 
   	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
   	# config.i18n.default_locale = :de
-  	#ctive Job 为多种队列后端（Sidekiq、Resque、Delayed Job，等等）内置了适配器。最新的适配器列表参见 ActiveJob::QueueAdapters 的 API 文档。
+  	#active Job 为多种队列后端（Sidekiq、Resque、Delayed Job，等等）内置了适配器。最新的适配器列表参见 ActiveJob::QueueAdapters 的 API 文档。
   	# 要把适配器的 gem 写入 Gemfile
   	# 请参照适配器的具体安装和部署说明
-      # config.active_job.queue_adapter = :sidekiq    
+    # config.active_job.queue_adapter = :sidekiq 
+
+    #config.cache_store 配置 Rails 缓存使用哪个存储器。可用的选项有：:memory_store、:file_store、:mem_cache_store、:null_store，或者实现了缓存 API 的对象。如果存在 tmp/cache 目录，默认值为 :file_store，否则为 :memory_store。   
     
   end
 end
