@@ -1,5 +1,5 @@
 # README
-
+# note :在使用 Ruby 的正则表达式时，一个常见错误是使用 ^ 和 $ 分别匹配字符串的开头和结尾，实际上正确的做法是使用 \A 和 \z。
 #What’s with method: :delete?
 You may have noticed that the scaffold-generated Destroy link includes the method:
 :delete parameter. This determines which method is called in the ProductsController class

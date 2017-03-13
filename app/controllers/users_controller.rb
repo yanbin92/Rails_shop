@@ -3,10 +3,13 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "users", only: [:page1]
   layout "application", except: [:page1]
+  #告诉 Rails 不要把密码写入日志。
+  #为防止跨站脚本（XSS）攻击，应允许使用 <strong> 标签，而不是去掉 <script> 标签，详情请参阅后文；
 
   #如果登录时用户名或密码不正确，大多数 Web 应用都会显示较为模糊的错误信息，如“用户名或密码不正确”。如果提示“未找到您输入的用户名”，攻击者就可以根据错误信息，自动生成精简后的有效用户名列表，从而提高攻击效率。
   #容易被大多数 Web 应用设计者忽略的，是忘记密码页面。通过这个页面，通常能够确认用户名或电子邮件地址是否有效，攻击者可以据此生成用于暴力破解的用户名列表。
   #为了规避这种攻击，忘记密码页面也应该显示较为模糊的错误信息
+  #当某个 IP 地址多次登录失败时，可以要求输入验证码 这并非防范自动化程序的万无一失的解决方案，因为这些程序可能会频繁更换 IP 地址，不过毕竟还是筑起了一道防线。
   # GET /users
   # GET /users.json
   def index
@@ -52,6 +55,8 @@ class UsersController < ApplicationController
     end
   end
 
+  #在修改密码的表单中加入 CSRF 防护，同时要求用户在修改密码时先输入旧密码
+  #电子邮件 针对这种攻击的对策是，要求用户在修改电子邮件地址时同样先输入旧密码。
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
@@ -70,18 +75,27 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    begin
+    if @user.name == "admin"
+      respond_to do |format|
+        format.html { redirect_to users_url,
+         notice: "User  #{@user.name} can\'t  destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      begin
         @user.destroy
-    rescue Exception => e
-      redirect_to users_url, notice: e.message
-      return
-    end
+      rescue Exception => e
+        redirect_to users_url, notice: e.message
+        return
+      end
 
-    respond_to do |format|
-      format.html { redirect_to users_url,
-       notice: 'User  #{@user.name} was successfully destroyed.' }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to users_url,
+         notice: "User  #{@user.name} was successfully destroyed."}
+        format.json { head :no_content }
+      end
     end
+  
   end
 
 
