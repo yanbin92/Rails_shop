@@ -125,3 +125,61 @@ config.middleware.swap ActionController::Failsafe, Lifo::Failsafe
 还可以从栈中移除：
 
 config.middleware.delete Rack::MethodOverride
+
+
+
+#配置 Active Record
+
+config.active_record 包含众多配置选项：
+
+config.active_record.logger 接受符合 Log4r 接口的日志记录器，或者默认的 Ruby Logger 类，然后传给新的数据库连接。可以在 Active Record 模型类或实例上调用 logger 方法获取日志记录器。设为 nil 时禁用日志。
+
+config.active_record.primary_key_prefix_type 用于调整主键列的名称。默认情况下，Rails 假定主键列名为 id（无需配置）。此外有两个选择：
+
+设为 :table_name 时，Customer 类的主键为 customerid。
+
+设为 :table_name_with_underscore 时，Customer 类的主键为 customer_id。
+
+config.active_record.table_name_prefix 设定一个全局字符串，放在表名前面。如果设为 northwest_，Customer 类对应的表是 northwest_customers。默认为空字符串。
+
+config.active_record.table_name_suffix 设定一个全局字符串，放在表名后面。如果设为 _northwest，Customer 类对应的表是 customers_northwest。默认为空字符串。
+
+config.active_record.schema_migrations_table_name 设定模式迁移表的名称。
+
+config.active_record.pluralize_table_names 指定 Rails 在数据库中寻找单数还是复数表名。如果设为 true（默认），那么 Customer 类使用 customers 表。如果设为 false，Customer 类使用 customer 表。
+
+config.active_record.default_timezone 设定从数据库中检索日期和时间时使用 Time.local（设为 :local 时）还是 Time.utc（设为 :utc 时）。默认为 :utc。
+
+config.active_record.schema_format 控制把数据库模式转储到文件中时使用的格式。可用的值有：:ruby（默认），与所用的数据库无关；:sql，转储 SQL 语句（可能与数据库有关）。
+
+config.active_record.error_on_ignored_order_or_limit 指定批量查询时如果忽略顺序或数量限制是否抛出错误。设为 true 时抛出错误，设为 false 时发出提醒。默认为 false。
+
+config.active_record.timestamped_migrations 控制迁移使用整数还是时间戳编号。默认为 true，使用时间戳。如果有多个开发者共同开发同一个应用，建议这么设置。
+
+config.active_record.lock_optimistically 控制 Active Record 是否使用乐观锁。默认为 true。
+
+config.active_record.cache_timestamp_format 控制缓存键中时间戳的格式。默认为 :nsec。
+
+config.active_record.record_timestamps 是个布尔值选项，控制 create 和 update 操作是否更新时间戳。默认值为 true。
+
+config.active_record.partial_writes 是个布尔值选项，控制是否使用部分写入（partial write，即更新时是否只设定有变化的属性）。注意，使用部分写入时，还应该使用乐观锁（config.active_record.lock_optimistically），因为并发更新可能写入过期的属性。默认值为 true。
+
+config.active_record.maintain_test_schema 是个布尔值选项，控制 Active Record 是否应该在运行测试时让测试数据库的模式与 db/schema.rb（或 db/structure.sql）保持一致。默认为 true。
+
+config.active_record.dump_schema_after_migration 是个旗标，控制运行迁移后是否转储模式（db/schema.rb 或 db/structure.sql）。生成 Rails 应用时，config/environments/production.rb 文件中把它设为 false。如果不设定这个选项，默认为 true。
+
+config.active_record.dump_schemas 控制运行 db:structure:dump 任务时转储哪些数据库模式。可用的值有：:schema_search_path（默认），转储 schema_search_path 列出的全部模式；:all，不考虑 schema_search_path，始终转储全部模式；以逗号分隔的模式字符串。
+
+config.active_record.belongs_to_required_by_default 是个布尔值选项，控制没有 belongs_to 关联时记录的验证是否失败。
+
+config.active_record.warn_on_records_fetched_greater_than 为查询结果的数量设定一个提醒阈值。如果查询返回的记录数量超过这一阈值，在日志中记录一个提醒。可用于标识可能导致内存泛用的查询。
+
+config.active_record.index_nested_attribute_errors 让嵌套的 has_many 关联错误显示索引。默认为 false。
+
+MySQL 适配器添加了一个配置选项：
+
+ActiveRecord::ConnectionAdapters::Mysql2Adapter.emulate_booleans 控制 Active Record 是否把 tinyint(1) 类型的列当做布尔值。默认为 true。
+
+模式转储程序添加了一个配置选项：
+
+ActiveRecord::SchemaDumper.ignore_tables 指定一个表数组，不包含在生成的模式文件中。如果 config.active_record.schema_format 的值不是 :ruby，这个设置会被忽略。
