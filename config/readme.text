@@ -68,3 +68,60 @@ scaffold_stylesheet 生成脚手架中的资源时创建 scaffold.css。默认�
 test_framework 指定使用哪个测试框架。默认为 false，即使用 Minitest。
 
 template_engine 指定使用哪个模板引擎，例如 ERB 或 Haml。默认为 :erb。
+
+
+ 配置中间件
+
+每个 Rails 应用都自带一系列中间件，在开发环境中按下述顺序使用：
+
+ActionDispatch::SSL 强制使用 HTTPS 伺服每个请求。config.force_ssl 设为 true 时启用。传给这个中间件的选项通过 config.ssl_options 配置。
+
+ActionDispatch::Static 用于伺服静态资源。config.public_file_server.enabled 设为 false 时禁用。如果静态资源目录的索引文件不是 index，使用 config.public_file_server.index_name 指定。例如，请求目录时如果想伺服 main.html，而不是 index.html，把 config.public_file_server.index_name 设为 "main"。
+
+ActionDispatch::Executor 以线程安全的方式重新加载代码。onfig.allow_concurrency 设为 false 时禁用，此时加载 Rack::Lock。Rack::Lock 把应用包装在 mutex 中，因此一次只能被一个线程调用。
+
+ActiveSupport::Cache::Strategy::LocalCache 是基本的内存后端缓存。这个缓存对线程不安全，只应该用作单线程的临时内存缓存。
+
+Rack::Runtime 设定 X-Runtime 首部，包含执行请求的时间（单位为秒）。
+
+Rails::Rack::Logger 通知日志请求开始了。请求完成后，清空相关日志。
+
+ActionDispatch::ShowExceptions 拯救应用抛出的任何异常，在本地或者把 config.consider_all_requests_local 设为 true 时渲染精美的异常页面。如果把 config.action_dispatch.show_exceptions 设为 false，异常总是抛出。
+
+ActionDispatch::RequestId 在响应中添加 X-Request-Id 首部，并且启用 ActionDispatch::Request#uuid 方法。
+
+ActionDispatch::RemoteIp 检查 IP 欺骗攻击，从请求首部中获取有效的 client_ip。可通过 config.action_dispatch.ip_spoofing_check 和 config.action_dispatch.trusted_proxies 配置。
+
+Rack::Sendfile 截获从文件中伺服内容的响应，将其替换成服务器专属的 X-Sendfile 首部。可通过 config.action_dispatch.x_sendfile_header 配置。
+
+ActionDispatch::Callbacks 在伺服请求之前运行准备回调。
+
+ActiveRecord::ConnectionAdapters::ConnectionManagement 在每次请求后清理活跃的连接，除非请求环境的 rack.test 键为 true。
+
+ActiveRecord::QueryCache 缓存请求中生成的所有 SELECT 查询。如果有 INSERT 或 UPDATE 查询，清空所有缓存。
+
+ActionDispatch::Cookies 为请求设定 cookie。
+
+ActionDispatch::Session::CookieStore 负责把会话存储在 cookie 中。可以把 config.action_controller.session_store 改为其他值，换成其他中间件。此外，可以使用 config.action_controller.session_options 配置传给这个中间件的选项。
+
+ActionDispatch::Flash 设定 flash 键。仅当为 config.action_controller.session_store 设定值时可用。
+
+Rack::MethodOverride 在设定了 params[:_method] 时允许覆盖请求方法。这是支持 PATCH、PUT 和 DELETE HTTP 请求的中间件。
+
+Rack::Head 把 HEAD 请求转换成 GET 请求，然后以 GET 请求伺服。
+
+除了这些常规中间件之外，还可以使用 config.middleware.use 方法添加：
+
+config.middleware.use Magical::Unicorns
+上述代码把 Magical::Unicorns 中间件添加到栈的末尾。如果想把中间件添加到另一个中间件的前面，可以使用 insert_before：
+
+config.middleware.insert_before Rack::Head, Magical::Unicorns
+此外，还有 insert_after。它把中间件添加到另一个中间件的后面：
+
+config.middleware.insert_after Rack::Head, Magical::Unicorns
+中间件也可以完全替换掉：
+
+config.middleware.swap ActionController::Failsafe, Lifo::Failsafe
+还可以从栈中移除：
+
+config.middleware.delete Rack::MethodOverride
