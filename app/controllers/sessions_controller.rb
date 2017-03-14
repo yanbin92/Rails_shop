@@ -22,8 +22,13 @@ class SessionsController < ApplicationController
   	if user.try(:authenticate, params[:password])
       #会话固定攻击的对策 
       # byebug
+      if !session[:cart_id]
+        @cart.id = session[:cart_id]
+      end
       reset_session
+      byebug
   		session[:user_id] = user.id
+      session[:cart_id] = @cart.id
   		redirect_to admin_url
   	else
       logger.debug "Invalid user/password #{user.inspect}"

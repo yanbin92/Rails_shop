@@ -1,0 +1,70 @@
+#配置静态资源
+
+config.assets.enabled 是个旗标，控制是否启用 Asset Pipeline。默认值为 true。
+
+config.assets.raise_runtime_errors 设为 true 时启用额外的运行时错误检查。推荐在 config/environments/development.rb 中设定，以免部署到生产环境时遇到意料之外的错误。
+
+config.assets.css_compressor 定义所用的 CSS 压缩程序。默认设为 sass-rails。目前唯一的另一个值是 :yui，使用 yui-compressor gem 压缩。
+
+config.assets.js_compressor 定义所用的 JavaScript 压缩程序。可用的值有 :closure、:uglifier 和 :yui，分别使用 closure-compiler、uglifier 和 yui-compressor gem。
+
+config.assets.gzip 是一个旗标，设定在静态资源的常规版本之外是否创建 gzip 版本。默认为 true。
+
+config.assets.paths 包含查找静态资源的路径。在这个配置选项中追加的路径，会在里面寻找静态资源。
+
+config.assets.precompile 设定运行 rake assets:precompile 任务时要预先编译的其他静态资源（除 application.css 和 application.js 之外）。
+
+config.assets.prefix 定义伺服静态资源的前缀。默认为 /assets。
+
+config.assets.manifest 定义静态资源预编译器使用的清单文件的完整路径。默认为 public 文件夹中 config.assets.prefix 设定的目录中的 manifest-<random>.json。
+
+config.assets.digest 设定是否在静态资源的名称中包含 MD5 指纹。默认为 true。
+
+config.assets.debug 禁止拼接和压缩静态文件。在 development.rb 文件中默认设为 true。
+
+config.assets.compile 是一个旗标，设定在生产环境中是否启用实时 Sprockets 编译。
+
+config.assets.logger 接受一个符合 Log4r 接口的日志记录器，或者默认的 Ruby Logger 类。默认值与 config.logger 相同。如果设为 false，不记录对静态资源的伺服。
+
+
+
+
+配置生成器
+
+Rails 允许通过 config.generators 方法调整生成器的行为。这个方法接受一个块：
+
+config.generators do |g|
+  g.orm :active_record
+  g.test_framework :test_unit
+end
+在这个块中可以使用的全部方法如下：
+
+assets 指定在生成脚手架时是否创建静态资源。默认为 true。
+
+force_plural 指定模型名是否允许使用复数。默认为 false。
+
+helper 指定是否生成辅助模块。默认为 true。
+
+integration_tool 指定使用哪个集成工具生成集成测试。默认为 :test_unit。
+
+javascripts 启用生成器中的 JavaScript 文件钩子。在 Rails 中供 scaffold 生成器使用。默认为 true。
+
+javascript_engine 配置生成静态资源时使用的脚本引擎（如 coffee）。默认为 :js。
+
+orm 指定使用哪个 ORM。默认为 false，即使用 Active Record。
+
+resource_controller 指定 rails generate resource 使用哪个生成器生成控制器。默认为 :controller。
+
+resource_route 指定是否生成资源路由。默认为 true。
+
+scaffold_controller 与 resource_controller 不同，它指定 rails generate scaffold 使用哪个生成器生成脚手架中的控制器。默认为 :scaffold_controller。
+
+stylesheets 启用生成器中的样式表钩子。在 Rails 中供 scaffold 生成器使用，不过也可以供其他生成器使用。默认为 true。
+
+stylesheet_engine 配置生成静态资源时使用的样式表引擎（如 sass）。默认为 :css。
+
+scaffold_stylesheet 生成脚手架中的资源时创建 scaffold.css。默认为 true。
+
+test_framework 指定使用哪个测试框架。默认为 false，即使用 Minitest。
+
+template_engine 指定使用哪个模板引擎，例如 ERB 或 Haml。默认为 :erb。

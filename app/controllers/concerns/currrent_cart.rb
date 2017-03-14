@@ -5,8 +5,10 @@ module CurrentCart
 	#This treatment allows us to share
 	#common code (even as little as a single method!) among controllers.
 		def  set_cart
+			byebug
 			@cart = Cart.find(session[:cart.id])
 			rescue ActiveRecord::RecordNotFound 
+				byebug
 				@cart= Cart.create
 				session[:cart_id]=@cart.id
 		end

@@ -52,7 +52,7 @@ Rails.application.configure do
 
   #强制所有请求经由 ActionDispatch::SSL 中间件处理，即通过 HTTPS 伺服，而且把 config.action_mailer.default_url_options 设为 { protocol: 'https' }。SSL 通过设定 config.ssl_options 选项配置
   config.force_ssl = true
-
+ 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
