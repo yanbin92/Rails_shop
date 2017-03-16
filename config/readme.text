@@ -183,3 +183,391 @@ ActiveRecord::ConnectionAdapters::Mysql2Adapter.emulate_booleans 控制 Active R
 模式转储程序添加了一个配置选项：
 
 ActiveRecord::SchemaDumper.ignore_tables 指定一个表数组，不包含在生成的模式文件中。如果 config.active_record.schema_format 的值不是 :ruby，这个设置会被忽略。
+
+# 配置 Action Controller
+
+config.action_controller 包含众多配置选项：
+
+config.action_controller.asset_host 设定静态资源的主机。不使用应用自身伺服静态资源，而是通过 CDN 伺服时设定。
+
+config.action_controller.perform_caching 配置应用是否使用 Action Controller 组件提供的缓存功能。默认在开发环境中为 false，在生产环境中为 true。
+
+config.action_controller.default_static_extension 配置缓存页面的扩展名。默认为 .html。
+
+config.action_controller.include_all_helpers 配置视图辅助方法在任何地方都可用，还是只在相应的控制器中可用。如果设为 false，UsersHelper 模块中的方法只在 UsersController 的视图中可用。如果设为 true，UsersHelper 模块中的方法在任何地方都可用。默认的行为（不明确设为 true 或 false）是视图辅助方法在每个控制器中都可用。
+
+config.action_controller.logger 接受符合 Log4r 接口的日志记录器，或者默认的 Ruby Logger 类，用于记录 Action Controller 的信息。设为 nil 时禁用日志。
+
+config.action_controller.request_forgery_protection_token 设定请求伪造的令牌参数名称。调用 protect_from_forgery 默认把它设为 :authenticity_token。
+
+config.action_controller.allow_forgery_protection 启用或禁用 CSRF 防护。在测试环境中默认为 false，其他环境默认为 true。
+
+config.action_controller.forgery_protection_origin_check 配置是否检查 HTTP Origin 首部与网站的源一致，作为一道额外的 CSRF 防线。
+
+config.action_controller.per_form_csrf_tokens 控制 CSRF 令牌是否只在生成它的方法（动作）中有效。
+
+config.action_controller.relative_url_root 用于告诉 Rails 你把应用部署到子目录中。默认值为 ENV['RAILS_RELATIVE_URL_ROOT']。
+
+config.action_controller.permit_all_parameters 设定默认允许批量赋值全部参数。默认值为 false。
+
+config.action_controller.action_on_unpermitted_parameters 设定在发现没有允许的参数时记录日志还是抛出异常。设为 :log 或 :raise 时启用。开发和测试环境的默认值是 :log，其他环境的默认值是 false。
+
+config.action_controller.always_permitted_parameters 设定一个参数白名单列表，默认始终允许。默认值是 ['controller', 'action']。
+
+#配置 Action Dispatch
+
+config.action_dispatch.session_store 设定存储会话数据的存储器。默认为 :cookie_store；其他有效的值包括 :active_record_store、:mem_cache_store 或自定义类的名称。
+
+config.action_dispatch.default_headers 的值是一个散列，设定每个响应默认都有的 HTTP 首部。默认定义的首部有：
+
+config.action_dispatch.default_headers = {
+  'X-Frame-Options' => 'SAMEORIGIN',
+  'X-XSS-Protection' => '1; mode=block',
+  'X-Content-Type-Options' => 'nosniff'
+}
+config.action_dispatch.default_charset 指定渲染时使用的默认字符集。默认为 nil。
+
+config.action_dispatch.tld_length 设定应用的 TLD（top-level domain，顶级域名）长度。默认为 1。
+
+config.action_dispatch.http_auth_salt 设定 HTTP Auth 的盐值。默认为 'http authentication'。
+
+config.action_dispatch.signed_cookie_salt 设定签名 cookie 的盐值。默认为 'signed cookie'。
+
+config.action_dispatch.encrypted_cookie_salt 设定加密 cookie 的盐值。默认为 'encrypted cookie'。
+
+config.action_dispatch.encrypted_signed_cookie_salt 设定签名加密 cookie 的盐值。默认为 'signed encrypted cookie'。
+
+config.action_dispatch.perform_deep_munge 配置是否在参数上调用 deep_munge 方法。详情参见 19.8 节。默认为 true。
+
+config.action_dispatch.rescue_responses 设定异常与 HTTP 状态的对应关系。其值为一个散列，指定异常和状态之间的映射。默认的定义如下：
+
+config.action_dispatch.rescue_responses = {
+  'ActionController::RoutingError'              => :not_found,
+  'AbstractController::ActionNotFound'          => :not_found,
+  'ActionController::MethodNotAllowed'          => :method_not_allowed,
+  'ActionController::UnknownHttpMethod'         => :method_not_allowed,
+  'ActionController::NotImplemented'            => :not_implemented,
+  'ActionController::UnknownFormat'             => :not_acceptable,
+  'ActionController::InvalidAuthenticityToken'  => :unprocessable_entity,
+  'ActionController::InvalidCrossOriginRequest' => :unprocessable_entity,
+  'ActionDispatch::ParamsParser::ParseError'    => :bad_request,
+  'ActionController::BadRequest'                => :bad_request,
+  'ActionController::ParameterMissing'          => :bad_request,
+  'Rack::QueryParser::ParameterTypeError'       => :bad_request,
+  'Rack::QueryParser::InvalidParameterError'    => :bad_request,
+  'ActiveRecord::RecordNotFound'                => :not_found,
+  'ActiveRecord::StaleObjectError'              => :conflict,
+  'ActiveRecord::RecordInvalid'                 => :unprocessable_entity,
+  'ActiveRecord::RecordNotSaved'                => :unprocessable_entity
+}
+没有配置的异常映射为 500 Internal Server Error。
+
+ActionDispatch::Callbacks.before 接受一个代码块，在请求之前运行。
+
+ActionDispatch::Callbacks.to_prepare 接受一个块，在 ActionDispatch::Callbacks.before 之后、请求之前运行。在开发环境中每个请求都会运行，但在生产环境或 cache_classes 设为 true 的环境中只运行一次。
+
+ActionDispatch::Callbacks.after 接受一个代码块，在请求之后运行。
+
+配置 Action View
+
+config.action_view 有一些配置选项：
+
+config.action_view.field_error_proc 提供一个 HTML 生成器，用于显示 Active Model 抛出的错误。默认为：
+
+Proc.new do |html_tag, instance|
+  %Q(<div class="field_with_errors">#{html_tag}</div>).html_safe
+end
+config.action_view.default_form_builder 告诉 Rails 默认使用哪个表单构造器。默认为 ActionView::Helpers::FormBuilder。如果想在初始化之后加载表单构造器类，把值设为一个字符串。
+
+config.action_view.logger 接受符合 Log4r 接口的日志记录器，或者默认的 Ruby Logger 类，用于记录 Action View 的信息。设为 nil 时禁用日志。
+
+config.action_view.erb_trim_mode 让 ERB 使用修剪模式。默认为 '-'，使用 <%= -%> 或 <%= =%> 时裁掉尾部的空白和换行符。详情参见 Erubis 的文档。
+
+config.action_view.embed_authenticity_token_in_remote_forms 设定具有 remote: true 选项的表单中 authenticity_token 的默认行为。默认设为 false，即远程表单不包含 authenticity_token，对表单做片段缓存时可以这么设。远程表单从 meta 标签中获取真伪令牌，因此除非要支持没有 JavaScript 的浏览器，否则不应该内嵌在表单中。如果想支持没有 JavaScript 的浏览器，可以在表单选项中设定 authenticity_token: true，或者把这个配置设为 true。
+
+config.action_view.prefix_partial_path_with_controller_namespace 设定渲染嵌套在命名空间中的控制器时是否在子目录中寻找局部视图。例如，Admin::ArticlesController 渲染这个模板：
+
+<%= render @article %>
+默认设置是 true，使用局部视图 /admin/articles/_article.erb。设为 false 时，渲染 /articles/_article.erb——这与渲染没有放入命名空间中的控制器一样，例如 ArticlesController。
+
+config.action_view.raise_on_missing_translations 设定缺少翻译时是否抛出错误。
+
+config.action_view.automatically_disable_submit_tag 设定点击提交按钮（submit_tag）时是否自动将其禁用。默认为 true。
+
+config.action_view.debug_missing_translation 设定是否把缺少的翻译键放在 <span> 标签中。默认为 true。
+
+
+配置 Action Mailer
+
+config.action_mailer 有一些配置选项：
+
+config.action_mailer.logger 接受符合 Log4r 接口的日志记录器，或者默认的 Ruby Logger 类，用于记录 Action Mailer 的信息。设为 nil 时禁用日志。
+
+config.action_mailer.smtp_settings 用于详细配置 :smtp 发送方法。值是一个选项散列，包含下述选项：
+
+:address：设定远程邮件服务器的地址。默认为 localhost。
+
+:port：如果邮件服务器不在 25 端口上（很少发生），可以修改这个选项。
+
+:domain：如果需要指定 HELO 域名，通过这个选项设定。
+
+:user_name：如果邮件服务器需要验证身份，通过这个选项设定用户名。
+
+:password：如果邮件服务器需要验证身份，通过这个选项设定密码。
+
+:authentication：如果邮件服务器需要验证身份，要通过这个选项设定验证类型。这个选项的值是一个符号，可以是 :plain、:login 或 :cram_md5。
+
+config.action_mailer.sendmail_settings 用于详细配置 sendmail 发送方法。值是一个选项散列，包含下述选项：
+
+:location：sendmail 可执行文件的位置。默认为 /usr/sbin/sendmail。
+
+:arguments：命令行参数。默认为 -i。
+
+config.action_mailer.raise_delivery_errors 指定无法发送电子邮件时是否抛出错误。默认为 true。
+
+config.action_mailer.delivery_method 设定发送方法，默认为 :smtp。详情参见 16.6 节。
+
+config.action_mailer.perform_deliveries 指定是否真的发送邮件，默认为 true。测试时建议设为 false。
+
+config.action_mailer.default_options 配置 Action Mailer 的默认值。用于为每封邮件设定 from 或 reply_to 等选项。设定的默认值为：
+
+mime_version:  "1.0",
+charset:       "UTF-8",
+content_type: "text/plain",
+parts_order:  ["text/plain", "text/enriched", "text/html"]
+若想设定额外的选项，使用一个散列：
+
+config.action_mailer.default_options = {
+  from: "noreply@example.com"
+}
+config.action_mailer.observers 注册观测器（observer），发送邮件时收到通知。
+
+config.action_mailer.observers = ["MailObserver"]
+config.action_mailer.interceptors 注册侦听器（interceptor），在发送邮件前调用。
+
+config.action_mailer.interceptors = ["MailInterceptor"]
+config.action_mailer.preview_path 指定邮件程序预览的位置。
+
+config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+config.action_mailer.show_previews 启用或禁用邮件程序预览。开发环境默认为 true。
+
+config.action_mailer.show_previews = false
+config.action_mailer.deliver_later_queue_name 设定邮件程序的队列名称。默认为 mailers。
+
+config.action_mailer.perform_caching 指定是否片段缓存邮件模板。在所有环境中默认为 false。
+
+配置 Active Support
+
+Active Support 有一些配置选项：
+
+config.active_support.bare 指定在启动 Rails 时是否加载 active_support/all。默认为 nil，即加载 active_support/all。
+
+config.active_support.test_order 设定执行测试用例的顺序。可用的值是 :random 和 :sorted。对新生成的应用来说，在 config/environments/test.rb 文件中设为 :random。如果应用没指定测试顺序，在 Rails 5.0 之前默认为 :sorted，之后默认为 :random。
+
+config.active_support.escape_html_entities_in_json 指定在 JSON 序列化中是否转义 HTML 实体。默认为 true。
+
+config.active_support.use_standard_json_time_format 指定是否把日期序列化成 ISO 8601 格式。默认为 true。
+
+config.active_support.time_precision 设定 JSON 编码的时间值的精度。默认为 3。
+
+ActiveSupport.halt_callback_chains_on_return_false 指定是否可以通过在前置回调中返回 false 停止 Active Record 和 Active Model 回调链。设为 false 时，只能通过 throw(:abort) 停止回调链。设为 true 时，可以通过返回 false 停止回调链（Rails 5 之前版本的行为），但是会发出弃用提醒。在弃用期内默认为 true。新的 Rails 5 应用会生成一个名为 callback_terminator.rb 的初始化文件，把值设为 false。执行 rails app:update 命令时不会添加这个文件，因此把旧应用升级到 Rails 5 后依然可以通过返回 false 停止回调链，不过会显示弃用提醒，提示用户升级代码。
+
+ActiveSupport::Logger.silencer 设为 false 时静默块的日志。默认为 true。
+
+ActiveSupport::Cache::Store.logger 指定缓存存储操作使用的日志记录器。
+
+ActiveSupport::Deprecation.behavior 的作用与 config.active_support.deprecation 相同，用于配置 Rails 弃用提醒的行为。
+
+ActiveSupport::Deprecation.silence 接受一个块，块里的所有弃用提醒都静默。
+
+ActiveSupport::Deprecation.silenced 设定是否显示弃用提醒。
+
+配置 Active Job
+
+config.active_job 提供了下述配置选项：
+
+config.active_job.queue_adapter 设定队列后端的适配器。默认的适配器是 :async。最新的内置适配器参见 ActiveJob::QueueAdapters 的 API 文档。
+
+# 要把适配器的 gem 写入 Gemfile
+# 请参照适配器的具体安装和部署说明
+config.active_job.queue_adapter = :sidekiq
+config.active_job.default_queue_name 用于修改默认的队列名称。默认为 "default"。
+
+config.active_job.default_queue_name = :medium_priority
+config.active_job.queue_name_prefix 用于为所有作业设定队列名称的前缀（可选）。默认为空，不使用前缀。
+
+做下述配置后，在生产环境中运行时把指定作业放入 production_high_priority 队列中：
+
+config.active_job.queue_name_prefix = Rails.env
+class GuestsCleanupJob < ActiveJob::Base
+  queue_as :high_priority
+  #....
+end
+config.active_job.queue_name_delimiter 的默认值是 '_'。如果设定了 queue_name_prefix，使用 queue_name_delimiter 连接前缀和队列名。
+
+下述配置把指定作业放入 video_server.low_priority 队列中：
+
+# 设定了前缀才会使用分隔符
+config.active_job.queue_name_prefix = 'video_server'
+config.active_job.queue_name_delimiter = '.'
+class EncoderJob < ActiveJob::Base
+  queue_as :low_priority
+  #....
+end
+config.active_job.logger 接受符合 Log4r 接口的日志记录器，或者默认的 Ruby Logger 类，用于记录 Action Job 的信息。在 Active Job 类或实例上调用 logger 方法可以获取日志记录器。设为 nil 时禁用日志。
+
+
+配置 Action Cable
+
+config.action_cable.url 的值是一个 URL 字符串，指定 Action Cable 服务器的地址。如果 Action Cable 服务器与主应用的服务器不同，可以使用这个选项。
+
+config.action_cable.mount_path 的值是一个字符串，指定把 Action Cable 挂载在哪里，作为主服务器进程的一部分。默认为 /cable。可以设为 nil，不把 Action Cable 挂载为常规 Rails 服务器的一部分。
+
+
+配置数据库
+
+几乎所有 Rails 应用都要与数据库交互。可以通过环境变量 ENV['DATABASE_URL'] 或 config/database.yml 配置文件中的信息连接数据库。
+
+在 config/database.yml 文件中可以指定访问数据库所需的全部信息：
+
+development:
+  adapter: postgresql
+  database: blog_development
+  pool: 5
+此时使用 postgresql 适配器连接名为 blog_development 的数据库。这些信息也可以存储在一个 URL 中，然后通过环境变量提供，如下所示：
+
+> puts ENV['DATABASE_URL']
+postgresql://localhost/blog_development?pool=5
+config/database.yml 文件分成三部分，分别对应 Rails 默认支持的三个环境：
+
+development 环境在开发（本地）电脑中使用，手动与应用交互。
+
+test 环境用于运行自动化测试。
+
+production 环境在把应用部署到线上时使用。
+
+如果愿意，可以在 config/database.yml 文件中指定连接 URL：
+
+development:
+  url: postgresql://localhost/blog_development?pool=5
+config/database.yml 文件中可以包含 ERB 标签 <%= %>。这个标签中的内容作为 Ruby 代码执行。可以使用这个标签从环境变量中获取数据，或者执行计算，生成所需的连接信息。
+
+提示
+无需自己动手更新数据库配置。如果查看应用生成器的选项，你会发现其中一个名为 --database。通过这个选项可以从最常使用的关系数据库中选择一个。甚至还可以重复运行这个生成器：cd .. && rails new blog --database=mysql。同意重写 config/database.yml 文件后，应用的配置会针对 MySQL 更新。常见的数据库连接示例参见下文。
+
+
+21.3.15 连接配置的优先级
+
+因为有两种配置连接的方式（使用 config/database.yml 文件或者一个环境变量），所以要明白二者之间的关系。
+
+如果 config/database.yml 文件为空，而 ENV['DATABASE_URL'] 有值，那么 Rails 使用环境变量连接数据库：
+
+$ cat config/database.yml
+
+$ echo $DATABASE_URL
+postgresql://localhost/my_database
+如果在 config/database.yml 文件中做了配置，而 ENV['DATABASE_URL'] 没有值，那么 Rails 使用这个文件中的信息连接数据库：
+
+$ cat config/database.yml
+development:
+  adapter: postgresql
+  database: my_database
+  host: localhost
+
+$ echo $DATABASE_URL
+如果 config/database.yml 文件中做了配置，而且 ENV['DATABASE_URL'] 有值，Rails 会把二者合并到一起。为了更好地理解，必须看些示例。
+
+如果连接信息有重复，环境变量中的信息优先级高：
+
+$ cat config/database.yml
+development:
+  adapter: sqlite3
+  database: NOT_my_database
+  host: localhost
+
+$ echo $DATABASE_URL
+postgresql://localhost/my_database
+
+$ bin/rails runner 'puts ActiveRecord::Base.configurations'
+{"development"=>{"adapter"=>"postgresql", "host"=>"localhost", "database"=>"my_database"}}
+可以看出，适配器、主机和数据库与 ENV['DATABASE_URL'] 中的信息匹配。
+
+如果信息无重复，都是唯一的，遇到冲突时还是环境变量中的信息优先级高：
+
+$ cat config/database.yml
+development:
+  adapter: sqlite3
+  pool: 5
+
+$ echo $DATABASE_URL
+postgresql://localhost/my_database
+
+$ bin/rails runner 'puts ActiveRecord::Base.configurations'
+{"development"=>{"adapter"=>"postgresql", "host"=>"localhost", "database"=>"my_database", "pool"=>5}}
+ENV['DATABASE_URL'] 没有提供连接池数量，因此从文件中获取。而两处都有 adapter，因此 ENV['DATABASE_URL'] 中的连接信息胜出。
+
+如果不想使用 ENV['DATABASE_URL'] 中的连接信息，唯一的方法是使用 "url" 子键指定一个 URL：
+
+$ cat config/database.yml
+development:
+  url: sqlite3:NOT_my_database
+
+$ echo $DATABASE_URL
+postgresql://localhost/my_database
+
+$ bin/rails runner 'puts ActiveRecord::Base.configurations'
+{"development"=>{"adapter"=>"sqlite3", "database"=>"NOT_my_database"}}
+这里，ENV['DATABASE_URL'] 中的连接信息被忽略了。注意，适配器和数据库名称不同了。
+
+因为在 config/database.yml 文件中可以内嵌 ERB，所以最好明确表明使用 ENV['DATABASE_URL'] 连接数据库。这在生产环境中特别有用，因为不应该把机密信息（如数据库密码）提交到源码控制系统中（如 Git）。
+
+$ cat config/database.yml
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+现在的行为很明确，只使用 <%= ENV['DATABASE_URL'] %> 中的连接信息。
+
+
+非侵入式 JavaScript
+Rails 使用一种叫做“非侵入式 JavaScript”（Unobtrusive JavaScript）的技术把 JavaScript 依附到 DOM 上。非侵入式 JavaScript 是前端开发社区推荐的做法，但有些教程可能会使用其他方式。
+
+下面是编写 JavaScript 最简单的方式，你可能见过，这叫做“行间 JavaScript”：
+
+<a href="#" onclick="this.style.backgroundColor='#990000'">Paint it red</a>
+点击链接后，链接的背景会变成红色。这种用法的问题是，如果点击链接后想执行大量 JavaScript 代码怎么办？
+
+<a href="#" onclick="this.style.backgroundColor='#009900';this.style.color='#FFFFFF';">Paint it green</a>
+太别扭了，不是吗？我们可以把处理点击的代码定义成一个函数，用 CoffeeScript 编写如下：
+
+@paintIt = (element, backgroundColor, textColor) ->
+  element.style.backgroundColor = backgroundColor
+  if textColor?
+    element.style.color = textColor
+然后在页面中这么写：
+
+<a href="#" onclick="paintIt(this, '#990000')">Paint it red</a>
+这种方法好点儿，但是如果很多链接需要同样的效果该怎么办呢？
+
+<a href="#" onclick="paintIt(this, '#990000')">Paint it red</a>
+<a href="#" onclick="paintIt(this, '#009900', '#FFFFFF')">Paint it green</a>
+<a href="#" onclick="paintIt(this, '#000099', '#FFFFFF')">Paint it blue</a>
+这样非常不符合 DRY 原则。为了解决这个问题，我们可以使用“事件”。在链接上添加一个 data-* 属性，然后把处理程序绑定到拥有这个属性的点击事件上：
+
+@paintIt = (element, backgroundColor, textColor) ->
+  element.style.backgroundColor = backgroundColor
+  if textColor?
+    element.style.color = textColor
+
+$ ->
+  $("a[data-background-color]").click (e) ->
+    e.preventDefault()
+
+    backgroundColor = $(this).data("background-color")
+    textColor = $(this).data("text-color")
+    paintIt(this, backgroundColor, textColor)
+<a href="#" data-background-color="#990000">Paint it red</a>
+<a href="#" data-background-color="#009900" data-text-color="#FFFFFF">Paint it green</a>
+<a href="#" data-background-color="#000099" data-text-color="#FFFFFF">Paint it blue</a>
+我们把这种方法称为“非侵入式 JavaScript”，因为 JavaScript 代码不再和 HTML 混合在一起。这样做正确分离了关注点，易于修改功能。我们可以轻易地把这种效果应用到其他链接上，只要添加相应的 data 属性即可。我们可以简化并拼接全部 JavaScript，然后在各个页面加载一个 JavaScript 文件，这样只在第一次请求时需要加载，后续请求都会直接从缓存中读取。“非侵入式 JavaScript”带来的好处太多了。
+
+Rails 团队极力推荐使用这种方式编写 CoffeeScript（以及 JavaScript），而且你会发现很多代码库都采用了这种方式。
+

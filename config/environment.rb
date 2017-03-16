@@ -23,6 +23,7 @@ Rails.application.configure do
     password: "hello123",
     enable_starttls_auto: true ,
     authentication: 'plain'
+    #:authentication：如果邮件服务器需要验证身份，要通过这个选项设定验证类型。这个选项的值是一个符号，可以是 :plain、:login 或 :cram_md5。
   }
 
 end
