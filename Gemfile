@@ -20,6 +20,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+#Turbolinks 为页面中所有的 <a> 元素添加一个点击事件处理程序。如果浏览器支持 PushState，Turbolinks 会发起 Ajax 请求，解析响应，然后使用响应主体替换原始页面的整个 <body> 元素。最后，使用 PushState 技术更改页面的 URL，让新页面可刷新，并且有个精美的 URL。
+# 要想使用 Turbolinks，只需将其加入 Gemfile，然后在 app/assets/javascripts/application.js 中加入 //= require turbolinks。
+# 如果某个链接不想使用 Turbolinks，可以在链接中添加 data-turbolinks="false" 属性：
+# <a href="..." data-turbolinks="false">No turbolinks here</a>.
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'

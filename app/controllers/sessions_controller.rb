@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   # 不要在会话中储存大型对象，而应该把它们储存在数据库中，并将其 ID 保存在会话中。这么做可以避免同步问题，并且不会导致会话存储空间耗尽（会话存储空间的大小取决于其类型，详见后文）。如果不这么做，当修改了对象结构时，用户 cookie 中保存的仍然是对象的旧版本。通过在服务器端储存会话，我们可以轻而易举地清除会话，而在客户端储存会话，要想清除会话就很麻烦了。
   # 关键数据不应该储存在会话中。如果用户清除了 cookie 或关闭了浏览器，这些关键数据就会丢失。而且，在客户端储存会话，用户还能读取关键数据。
   skip_before_action :authorize
+  before_action :set_cart ,except: [:destroy]
   def new
   end
 
@@ -21,12 +22,8 @@ class SessionsController < ApplicationController
     # end
   	if user.try(:authenticate, params[:password])
       #会话固定攻击的对策 
-      # byebug
-      if !session[:cart_id]
-        @cart.id = session[:cart_id]
-      end
       reset_session
-      byebug
+      #TODO 这边cart与user应该关联起来
   		session[:user_id] = user.id
       session[:cart_id] = @cart.id
   		redirect_to admin_url
@@ -39,15 +36,13 @@ class SessionsController < ApplicationController
 
       # logger.debug {"Person attributes hash: #{@person.attributes.inspect}"}
       # 代码块中的内容，即字符串插值，仅当允许 :debug 日志等级时才会执行。这种降低性能的方式只有在日志量比较大时才能体现出来，但却是个好的编程习惯。
-
-
-
   		redirect_to login_url,alert: "Invalid user/password#{user.inspect}"
   	end
   end
 
-  def destroy
+  def destroy 
   	session[:user_id] = nil
+    # session[:cart_id] = nil
   	redirect_to store_index_url,notice: "Logged out"
   end
 end
