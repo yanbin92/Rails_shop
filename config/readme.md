@@ -956,7 +956,7 @@ Object.instance_eval { remove_const(:C) }
 X.new.quack # => quack!
 X.name      # => C
 C           # => uninitialized constant C (NameError)
-鉴于此，不建议在应用初始化过程中自动加载常量。
+##鉴于此，不建议在应用初始化过程中自动加载常量。
 
 对上述示例来说，我们可以实现一个动态接入点：
 
@@ -974,4 +974,132 @@ class AuthService
 end
 然后在应用中使用 AuthService.instance。这样，AuthService 会按需加载，而且能顺利自动加载。
 
+##26.10.5 require_dependency 和初始化脚本
 
+前面说过，require_dependency 加载的文件能顺利自动加载。但是，一般来说不应该在初始化脚本中使用。
+
+有人可能觉得在初始化脚本中调用 require_dependency 能确保提前加载特定的常量，例如用于解决 STI 问题。
+
+问题是，在开发环境中，如果文件系统中有相关的改动，自动加载的常量会被抹除。这样就与使用初始化脚本的初衷背道而驰了。
+
+require_dependency 调用应该写在能自动加载的地方。
+
+#26.10.6 常量未缺失
+
+##26.10.6.1 相对引用
+以一个飞行模拟器为例。应用中有个默认的飞行模型：
+
+# app/models/flight_model.rb
+class FlightModel
+end
+每架飞机都可以将其覆盖，例如：
+
+# app/models/bell_x1/flight_model.rb
+module BellX1
+  class FlightModel < FlightModel
+  end
+end
+
+# app/models/bell_x1/aircraft.rb
+module BellX1
+  class Aircraft
+    def initialize
+      @flight_model = FlightModel.new
+    end
+  end
+end
+初始化脚本想创建一个 BellX1::FlightModel 对象，而且嵌套中有 BellX1，看起来这没什么问题。但是，如果默认飞行模型加载了，但是 Bell-X1 模型没有，解释器能解析顶层的 FlightModel，因此 BellX1::FlightModel 不会触发自动加载机制。
+
+这种代码取决于执行路径。
+
+这种歧义通常可以通过限定常量解决：
+
+module BellX1
+  class Plane
+    def flight_model
+      @flight_model ||= BellX1::FlightModel.new
+    end
+  end
+end
+此外，使用 require_dependency 也能解决：
+
+require_dependency 'bell_x1/flight_model'
+
+module BellX1
+  class Plane
+    def flight_model
+      @flight_model ||= FlightModel.new
+    end
+  end
+end
+
+
+##26.10.6.2 限定引用
+对下述代码来说
+
+# app/models/hotel.rb
+class Hotel
+end
+
+# app/models/image.rb
+class Image
+end
+
+# app/models/hotel/image.rb
+class Hotel
+  class Image < Image
+  end
+end
+Hotel::Image 这个表达式有歧义，因为它取决于执行路径。
+
+从前文得知，Ruby 会在 Hotel 及其祖先中查找常量。如果加载了 app/models/image.rb 文件，但是没有加载 app/models/hotel/image.rb，Ruby 在 Hotel 中找不到 Image，而在 Object 中能找到：
+
+$ bin/rails r 'Image; p Hotel::Image' 2>/dev/null
+Image # 不是 Hotel::Image！
+若想得到 Hotel::Image，要确保 app/models/hotel/image.rb 文件已经加载——或许是使用 require_dependency 加载的。
+
+不过，在这些情况下，解释器会发出提醒：
+
+warning: toplevel constant Image referenced by Hotel::Image
+任何限定的类都能发现这种奇怪的常量解析行为：
+
+2.1.5 :001 > String::Array
+(irb):1: warning: toplevel constant Array referenced by String::Array
+ => Array
+提醒
+为了发现这种问题，限定命名空间必须是类。Object 不是模块的祖先。
+
+
+##26.10.7 单例类中的自动加载
+
+假如有下述类定义：
+
+# app/models/hotel/services.rb
+module Hotel
+  class Services
+  end
+end
+
+# app/models/hotel/geo_location.rb
+module Hotel
+  class GeoLocation
+    class << self
+      Services
+    end
+  end
+end
+如果加载 app/models/hotel/geo_location.rb 文件时 Hotel::Services 是已知的，Services 由 Ruby 解析，因为打开 Hotel::GeoLocation 的单例类时，Hotel 在嵌套中。
+
+但是，如果 Hotel::Services 是未知的，Rails 无法自动加载它，应用会抛出 NameError 异常。
+
+这是因为单例类（匿名的）会触发自动加载，从前文得知，在这种边缘情况下，Rails 只检查顶层命名空间。
+
+这个问题的简单解决方案是使用限定常量：
+
+module Hotel
+  class GeoLocation
+    class << self
+      Hotel::Services
+    end
+  end
+end
