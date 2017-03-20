@@ -714,3 +714,218 @@ Billing::Invoice 由两个常量组成，其中 Billing 是相对常量，使用
 
 提示
 在开头加上两个冒号可以把第一部分的相对常量变成绝对常量，例如 ::Billing::Invoice。此时，Billing 作为顶层常量查找。
+
+#自动加载可用性
+只要环境允许，Rails 始终会自动加载。例如，runner 命令会自动加载：
+
+$ bin/rails runner 'p User.column_names'
+["id", "email", "created_at", "updated_at"]
+控制台会自动加载，测试组件会自动加载，当然，应用也会自动加载。
+
+默认情况下，在生产环境中，Rails 启动时会及早加载应用文件，因此开发环境中的多数自动加载行为不会发生。但是在及早加载的过程中仍然可能会触发自动加载。
+
+例如：class BeachHouse < House
+end
+如果及早加载 app/models/beach_house.rb 文件之后，House 尚不可知，Rails 会自动加载它
+
+
+#autoload_paths
+或许你已经知道，使用 require 引入相对文件名时，例如
+
+require 'erb'
+Ruby 在 $LOAD_PATH 中列出的目录里寻找文件。即，Ruby 迭代那些目录，检查其中有没有名为“erb.rb”“erb.so”“erb.o”或“erb.dll”的文件。如果在某个目录中找到了，解释器加载那个文件，搜索结束。否则，继续在后面的目录中寻找。如果最后没有找到，抛出 LoadError 异常。
+
+后面会详述常量自动加载机制，不过整体思路是，遇到未知的常量时，如 Post，假如 app/models 目录中存在 post.rb 文件，Rails 会找到它，执行它，从而定义 Post 常量。
+
+好吧，其实 Rails 会在一系列目录中查找 post.rb，有点类似于 $LOAD_PATH。那一系列目录叫做 autoload_paths，默认包含：
+
+应用和启动时存在的引擎的 app 目录中的全部子目录。例如，app/controllers。这些子目录不一定是默认的，可以是任何自定义的目录，如 app/workers。app 目录中的全部子目录都自动纳入 autoload_paths。
+
+应用和引擎中名为 app/*/concerns 的二级目录。
+
+test/mailers/previews 目录。
+
+此外，这些目录可以使用 config.autoload_paths 配置。例如，以前 lib 在这一系列目录中，但是现在不在了。应用可以在 config/application.rb 文件中添加下述配置，将其纳入其中：
+
+config.autoload_paths << "#{Rails.root}/lib"
+##在各个环境的配置文件中不能配置 config.autoload_paths。
+
+autoload_paths 的值可以审查。在新创建的应用中，它的值是（经过编辑）：
+
+$ bin/rails r 'puts ActiveSupport::Dependencies.autoload_paths'
+.../app/assets
+.../app/controllers
+.../app/helpers
+.../app/mailers
+.../app/models
+.../app/controllers/concerns
+.../app/models/concerns
+.../test/mailers/previews
+提示
+autoload_paths 在初始化过程中计算并缓存。目录结构发生变化时，要重启服务器。
+
+
+#26自动加载算法
+##26.6.1 相对引用
+
+相对常量引用可在多处出现，例如：
+
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
+  end
+end
+这里的三个常量都是相对引用。
+
+26.6.1.1 class 和 module 关键字后面的常量
+Ruby 程序会查找 class 或 module 关键字后面的常量，因为要知道是定义类或模块，还是再次打开。
+
+如果常量不被认为是缺失的，不会定义常量，也不会触发自动加载。
+
+因此，在上述示例中，解释那个文件时，如果 PostsController 未定义，Rails 不会触发自动加载机制，而是由 Ruby 定义那个控制器。
+##26.6.1.2顶层常量
+相对地，如果 ApplicationController 是未知的，会被认为是缺失的，Rails 会尝试自动加载。
+
+为了加载 ApplicationController，Rails 会迭代 autoload_paths。首先，检查 app/assets/application_controller.rb 文件是否存在，如果不存在（通常如此），再检查 app/controllers/application_controller.rb 是否存在。
+
+如果那个文件定义了 ApplicationController 常量，那就没事，否则抛出 LoadError 异常：
+
+unable to autoload constant ApplicationController, expected
+<full path to application_controller.rb> to define it (LoadError)
+提示
+Rails 不要求自动加载的常量是类或模块对象。假如在 app/models/max_clients.rb 文件中定义了 MAX_CLIENTS = 100，Rails 也能自动加载 MAX_CLIENTS。
+
+
+##命名空间
+自动加载 ApplicationController 时直接检查 autoload_paths 里的目录，因为它没有嵌套。Post 就不同了，那一行的嵌套是 [PostsController]，此时就会使用涉及命名空间的算法。
+
+对下述代码来说：
+
+module Admin
+  class BaseController < ApplicationController
+    @@all_roles = Role.all
+  end
+end
+为了自动加载 Role，要分别检查当前或父级命名空间中有没有定义 Role。因此，从概念上讲，要按顺序尝试自动加载下述常量：
+
+Admin::BaseController::Role
+Admin::Role
+Role
+为此，Rails 在 autoload_paths 中分别查找下述文件名：
+
+admin/base_controller/role.rb
+admin/role.rb
+role.rb
+此外还会查找一些其他目录，稍后说明。
+
+提示
+不含扩展名的相对文件路径通过 'Constant::Name'.underscore 得到，其中 Constant::Name 是已定义的常量。
+
+
+## bin/rails r 'puts ActiveSupport::Dependencies.autoload_paths'
+
+#26.7 require_dependency
+常量自动加载按需触发，因此使用特定常量的代码可能已经定义了常量，或者触发自动加载。具体情况取决于执行路径，二者之间可能有较大差异。
+
+然而，有时执行到某部分代码时想确保特定常量是已知的。require_dependency 为此提供了一种方式。它使用目前的加载机制加载文件，而且会记录文件中定义的常量，就像是自动加载的一样，而且会按需重新加载。
+
+require_dependency 很少需要使用，不过 26.10.2 节和 26.10.6 节有几个用例。
+
+提醒
+与自动加载不同，require_dependency 不期望文件中定义任何特定的常量。但是利用这种行为不好，文件和常量路径应该匹配。
+#26.8 常量重新加载
+config.cache_classes 设为 false 时，Rails 会重新自动加载常量。
+
+例如，在控制台会话中编辑文件之后，可以使用 reload! 命令重新加载代码：
+
+> reload!
+在应用运行的过程中，如果相关的逻辑有变，会重新加载代码。为此，Rails 会监控下述文件：
+
+config/routes.rb
+
+本地化文件
+
+autoload_paths 中的 Ruby 文件
+
+db/schema.rb 和 db/structure.sql
+
+如果这些文件中的内容有变，有个中间件会发现，然后重新加载代码。
+
+自动加载机制会记录自动加载的常量。重新加载机制使用 Module#remove_const 方法把它们从相应的类和模块中删除。这样，运行代码时那些常量就变成未知了，从而按需重新加载文件。
+
+提示
+这是一个极端操作，Rails 重新加载的不只是那些有变化的代码，因为类之间的依赖极难处理。相反，Rails 重新加载一切。
+#26.9 Module#autoload 不涉其中
+Module#autoload 提供的是惰性加载常量方式，深置于 Ruby 的常量查找算法、动态常量 API，等等。这一机制相当简单。
+
+Rails 内部在加载过程中大量采用这种方式，尽量减少工作量。但是，Rails 的常量自动加载机制不是使用 Module#autoload 实现的。
+
+如果基于 Module#autoload 实现，可以遍历应用树，调用 autoload 把文件名和常规的常量名对应起来。
+
+Rails 不采用这种实现方式有几个原因。
+
+例如，Module#autoload 只能使用 require 加载文件，因此无法重新加载。不仅如此，它使用的是 require 关键字，而不是 Kernel#require 方法。
+
+因此，删除文件后，它无法移除声明。如果使用 Module#remove_const 把常量删除了，不会触发 Module#autoload。此外，它不支持限定名称，因此有命名空间的文件要在遍历树时解析，这样才能调用相应的 autoload 方法，但是那些文件中可能有尚未配置的常量引用。
+
+基于 Module#autoload 的实现很棒，但是如你所见，目前还不可能。Rails 的常量自动加载机制使用 Module#const_missing 实现，因此才有本文所述的独特算法。
+
+
+#26.10 常见问题
+26.10.1 嵌套和限定常量
+
+假如有下述代码
+
+module Admin
+  class UsersController < ApplicationController
+    def index
+      @users = User.all
+    end
+  end
+end
+和
+
+class Admin::UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+end
+为了解析 User，对前者来说，Ruby 会检查 Admin，但是后者不会，因为它不在嵌套中（参见 26.2.1 节和 26.2.4 节）。
+
+可惜，在缺失常量的地方，Rails 自动加载机制不知道嵌套，因此行为与 Ruby 不同。具体而言，在两种情况下，Admin::User 都能自动加载。
+
+尽管严格来说某些情况下 class 和 module 关键字后面的限定常量可以自动加载，但是最好使用相对常量：
+
+module Admin
+  class UsersController < ApplicationController
+    def index
+      @users = User.all
+    end
+  end
+end
+
+
+#对称加密算法在加密和解密时使用的是同一个秘钥；而非对称加密算法需要两个密钥来进行加密和解密，这两个秘钥是公开密钥（public 
+key，简称公钥）和私有密钥（private key，简称私钥）。
+
+
+
+
+#26.10.3 自动加载和 require
+
+通过自动加载机制加载的定义常量的文件一定不能使用 require 引入：
+
+require 'user' # 千万别这么做
+
+class UsersController < ApplicationController
+  ...
+end
+如果这么做，在开发环境中会导致两个问题：
+
+如果在执行 require 之前自动加载了 User，app/models/user.rb 会再次运行，因为 load 不会更新 $LOADED_FEATURES。
+
+如果 require 先执行了，Rails 不会把 User 标记为自动加载的常量，因此 app/models/user.rb 文件中的改动不会重新加载。
+
+我们应该始终遵守规则，使用常量自动加载机制，一定不能混用自动加载和 require。底线是，如果一定要加载特定的文件，使用 require_dependency，这样能正确利用常量自动加载机制。不过，实际上很少需要这么做。
+
+当然，在自动加载的文件中使用 require 加载第三方库没问题，Rails 会做区分，不把第三方库里的常量标记为自动加载的。
