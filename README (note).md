@@ -454,3 +454,38 @@ deployed servers
 
 
 #rails db:structure:dump     # PostgreSql use pg_dump 
+
+
+
+#https://github.com/turbolinks/turbolinks/blob/master/README.md
+页面内容变更事件
+
+编写 CoffeeScript 代码时，经常需要在页面加载时做一些事情。在 jQuery 中，我们可以这么写：
+
+$(document).ready ->
+  alert "page has loaded!"
+不过，Turbolinks 改变了常规的页面加载流程，不会触发这个事件。如果编写了类似上面的代码，要将其修改为：
+
+$(document).on "turbolinks:load", ->
+  alert "page has loaded!"
+其他可用事件的详细信息，参阅 Turbolinks 的自述文件。
+
+
+
+自动加载和重新加载常量
+
+本文说明常量自动加载和重新加载机制。
+
+读完本文后，您将学到：
+
+Ruby 常量的关键知识；
+
+autoload_paths 是什么；
+
+常量是如何自动加载的；
+
+require_dependency 是什么；
+
+常量是如何重新加载的；
+
+自动加载常见问题的解决方案
