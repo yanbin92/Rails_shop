@@ -974,3 +974,4 @@ class AuthService
 end
 然后在应用中使用 AuthService.instance。这样，AuthService 会按需加载，而且能顺利自动加载。
 
+
