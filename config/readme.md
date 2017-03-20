@@ -928,4 +928,49 @@ end
 
 我们应该始终遵守规则，使用常量自动加载机制，一定不能混用自动加载和 require。底线是，如果一定要加载特定的文件，使用 require_dependency，这样能正确利用常量自动加载机制。不过，实际上很少需要这么做。
 
-当然，在自动加载的文件中使用 require 加载第三方库没问题，Rails 会做区分，不把第三方库里的常量标记为自动加载的。
+##当然，在自动加载的文件中使用 require 加载第三方库没问题，Rails 会做区分，不把第三方库里的常量标记为自动加载的。
+
+#26.10.4 自动加载和初始化脚本
+
+假设 config/initializers/set_auth_service.rb 文件中有下述赋值语句：
+
+AUTH_SERVICE = if Rails.env.production?
+  RealAuthService
+else
+  MockedAuthService
+end
+这么做的目的是根据所在环境为 AUTH_SERVICE 赋予不同的值。在开发环境中，运行这个初始化脚本时，自动加载 MockedAuthService。假如我们发送了几个请求，修改了实现，然后再次运行应用，奇怪的是，改动没有生效。这是为什么呢？
+
+从前文得知，Rails 会删除自动加载的常量，但是 AUTH_SERVICE 存储的还是原来那个类对象。原来那个常量不存在了，但是功能完全不受影响。
+
+下述代码概述了这种情况：
+
+class C
+  def quack
+    'quack!'
+  end
+end
+
+X = C
+Object.instance_eval { remove_const(:C) }
+X.new.quack # => quack!
+X.name      # => C
+C           # => uninitialized constant C (NameError)
+鉴于此，不建议在应用初始化过程中自动加载常量。
+
+对上述示例来说，我们可以实现一个动态接入点：
+
+# app/models/auth_service.rb
+class AuthService
+  if Rails.env.production?
+    def self.instance
+      RealAuthService
+    end
+  else
+    def self.instance
+      MockedAuthService
+    end
+  end
+end
+然后在应用中使用 AuthService.instance。这样，AuthService 会按需加载，而且能顺利自动加载。
+
