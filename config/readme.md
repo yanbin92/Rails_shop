@@ -1203,3 +1203,32 @@ render 辅助方法还能缓存渲染集合的单个模板。这甚至比使用 
 
 <%= render partial: 'products/product', collection: @products, cached: true %>
 上述代码中所有的缓存模板一次性获取，速度更快。此外，尚未缓存的模板也会写入缓存，在下次渲染时获取。
+
+##27.1.4 俄罗斯套娃缓存
+
+有时，可能想把缓存的片段嵌套在其他缓存的片段里。这叫俄罗斯套娃缓存（Russian doll caching）。
+
+俄罗斯套娃缓存的优点是，更新单个商品后，重新生成外层片段时，其他内存片段可以复用。
+
+前一节说过，如果缓存的文件对应的记录的 updated_at 属性值变了，缓存的文件失效。但是，内层嵌套的片段不失效。
+
+对下面的视图来说：
+
+<% cache product do %>
+  <%= render product.games %>
+<% end %>
+而它渲染这个视图：
+
+<% cache game do %>
+  <%= render game %>
+<% end %>
+如果游戏的任何一个属性变了，updated_at 的值会设为当前时间，因此缓存失效。然而，商品对象的 updated_at 属性不变，因此它的缓存不失效，从而导致应用伺服过期的数据。为了解决这个问题，可以使用 touch 方法把模型绑在一起：
+
+class Product < ApplicationRecord
+  has_many :games
+end
+
+class Game < ApplicationRecord
+  belongs_to :product, touch: true
+end
+把 touch 设为 true 后，导致游戏的 updated_at 变化的操作，也会修改关联的商品的 updated_at 属性，从而让缓存失效。
