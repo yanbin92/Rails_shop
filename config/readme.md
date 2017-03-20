@@ -1197,3 +1197,9 @@ Memcached 等缓存存储器会自动删除旧的缓存文件。
 <% cache_if admin?, product do %>
   <%= render product %>
 <% end %>
+
+##27.1.3.1 集合缓存
+render 辅助方法还能缓存渲染集合的单个模板。这甚至比使用 each 的前述示例更好，因为是一次性读取所有缓存模板的，而不是一次读取一个。若想缓存集合，渲染集合时传入 cached: true 选项：
+
+<%= render partial: 'products/product', collection: @products, cached: true %>
+上述代码中所有的缓存模板一次性获取，速度更快。此外，尚未缓存的模板也会写入缓存，在下次渲染时获取。
