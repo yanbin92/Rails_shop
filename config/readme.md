@@ -1169,7 +1169,7 @@ Rails 4 删除了页面缓存。参见 actionpack-page_caching gem。
 
 提示
 Rails 4 删除了动作缓存。参见 actionpack-action_caching gem。最新推荐的做法参见 DHH 写的“How key-based cache expiration works”一文。
-
+https://signalvnoise.com/posts/3113-how-key-based-cache-expiration-works
 ##片段缓存
 
 动态 Web 应用一般使用不同的组件构建页面，不是所有组件都能使用同一种缓存机制。如果页面的不同部分需要使用不同的缓存机制，在不同的条件下失效，可以使用片段缓存。
