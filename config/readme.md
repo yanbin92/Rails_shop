@@ -1092,7 +1092,7 @@ end
 
 但是，如果 Hotel::Services 是未知的，Rails 无法自动加载它，应用会抛出 NameError 异常。
 
-这是因为单例类（匿名的）会触发自动加载，从前文得知，在这种边缘情况下，Rails 只检查顶层命名空间。
+###这是因为单例类（匿名的）会触发自动加载，从前文得知，在这种边缘情况下，Rails 只检查顶层命名空间。
 
 这个问题的简单解决方案是使用限定常量：
 
@@ -1101,5 +1101,37 @@ module Hotel
     class << self
       Hotel::Services
     end
+  end
+end
+
+
+##26.10.8 BasicObject 中的自动加载
+
+BasicObject 的直接子代的祖先中没有 Object，因此无法解析顶层常量：
+
+class C < BasicObject
+  String # NameError: uninitialized constant C::String
+end
+如果涉及自动加载，情况稍微复杂一些。对下述代码来说
+
+class C < BasicObject
+  def user
+    User # 错误
+  end
+end
+因为 Rails 会检查顶层命名空间，所以第一次调用 user 方法时，User 能自动加载。但是，如果 User 是已知的，尤其是第二次调用 user 方法时，情况就不同了：
+
+c = C.new
+c.user # 奇怪的是能正常运行，返回 User
+c.user # NameError: uninitialized constant C::User
+因为此时发现父级命名空间中已经有那个常量了（参见 26.6.2 节）。
+
+在纯 Ruby 代码中，在 BasicObject 的直接子代的定义体中应该始终使用绝对常量路径：
+
+class C < BasicObject
+  ::String # 正确
+
+  def user
+    ::User # 正确
   end
 end
