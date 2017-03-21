@@ -1295,3 +1295,25 @@ class Product < ApplicationRecord
 end
 注意
 注意，这个示例使用了 cache_key 方法，因此得到的缓存键类似这种：products/233-20140225082222765838000/competing_price。cache_key 方法根据模型的 id 和 updated_at 属性生成一个字符串。这是常见的约定，有个好处是，商品更新后缓存自动失效。一般来说，使用低层缓存缓存实例层信息时，需要生成缓存键。
+##27.1.7 SQL 缓存
+
+查询缓存是 Rails 提供的一个功能，把各个查询的结果集缓存起来。如果在同一个请求中遇到了相同的查询，Rails 会使用缓存的结果集，而不再次到数据库中运行查询。
+
+例如：
+
+class ProductsController < ApplicationController
+
+  def index
+    # 运行查找查询
+    @products = Product.all
+
+    ...
+
+    # 再次运行相同的查询
+    @products = Product.all
+  end
+
+end
+再次运行相同的查询时，根本不会发给数据库。首次运行查询得到的结果存储在查询缓存中（内存里），第二次查询从内存中获取。
+
+然而要知道，查询缓存在动作开头创建，到动作末尾销毁，只在动作的存续时间内存在。如果想持久化存储查询结果，使用低层缓存也能实现。
