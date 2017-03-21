@@ -1347,3 +1347,9 @@ config.cache_store = :memory_store, { size: 64.megabytes }
 若想使用自定义的缓存存储器，只需把 cache_store 设为自定义类的实例：
 
 config.cache_store = MyCacheStore.new
+###27.2.3 ActiveSupport::Cache::MemoryStore
+
+这个缓存存储器把缓存条目放在内存中，与 Ruby 进程放在一起。可以把 :size 选项传给构造方法，指定缓存的大小限制（默认为 32Mb）。超过分配的大小后，会清理缓存，把最不常用的条目删除。
+
+config.cache_store = :memory_store, { size: 64.megabytes }
+如果运行多个 Ruby on Rails 服务器进程（例如使用 mongrel_cluster 或 Phusion Passenger），各个实例之间无法共享缓存数据。这个缓存存储器不适合大型应用使用。不过，适合只有几个服务器进程的低流量小型应用使用，也适合在开发环境和测试环境中使用。
