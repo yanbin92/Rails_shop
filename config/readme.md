@@ -1278,3 +1278,20 @@ render partial: "documents/document", collection: @project.documents.where(publi
 
 <%# Helper Dependency Updated: Jul 28, 2015 at 7pm %>
 <%= some_helper_method(person) %>
+##27.1.6 低层缓存
+
+有时需要缓存特定的值或查询结果，而不是缓存视图片段。Rails 的缓存机制能存储任何类型的信息。
+
+实现低层缓存最有效的方式是使用 Rails.cache.fetch 方法。这个方法既能读取也能写入缓存。传入单个参数时，获取指定的键，返回缓存中的值。传入块时，在指定键上缓存块的结果，并返回结果。
+
+下面举个例子。应用中有个 Product 模型，它有个实例方法，在竞争网站中查找商品的价格。这个方法返回的数据特别适合使用低层缓存：
+
+class Product < ApplicationRecord
+  def competing_price
+    Rails.cache.fetch("#{cache_key}/competing_price", expires_in: 12.hours) do
+      Competitor::API.find_price(id)
+    end
+  end
+end
+注意
+注意，这个示例使用了 cache_key 方法，因此得到的缓存键类似这种：products/233-20140225082222765838000/competing_price。cache_key 方法根据模型的 id 和 updated_at 属性生成一个字符串。这是常见的约定，有个好处是，商品更新后缓存自动失效。一般来说，使用低层缓存缓存实例层信息时，需要生成缓存键。
