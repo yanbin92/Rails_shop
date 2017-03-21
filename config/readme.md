@@ -1269,7 +1269,7 @@ render partial: "documents/document", collection: @project.documents.where(publi
 <%= render_categorizable_events @person.events %>
 对集合缓存来说，如果局部模板不是以干净的缓存调用开头，依然可以使用集合缓存，不过要在模板中的任意位置添加一种格式特殊的注释，如下所示：
 
-<%# Template Collection: notification %>
+####<%# Template Collection: notification %>
 <% my_helper_that_calls_cache(some_arg, notification) do %>
   <%= notification.name %>
 <% end %>
