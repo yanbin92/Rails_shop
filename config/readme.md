@@ -1278,7 +1278,7 @@ render partial: "documents/document", collection: @project.documents.where(publi
 
 <%# Helper Dependency Updated: Jul 28, 2015 at 7pm %>
 <%= some_helper_method(person) %>
-##27.1.6 低层缓存
+###27.1.6 低层缓存
 
 有时需要缓存特定的值或查询结果，而不是缓存视图片段。Rails 的缓存机制能存储任何类型的信息。
 
@@ -1295,7 +1295,7 @@ class Product < ApplicationRecord
 end
 注意
 注意，这个示例使用了 cache_key 方法，因此得到的缓存键类似这种：products/233-20140225082222765838000/competing_price。cache_key 方法根据模型的 id 和 updated_at 属性生成一个字符串。这是常见的约定，有个好处是，商品更新后缓存自动失效。一般来说，使用低层缓存缓存实例层信息时，需要生成缓存键。
-##27.1.7 SQL 缓存
+###27.1.7 SQL 缓存
 
 查询缓存是 Rails 提供的一个功能，把各个查询的结果集缓存起来。如果在同一个请求中遇到了相同的查询，Rails 会使用缓存的结果集，而不再次到数据库中运行查询。
 
@@ -1316,4 +1316,15 @@ class ProductsController < ApplicationController
 end
 再次运行相同的查询时，根本不会发给数据库。首次运行查询得到的结果存储在查询缓存中（内存里），第二次查询从内存中获取。
 
-然而要知道，查询缓存在动作开头创建，到动作末尾销毁，只在动作的存续时间内存在。如果想持久化存储查询结果，使用低层缓存也能实现。
+然而要知道，查询缓存在动作开头创建，到动作末尾销毁，只在动作的存续时间内存在。如果想持久化存储查询结果，使用低层缓存也能实现#
+##27.2 缓存存储器
+Rails 为存储缓存数据（SQL 缓存和页面缓存除外）提供了不同的存储器。
+
+27.2.1 配置
+
+config.cache_store 配置选项用于设定应用的默认缓存存储器。可以设定其他参数，传给缓存存储器的构造方法：
+
+config.cache_store = :memory_store, { size: 64.megabytes }
+注意
+此外，还可以在配置块外部调用 ActionController::Base.cache_store。
+缓存存储器通过 Rails.cache 访问。
