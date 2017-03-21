@@ -1364,3 +1364,12 @@ config.cache_store = :file_store, "/path/to/cache/directory"
 缓存量一直增加，直到填满磁盘，所以建议你定期清理旧缓存条目。
 
 这是默认的缓存存储器。
+###27.2.5 ActiveSupport::Cache::MemCacheStore
+
+这个缓存存储器使用 Danga 的 memcached 服务器为应用提供中心化缓存。Rails 默认使用自带的 dalli gem。这是生产环境的网站目前最常使用的缓存存储器。通过它可以实现单个共享的缓存集群，效率很高，有较好的冗余。
+
+初始化这个缓存存储器时，要指定集群中所有 memcached 服务器的地址。如果不指定，假定 memcached 运行在本地的默认端口上，但是对大型网站来说，这样做并不好。
+
+这个缓存存储器的 write 和 fetch 方法接受两个额外的选项，以便利用 memcached 的独有特性。指定 :raw 时，直接把值发给服务器，不做序列化。值必须是字符串或数字。memcached 的直接操作，如 increment 和 decrement，只能用于原始值。还可以指定 :unless_exist 选项，不让 memcached 覆盖现有条目。
+
+config.cache_store = :mem_cache_store, "cache-1.example.com", "cache-2.example.com"
