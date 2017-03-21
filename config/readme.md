@@ -1157,7 +1157,7 @@ Rails 自带了一些缓存功能。本文说明它们的适用范围和作用�
 对条件 GET 请求的支持
 ##27.1基本缓存
 本节简介三种缓存技术：页面缓存（page caching）、动作缓存（action caching）和片段缓存（fragment caching）。Rails 默认提供了片段缓存。如果想使用页面缓存或动作缓存，要把 actionpack-page_caching 或 actionpack-action_caching 添加到 Gemfile 中。
-##27.1.1 页面缓存
+###27.1.1 页面缓存
 
 页面缓存时 Rails 提供的一种缓存机制，让 Web 服务器（如 Apache 和 NGINX）直接伺服生成的页面，而不经由 Rails 栈处理。虽然这种缓存的速度超快，但是不适用于所有情况（例如需要验证身份的页面）。此外，因为 Web 服务器直接从文件系统中伺服文件，所以你要自行实现缓存失效机制。
 
@@ -1198,13 +1198,13 @@ Memcached 等缓存存储器会自动删除旧的缓存文件。
   <%= render product %>
 <% end %>
 
-##27.1.3.1 集合缓存
+###27.1.3.1 集合缓存
 render 辅助方法还能缓存渲染集合的单个模板。这甚至比使用 each 的前述示例更好，因为是一次性读取所有缓存模板的，而不是一次读取一个。若想缓存集合，渲染集合时传入 cached: true 选项：
 
 <%= render partial: 'products/product', collection: @products, cached: true %>
 上述代码中所有的缓存模板一次性获取，速度更快。此外，尚未缓存的模板也会写入缓存，在下次渲染时获取。
 
-##27.1.4 俄罗斯套娃缓存
+###27.1.4 俄罗斯套娃缓存
 
 有时，可能想把缓存的片段嵌套在其他缓存的片段里。这叫俄罗斯套娃缓存（Russian doll caching）。
 
@@ -1232,3 +1232,49 @@ class Game < ApplicationRecord
   belongs_to :product, touch: true
 end
 把 touch 设为 true 后，导致游戏的 updated_at 变化的操作，也会修改关联的商品的 updated_at 属性，从而让缓存失效。
+
+##27.1.5 管理依赖
+
+为了正确地让缓存失效，要正确地定义缓存依赖。Rails 足够智能，能处理常见的情况，无需自己指定。但是有时需要处理自定义的辅助方法（以此为例），因此要自行定义。
+###27.1.5.1 隐式依赖
+多数模板依赖可以从模板中的 render 调用中推导出来。下面举例说明 ActionView::Digestor 知道如何解码的 render 调用：
+
+render partial: "comments/comment", collection: commentable.comments
+render "comments/comments"
+render 'comments/comments'
+render('comments/comments')
+
+render "header" => render("comments/header")
+
+render(@topic)         => render("topics/topic")
+render(topics)         => render("topics/topic")
+render(message.topics) => render("topics/topic")
+而另一方面，有些调用要做修改方能让缓存正确工作。例如，如果传入自定义的集合，要把下述代码：
+
+render @project.documents.where(published: true)
+改为：
+
+render partial: "documents/document", collection: @project.documents.where(published: true)
+###27.1.5.2 显式依赖
+有时，模板依赖推导不出来。在辅助方法中渲染时经常是这样。下面举个例子：
+
+<%= render_sortable_todolists @project.todolists %>
+此时，要使用一种特殊的注释格式：
+
+<%# Template Dependency: todolists/todolist %>
+<%= render_sortable_todolists @project.todolists %>
+某些情况下，例如设置单表继承，可能要显式定义一堆依赖。此时无需写出每个模板，可以使用通配符匹配一个目录中的全部模板：
+
+<%# Template Dependency: events/* %>
+<%= render_categorizable_events @person.events %>
+对集合缓存来说，如果局部模板不是以干净的缓存调用开头，依然可以使用集合缓存，不过要在模板中的任意位置添加一种格式特殊的注释，如下所示：
+
+<%# Template Collection: notification %>
+<% my_helper_that_calls_cache(some_arg, notification) do %>
+  <%= notification.name %>
+<% end %>
+###27.1.5.3 外部依赖
+如果在缓存的块中使用辅助方法，而后更新了辅助方法，还要更新缓存。具体方法不限，只要能改变模板文件的 MD5 值就行。推荐的方法之一是添加一个注释，如下所示：
+
+<%# Helper Dependency Updated: Jul 28, 2015 at 7pm %>
+<%= some_helper_method(person) %>
