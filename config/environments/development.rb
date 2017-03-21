@@ -22,7 +22,7 @@ Rails.application.configure do
     }
   else
     config.action_controller.perform_caching = false
-
+    #缓存存储器只应该在开发或测试环境中使用，它并不存储任何信息。在开发环境中，如果代码直接与 Rails.cache 交互，但是缓存可能对代码的结果有影响，可以使用这个缓存存储器。在这个缓存存储器上调用 fetch 和 read 方法不返回任何值。
     config.cache_store = :null_store
   end
 

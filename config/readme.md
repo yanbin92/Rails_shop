@@ -1373,3 +1373,68 @@ config.cache_store = :file_store, "/path/to/cache/directory"
 这个缓存存储器的 write 和 fetch 方法接受两个额外的选项，以便利用 memcached 的独有特性。指定 :raw 时，直接把值发给服务器，不做序列化。值必须是字符串或数字。memcached 的直接操作，如 increment 和 decrement，只能用于原始值。还可以指定 :unless_exist 选项，不让 memcached 覆盖现有条目。
 
 config.cache_store = :mem_cache_store, "cache-1.example.com", "cache-2.example.com"
+###27.2.6 ActiveSupport::Cache::NullStore
+
+这个缓存存储器只应该在开发或测试环境中使用，它并不存储任何信息。在开发环境中，如果代码直接与 Rails.cache 交互，但是缓存可能对代码的结果有影响，可以使用这个缓存存储器。在这个缓存存储器上调用 fetch 和 read 方法不返回任何值。
+
+config.cache_store = :null_store
+
+##27.3 缓存键
+缓存中使用的键可以是能响应 cache_key 或 to_param 方法的任何对象。如果想定制生成键的方式，可以覆盖 cache_key 方法。Active Record 根据类名和记录 ID 生成缓存键。
+
+缓存键的值可以是散列或数组：
+
+# 这是一个有效的缓存键
+Rails.cache.read(site: "mysite", owners: [owner_1, owner_2])
+Rails.cache 使用的键与存储引擎使用的并不相同，存储引擎使用的键可能含有命名空间，或者根据后端的限制做调整。这意味着，使用 Rails.cache 存储值时使用的键可能无法用于供 dalli gem 获取缓存条目。然而，你也无需担心会超出 memcached 的大小限制，或者违背句法规则。
+
+##27.4 对条件 GET 请求的支持
+条件 GET 请求是 HTTP 规范的一个特性，以此告诉 Web 浏览器，GET 请求的响应自上次请求之后没有变化，可以放心从浏览器的缓存中读取。
+
+为此，要传递 HTTP_IF_NONE_MATCH 和 HTTP_IF_MODIFIED_SINCE 首部，其值分别为唯一的内容标识符和上一次改动时的时间戳。浏览器发送的请求，如果内容标识符（etag）或上一次修改的时间戳与服务器中的版本匹配，那么服务器只需返回一个空响应，把状态设为未修改。
+
+服务器（也就是我们自己）要负责查看最后修改时间戳和 HTTP_IF_NONE_MATCH 首部，判断要不要返回完整的响应。既然 Rails 支持条件 GET 请求，那么这个任务就非常简单：
+
+class ProductsController < ApplicationController
+
+  def show
+    @product = Product.find(params[:id])
+
+    # 如果根据指定的时间戳和 etag 值判断请求的内容过期了
+    # （即需要重新处理）执行这个块
+    if stale?(last_modified: @product.updated_at.utc, etag: @product.cache_key)
+      respond_to do |wants|
+        # ... 正常处理响应
+      end
+    end
+
+    # 如果请求的内容还新鲜（即未修改），无需做任何事
+    # render 默认使用前面 stale? 中的参数做检查，会自动发送 :not_modified 响应
+    # 就这样，工作结束
+  end
+end
+除了散列，还可以传入模型。Rails 会使用 updated_at 和 cache_key 方法设定 last_modified 和 etag：
+
+class ProductsController < ApplicationController
+  def show
+    @product = Product.find(params[:id])
+
+    if stale?(@product)
+      respond_to do |wants|
+        # ... 正常处理响应
+      end
+    end
+  end
+end
+如果无需特殊处理响应，而且使用默认的渲染机制（即不使用 respond_to，或者不自己调用 render），可以使用 fresh_when 简化这个过程：
+
+class ProductsController < ApplicationController
+
+  # 如果请求的内容是新鲜的，自动返回 :not_modified
+  # 否则渲染默认的模板（product.*）
+
+  def show
+    @product = Product.find(params[:id])
+    fresh_when last_modified: @product.published_at.utc, etag: @product
+  end
+end
