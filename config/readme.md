@@ -1353,3 +1353,14 @@ config.cache_store = MyCacheStore.new
 
 config.cache_store = :memory_store, { size: 64.megabytes }
 如果运行多个 Ruby on Rails 服务器进程（例如使用 mongrel_cluster 或 Phusion Passenger），各个实例之间无法共享缓存数据。这个缓存存储器不适合大型应用使用。不过，适合只有几个服务器进程的低流量小型应用使用，也适合在开发环境和测试环境中使用。
+
+###27.2.4 ActiveSupport::Cache::FileStore
+
+这个缓存存储器使用文件系统存储缓存条目。初始化这个存储器时，必须指定存储文件的目录：
+
+config.cache_store = :file_store, "/path/to/cache/directory"
+使用这个缓存存储器时，在同一台主机中运行的多个服务器进程可以共享缓存。这个缓存存储器适合一到两个主机的中低流量网站使用。运行在不同主机中的多个服务器进程若想共享缓存，可以使用共享的文件系统，但是不建议这么做。
+
+缓存量一直增加，直到填满磁盘，所以建议你定期清理旧缓存条目。
+
+这是默认的缓存存储器。
