@@ -1320,7 +1320,7 @@ end
 ##27.2 缓存存储器
 Rails 为存储缓存数据（SQL 缓存和页面缓存除外）提供了不同的存储器。
 
-27.2.1 配置
+###27.2.1 配置
 
 config.cache_store 配置选项用于设定应用的默认缓存存储器。可以设定其他参数，传给缓存存储器的构造方法：
 
@@ -1328,3 +1328,22 @@ config.cache_store = :memory_store, { size: 64.megabytes }
 注意
 此外，还可以在配置块外部调用 ActionController::Base.cache_store。
 缓存存储器通过 Rails.cache 访问。
+###27.2.2 ActiveSupport::Cache::Store
+这个类是在 Rails 中与缓存交互的基础。这是个抽象类，不能直接使用。你必须根据存储器引擎具体实现这个类。Rails 提供了几个实现，说明如下。
+主要调用的方法有 read、write、delete、exist? 和 fetch。fetch 方法接受一个块，返回缓存中现有的值，或者把新值写入缓存。
+所有缓存实现有些共用的选项，可以传给构造方法，或者传给与缓存条目交互的各个方法。
+:namespace：在缓存存储器中创建命名空间。如果与其他应用共用同一个缓存存储器，这个选项特别有用。
+
+:compress：指定压缩缓存。通过缓慢的网络传输大量缓存时用得着。
+
+:compress_threshold：与 :compress 选项搭配使用，指定一个阈值，未达到时不压缩缓存。默认为 16 千字节。
+
+:expires_in：为缓存条目设定失效时间（秒数），失效后自动从缓存中删除。
+
+:race_condition_ttl：与 :expires_in 选项搭配使用。避免多个进程同时重新生成相同的缓存条目（也叫 dog pile effect），防止让缓存条目过期时出现条件竞争。这个选项设定在重新生成新值时失效的条目还可以继续使用多久（秒数）。如果使用 :expires_in 选项， 最好也设定这个选项。
+###27.2.2.1 自定义缓存存储器
+缓存存储器可以自己定义，只需扩展 ActiveSupport::Cache::Store 类，实现相应的方法。这样，你可以把任何缓存技术带到你的 Rails 应用中。
+
+若想使用自定义的缓存存储器，只需把 cache_store 设为自定义类的实例：
+
+config.cache_store = MyCacheStore.new
