@@ -32,6 +32,15 @@ class StoreController < ApplicationController
     #       end
     #     end
     #   end
+
+    # 如果无需特殊处理响应，而且使用默认的渲染机制（即不使用 respond_to，或者不自己调用 render），可以使用 fresh_when 简化这个过程：
+    #   # 如果请求的内容是新鲜的，自动返回 :not_modified
+    #   # 否则渲染默认的模板（product.*）
+
+    #   def show
+    #     @product = Product.find(params[:id])
+    #     fresh_when last_modified: @product.published_at.utc, etag: @product
+    #   end
   end
 
  def increment_count
