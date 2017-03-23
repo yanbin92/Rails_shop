@@ -1484,7 +1484,7 @@ Rails 对只提供 API 的应用的支持；
 
 本文说明如何构建伺服 JSON 资源的 Rails 应用，供 API 客户端（包括客户端框架）使用。
 
-##30.2 为什么使用 Rails 构建 JSON API？
+##30.2  为什么使用 Rails 构建 JSON API？
 提到使用 Rails 构建 JSON API，多数人想到的第一个问题是：“使用 Rails 生成 JSON 是不是有点大材小用了？使用 Sinatra 这样的框架是不是更好？”
 
 对特别简单的 API 来说，确实如此。然而，对大量使用 HTML 的应用来说，应用的逻辑大都在视图层之外。
@@ -1743,7 +1743,7 @@ ActionController::ParamsWrapper：把参数散列放到一个嵌套散列中，�
 
 $ bin/rails c
 >> ActionController::API.ancestors - ActionController::Metal.ancestors
-30.5.1 添加其他模块
+###30.5.1 添加其他模块
 
 所有 Action Controller 模块都知道它们所依赖的模块，因此在控制器中可以放心引入任何模块，所有依赖都会自动引入。
 
