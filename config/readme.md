@@ -1473,7 +1473,7 @@ Rails 对只提供 API 的应用的支持；
 
 如何决定在控制器中使用哪些模块。
 
-30.1 什么是 API 应用？
+##30.1 什么是 API 应用？
 人们说把 Rails 用作“API”，通常指的是在 Web 应用之外提供一份可通过编程方式访问的 API。例如，GitHub 提供了 API，供你在自己的客户端中使用。
 
 随着客户端框架的出现，越来越多的开发者使用 Rails 构建后端，在 Web 应用和其他原生应用之间共享。
@@ -1484,7 +1484,7 @@ Rails 对只提供 API 的应用的支持；
 
 本文说明如何构建伺服 JSON 资源的 Rails 应用，供 API 客户端（包括客户端框架）使用。
 
-30.2 为什么使用 Rails 构建 JSON API？
+##30.2 为什么使用 Rails 构建 JSON API？
 提到使用 Rails 构建 JSON API，多数人想到的第一个问题是：“使用 Rails 生成 JSON 是不是有点大材小用了？使用 Sinatra 这样的框架是不是更好？”
 
 对特别简单的 API 来说，确实如此。然而，对大量使用 HTML 的应用来说，应用的逻辑大都在视图层之外。
@@ -1535,10 +1535,10 @@ URL 生成：路由的另一面是 URL 生成。基于 HTTP 的优秀 API 包含
 
 简单来说，你可能没有想过去掉视图层之后要把 Rails 的哪些部分保留下来，不过答案是，多数都要保留。
 
-30.3 基本配置
+##30.3 基本配置
 如果你构建的 Rails 应用主要用作 API，可以从较小的 Rails 子集开始，然后再根据需要添加功能。
 
-30.3.1 新建应用
+###30.3.1 新建应用
 
 生成 Rails API 应用使用下述命令：
 
@@ -1551,7 +1551,7 @@ $ rails new my_api --api
 
 配置生成器，生成资源时不生成视图、辅助方法和静态资源。
 
-30.3.2 修改现有应用
+###30.3.2 修改现有应用
 
 如果你想把现有的应用改成 API 应用，请阅读下述步骤。
 
@@ -1576,7 +1576,7 @@ end
 
 class ApplicationController < ActionController::API
 end
-30.4 选择中间件
+##30.4 选择中间件
 API 应用默认包含下述中间件：
 
 Rack::Sendfile
@@ -1616,7 +1616,7 @@ Rack::ETag
 可以通过下述命令列出应用中的所有中间件：
 
 $ rails middleware
-30.4.1 使用缓存中间件
+##30.4.1 使用缓存中间件
 
 默认情况下，Rails 会根据应用的配置提供一个缓存存储器（默认为 memcache）。因此，内置的 HTTP 缓存依靠这个中间件。
 
@@ -1644,7 +1644,7 @@ end
 
 可以把这种机制理解为使用 HTTP 语义的页面缓存。
 
-30.4.2 使用 Rack::Sendfile
+###30.4.2 使用 Rack::Sendfile
 
 在 Rails 控制器中使用 send_file 方法时，它会设定 X-Sendfile 首部。Rack::Sendfile 负责发送文件。
 
@@ -1663,7 +1663,7 @@ config.action_dispatch.x_sendfile_header = "X-Sendfile"
 config.action_dispatch.x_sendfile_header = "X-Accel-Redirect"
 请按照 Rack::Sendfile 文档中的说明配置你的服务器。
 
-30.4.3 使用 ActionDispatch::Request
+###30.4.3 使用 ActionDispatch::Request
 
 ActionDispatch::Request#params 获取客户端发来的 JSON 格式参数，将其存入 params，可在控制器中访问。
 
@@ -1682,7 +1682,7 @@ jQuery.ajax({
 ActionDispatch::Request 检查 Content-Type 后，把参数转换成：
 
 { :person => { :firstName => "Yehuda", :lastName => "Katz" } }
-30.4.4 其他中间件
+##30.4.4 其他中间件
 
 Rails 自带的其他中间件在 API 应用中可能也会用到，尤其是 API 客户端包含浏览器时：
 
@@ -1703,14 +1703,14 @@ ActionDispatch::Session::MemCacheStore
 这些中间件可通过下述方式添加：
 
 config.middleware.use Rack::MethodOverride
-30.4.5 删除中间件
+###30.4.5 删除中间件
 
 如果默认的 API 中间件中有不需要使用的，可以通过下述方式将其删除：
 
 config.middleware.delete ::Rack::Sendfile
 注意，删除中间件后 Action Controller 的特定功能就不可用了。
 
-30.5 选择控制器模块
+##30.5 选择控制器模块
 API 应用（使用 ActionController::API）默认有下述控制器模块：
 
 ActionController::UrlFor：提供 url_for 等辅助方法。
