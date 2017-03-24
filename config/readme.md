@@ -34,7 +34,7 @@ config.assets.css_compressor = :yui
 config.assets.js_compressor = :uglifier
 注意
 如果 Gemfile 中包含 sass-rails gem，Rails 就会自动使用这个 gem 压缩 CSS 静态资源文件，而无需设置 config.assets.css_compressor 选项。
-23.1.1 主要特性
+###23.1.1 主要特性
 
 Asset Pipeline 的特性之一是连接静态资源文件，目的是减少渲染网页时浏览器发起的请求次数。Web 浏览器能够同时发起的请求次数是有限的，因此更少的请求次数可能意味着更快的应用加载速度。
 
