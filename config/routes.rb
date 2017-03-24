@@ -1,5 +1,6 @@
 require './app/store'
 Rails.application.routes.draw do
+  resources :articles
   #使用 :as 选项可以为路由起个名字：
   #root 路由应该放在文件的顶部，因为这是最常用的路由，应该先匹配。
   root 'store#index',as: 'store_index'

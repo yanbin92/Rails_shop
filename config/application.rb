@@ -41,13 +41,14 @@ module Haitaoshop
 
     #config.cache_store 配置 Rails 缓存使用哪个存储器。可用的选项有：:memory_store、:file_store、:mem_cache_store、:null_store，或者实现了缓存 API 的对象。如果存在 tmp/cache 目录，默认值为 :file_store，否则为 :memory_store。   
     # 定制工作流程的第一步是，不让脚手架生成样式表、JavaScript 和测试固件文件
-    # config.generators do |g|
-    #   g.orm             :active_record
-    #   g.template_engine :erb
-    #   g.test_framework  :test_unit, fixture: false
-    #   g.stylesheets     false
-    #   g.javascripts     false
-    # end
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+      g.test_framework  :test_unit, fixture: true
+      g.stylesheets     false
+      g.javascripts     false
+      # g.helper :my_helper
+    end
     #如果再使用脚手架生成器生成一个资源，你会看到，它不再创建样式表、JavaScript 和固件文件了。如果想进一步定制，例如使用 DataMapper 和 RSpec 替换 Active Record 和 TestUnit，只需添加相应的 gem，然后配置生成器。 
   end
 end

@@ -1,2 +1,3 @@
-module ProductsHelper
-end
+  module ProductsHelper
+  	attr_render :products,:product
+  end
