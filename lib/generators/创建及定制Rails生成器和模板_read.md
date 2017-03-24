@@ -102,7 +102,7 @@ $ bin/rails generate initializer core_extensions
 
 34.4 查找生成器
 执行 rails generate initializer core_extensions 命令时，Rails 按照下述顺序引入文件，直到找到所需的生成器为止：
-
+#TODO 
 rails/generators/initializer/initializer_generator.rb
 generators/initializer/initializer_generator.rb
 rails/generators/initializer_generator.rb
@@ -309,7 +309,7 @@ $ bin/rails generate scaffold Comment body:text
       invoke    scss
 后备机制能让生成器专注于实现单一职责，尽量复用代码，减少重复代码量。
 
-34.8 应用模板
+##34.8 应用模板
 至此，我们知道生成器可以在应用内部使用，但是你知道吗，生成器也可用于生成应用？这种生成器叫“模板”（template）。本节简介 Templates API，详情参阅第 42 章。
 
 gem "rspec-rails", group: "test"
@@ -334,7 +334,7 @@ $ rails new thud -m template.rb
 $ rails new thud -m https://gist.github.com/radar/722911/raw/
 本章最后一节虽然不说明如何生成大多数已知的优秀模板，但是会详细说明可用的方法，供你自己开发模板。那些方法也可以在生成器中使用。
 
-34.9 生成器方法
+##34.9 生成器方法
 下面是可供 Rails 生成器和模板使用的方法。
 
 注意

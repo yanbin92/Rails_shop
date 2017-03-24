@@ -253,7 +253,6 @@ Rails.application.routes.draw do
 # end
  
 # TwitterClone::Application.routes.draw do
-  resources :articles
 #   get '*path', to: 'blacklist#index',
 #     constraints: BlacklistConstraint.new
 # end
