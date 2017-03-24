@@ -1,3 +1,3 @@
   module ProductsHelper
-  	attr_render :products,:product
+  	attr_reader :products,:product
   end

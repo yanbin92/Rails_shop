@@ -19,8 +19,10 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
+  #可以分别为 CSS 和 JavaScript 静态资源文件设置压缩方式
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
+  #如果 Gemfile 中包含 sass-rails gem，Rails 就会自动使用这个 gem 压缩 CSS 静态资源文件，而无需设置 config.assets.css_compressor 选项。
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
