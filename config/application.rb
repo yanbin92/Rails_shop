@@ -44,10 +44,21 @@ module Haitaoshop
     config.generators do |g|
       # g.orm             :active_record
       # g.template_engine :erb
-      # g.test_framework  :test_unit, fixture: true
+      g.test_framework  :shoulda, fixture: true
       # g.stylesheets     false
       # g.javascripts     false
       # g.helper :my_helper
+
+
+      #为生成器添加后备机制
+      #生成器最后一个相当有用的功能是插件生成器的后备机制。
+      #比如说我们想在 TestUnit 的基础上添加类似 shoulda 的功能。
+      #因为 TestUnit 已经实现了 Rails 所需的全部生成器，而 shoulda 只是覆盖其中部分，
+      #所以 shoulda 没必要重新实现某些生成器。
+      #相反，shoulda 可以告诉 Rails，在 Shoulda 命名空间中找不到某个生成器时，
+      #使用 TestUnit 中的生成器。
+      # 添加后备机制
+      g.fallbacks[:shoulda] = :test_unit
     end
     #如果再使用脚手架生成器生成一个资源，你会看到，它不再创建样式表、JavaScript 和固件文件了。如果想进一步定制，例如使用 DataMapper 和 RSpec 替换 Active Record 和 TestUnit，只需添加相应的 gem，然后配置生成器。 
   end
