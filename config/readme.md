@@ -79,7 +79,7 @@ Steve Souders 建议，“……避免在可缓存的资源上使用查询字符
 
 为文件名添加版本号：请不要使用查询字符串
 
-23.2 如何使用 Asset Pipeline
+##23.2 如何使用 Asset Pipeline
 在 Rails 的早期版本中，所有静态资源文件都放在 public 文件夹的子文件夹中，例如 images、javascripts 和 stylesheets 子文件夹。当 Rails 开始使用 Asset Pipeline 后，就推荐把静态资源文件放在 app/assets 文件夹中，并使用 Sprockets 中间件处理这些文件。
 
 当然，静态资源文件仍然可以放在 public 文件夹及其子文件夹中。只要把 config.public_file_server.enabled 选项设置为 true，Rails 应用或 Web 服务器就会处理 public 文件夹及其子文件夹中的所有静态资源文件。但对于需要预处理的文件，都应该放在 app/assets 文件夹中。
