@@ -107,7 +107,7 @@ Steve Souders 建议，“……避免在可缓存的资源上使用查询字符
 config.generators do |g|
   g.assets false
 end
-23.2.2 静态资源文件的组织方式
+###23.2.2 静态资源文件的组织方式
 
 应用的 Asset Pipeline 静态资源文件可以储存在三个位置：app/assets、lib/assets 和 vendor/assets。
 
@@ -119,7 +119,7 @@ vendor/assets 文件夹用于储存第三方代码库的静态资源文件，例
 
 提醒
 从 Rails 3 升级而来的用户需要注意，通过设置应用的清单文件， 我们可以包含 lib/assets 和 vendor/assets 文件夹中的静态资源文件，但是这两个文件夹不再是预编译数组的一部分。更多介绍请参阅 23.4.1 节。
-23.2.2.1 搜索路径
+###23.2.2.1 搜索路径
 当清单文件或辅助方法引用了静态资源文件时，Sprockets 会在静态资源文件的三个默认存储位置中进行查找。
 
 这三个默认存储位置分别是 app/assets 文件夹的 images、javascripts 和 stylesheets 子文件夹，实际上这三个文件夹并没有什么特别之处，所有的 app/assets/* 文件夹及其子文件夹都会被搜索。
