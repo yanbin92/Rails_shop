@@ -151,7 +151,7 @@ Rails 会按照路径在搜索路径中出现的先后顺序，对路径进行�
 
 千万注意，在清单文件之外引用的静态资源文件必须添加到预编译数组中，否则无法在生产环境中使用。
 
-23.2.2.2 使用索引文件
+###23.2.2.2 使用索引文件
 对于 Sprockets，名为 index（带有相关扩展名）的文件具有特殊用途。
 
 例如，假设应用中使用的 jQuery 库及多个模块储存在 lib/assets/javascripts/library_name 文件夹中，那么 lib/assets/javascripts/library_name/index.js 文件将作为这个库的清单文件。在这个库的清单文件中，应该按顺序列出所有需要加载的文件，或者干脆使用 require_tree 指令。
