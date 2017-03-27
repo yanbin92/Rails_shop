@@ -86,7 +86,7 @@ Steve Souders 建议，“……避免在可缓存的资源上使用查询字符
 
 在生产环境中，Rails 默认会对 public/assets 文件夹中的文件进行预处理。经过预处理的静态资源文件将由 Web 服务器直接处理。在生产环境中，app/assets 文件夹中的文件不会直接交由 Web 服务器处理。
 
-23.2.1 针对控制器的静态资源文件
+###23.2.1 针对控制器的静态资源文件
 
 当我们使用生成器生成脚手架或控制器时，Rails 会同时为控制器生成 JavaScript 文件（如果 Gemfile 中包含了 coffee-rails gem，那么生成的是 CoffeeScript 文件）和 CSS 文件（如果 Gemfile 中包含了 sass-rails gem，那么生成的是 SCSS 文件）。此外，在生成脚手架时，Rails 还会生成 scaffolds.css 文件（如果 Gemfile 中包含了 sass-rails gem，那么生成的是 scaffolds.scss 文件）。
 

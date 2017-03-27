@@ -59,6 +59,9 @@ module Haitaoshop
       #使用 TestUnit 中的生成器。
       # 添加后备机制
       g.fallbacks[:shoulda] = :test_unit
+
+      #通过在 config/application.rb 配置文件中添加下述代码，可以禁止生成针对控制器的静态资源文件
+      # g.assets false
     end
     #如果再使用脚手架生成器生成一个资源，你会看到，它不再创建样式表、JavaScript 和固件文件了。如果想进一步定制，例如使用 DataMapper 和 RSpec 替换 Active Record 和 TestUnit，只需添加相应的 gem，然后配置生成器。 
   end
