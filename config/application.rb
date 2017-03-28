@@ -28,8 +28,8 @@ module Haitaoshop
     config.action_mailer.default_url_options = { host: 'myrailsshop.herokuapp.com' }  
     #!!!!鉴于此，在邮件视图中不能使用任何 *_path 辅助方法，而要使用相应的 *_url 辅助方法
     #在邮件视图中添加图像 http://localhost:3000
-    #config.asset_host 设定静态资源文件的主机名
-    config.action_mailer.asset_host = 'http://myrailsshop.herokuapp.com'
+    #config.asset_host 设定静态资源文件的主机名  设置用于处理静态资源文件的 CDN
+    # config.action_mailer.asset_host = 'http://myrailsshop.herokuapp.com'
 
   	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
