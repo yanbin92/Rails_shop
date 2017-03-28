@@ -393,7 +393,7 @@ manifest-md5hash.json 文件默认位于 config.assets.prefix 选项所指定的
 
 注意
 在生产环境中，如果有些预编译后的文件丢失了，Rails 就会抛出 Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError 异常，提示所丢失文件的文件名。
-23.4.1.1 在 HTTP 首部中设置为很久以后才过期
+##23.4.1.1 在 HTTP 首部中设置为很久以后才过期
 预编译后的静态资源文件储存在文件系统中，并由 Web 服务器直接处理。默认情况下，这些文件的 HTTP 首部并不会在很久以后才过期，为了充分发挥指纹的作用，我们需要修改服务器配置中的请求头过期时间。
 
 对于 Apache：
@@ -461,7 +461,7 @@ Sprockets 还会把 Cache-Control HTTP 首部设置为 max-age=31536000，意思
 group :production do
   gem 'therubyracer'
 end
-23.4.4 CDN
+##23.4.4 CDN
 
 CDN 的意思是内容分发网络，主要用于缓存全世界的静态资源文件。当 Web 浏览器请求静态资源文件时，CDN 会从地理位置最近的 CDN 服务器上发送缓存的文件副本。如果我们在生产环境中让 Rails 直接处理静态资源文件，那么在应用前端使用 CDN 将是最好的选择。
 
