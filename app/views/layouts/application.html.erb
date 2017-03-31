@@ -12,41 +12,43 @@
   </head>
 
   <body class='<%= controller.controller_name %>'>
-	<div id="banner">
+	<div id="header">
 		<!-- <%= image_tag'logo.png',alt:'ThePragmaticBookshelf'%> -->
+		 <header>header</header>
 		<span class="title"><%= @page_title%></span>
 	</div>
-	<div id="columns">
-		<div id="side">
-			
-				<% if @cart %>
-					<%= hidden_div_if(@cart.line_items.empty?,id: 'cart') do %>
-						<%= render(@cart) %>
-					<%end%>
-				<% end %> 
-	
-
-			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="http://www..../faq">Questions</a></li>
-				<li><a href="http://www..../news">News</a></li>
-				<li><a href="http://www..../contact">Contact</a></li>
-				<li><a href="#"><%= Time.now%></a></li>
-			</ul>
-			<% if session[:user_id] %>
+	<div id="main_body">
+		<div id="columns">
+			<div id="side">
+				
+					<% if @cart %>
+						<%= hidden_div_if(@cart.line_items.empty?,id: 'cart') do %>
+							<%= render(@cart) %>
+						<%end%>
+					<% end %> 
+		
 				<ul>
-					<li><%= link_to 'Orders',orders_path %></li>
-					<li><%= link_to 'Products',products_path %></li>
-					<li><%= link_to 'Users',users_path %></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="http://www..../faq">Questions</a></li>
+					<li><a href="http://www..../news">News</a></li>
+					<li><a href="http://www..../contact">Contact</a></li>
+					<li><a href="#"><%= Time.now%></a></li>
 				</ul>
-				<%= button_to 'Logout', logout_path, method: :delete %>
-			<%end %>
+				<% if session[:user_id] %>
+					<ul>
+						<li><%= link_to 'Orders',orders_path %></li>
+						<li><%= link_to 'Products',products_path %></li>
+						<li><%= link_to 'Users',users_path %></li>
+					</ul>
+					<%= button_to 'Logout', logout_path, method: :delete %>
+				<%end %>
+			</div>
 		</div>
-	</div>
-	<div id="main">
-   		 <%= yield %> 
-	</div>
+		<div id="main">
+	   		 <%= yield %> 
+		</div>
 	
-
+	</div>
+ <footer>footer</footer>
   </body>
 </html>
