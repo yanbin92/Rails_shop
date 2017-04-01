@@ -1,9 +1,4 @@
 <p id="notice"><%= notice %></p>
-<% ["<em>need eascape item </em>"].map do |str| %>
-Ho!<%=raw(str)%><br/>
-
-Ho!<%=sanitize(str)%><br/>
-<% end %>
 <h1>Products</h1>
 <table>
 <%= render(partial: "product",collection: @products) %>
@@ -34,4 +29,10 @@ Ho!<%=sanitize(str)%><br/>
   <%= link_to 'New Product', new_product_path %>
   
 
-<!-- 嵌套布局 集合局部视图 see guides -->
+<!-- 嵌套布局 集合局部视图 see guides 
+<% ["<em>need eascape item </em>"].map do |str| %>
+Ho!<%=raw(str)%><br/>
+
+Ho!<%=sanitize(str)%><br/>
+<% end %>
+-->
