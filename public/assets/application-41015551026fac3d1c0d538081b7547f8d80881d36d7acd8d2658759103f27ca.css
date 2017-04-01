@@ -1,0 +1,381 @@
+/* line 5, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/carts.scss */
+.carts #side #cart .item_price, .carts #side #cart .total_line {
+  text-align: right;
+}
+/* line 9, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/carts.scss */
+.carts #side #cart .total_line .total_cell {
+  font-weight: bold;
+  border-top: 1px solid #595;
+}
+/* line 6, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products table {
+  border-collapse: collapse;
+}
+/* line 10, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products table tr td {
+  padding: 5px;
+  vertical-align: top;
+}
+/* line 15, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_image {
+  width: 272px;
+  height: 180px;
+}
+/* line 20, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_description {
+  width: 60%;
+}
+/* line 23, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_description dl {
+  margin: 0;
+}
+/* line 27, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_description dt {
+  color: #244;
+  font-weight: bold;
+  font-size: larger;
+}
+/* line 33, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_description dd {
+  margin: 0;
+}
+/* line 38, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_actions {
+  font-size: x-small;
+  text-align: right;
+  padding-left: 1em;
+}
+/* line 44, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_line_even {
+  background: #e0f8f8;
+}
+/* line 48, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/products.scss */
+.products .list_line_odd {
+  background: #f8b0f8;
+}
+/* line 1, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 33px;
+}
+
+/* line 10, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 33px;
+}
+
+/* line 17, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* line 23, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+a {
+  color: #000;
+}
+/* line 26, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+a:visited {
+  color: #666;
+}
+/* line 30, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+/* line 36, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+th {
+  padding-bottom: 5px;
+}
+
+/* line 40, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+td {
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* line 47, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+/* line 52, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+#notice {
+  color: green;
+}
+
+/* line 56, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 62, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+/* line 70, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0;
+  background-color: #c00;
+  color: #fff;
+}
+/* line 81, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/* line 87, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/scaffolds.scss */
+label {
+  display: block;
+}
+/* line 4, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store {
+  /* An entry in the store
+  */
+}
+/* line 6, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store h1 {
+  margin: 0;
+  padding-bottom: 0.5em;
+  font: 150% sans-serif;
+  color: #226;
+  border-bottom: 3px dotted #77d;
+}
+/* line 20, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store .entry {
+  overflow: auto;
+  margin-top: 1em;
+  border-bottom: 1px dotted #77d;
+  min-height: 100px;
+}
+/* line 30, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store .entry img {
+  width: 110px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  position: absolute;
+}
+/* line 38, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store .entry h3 {
+  font-size: 120%;
+  font-family: sans-serif;
+  margin-left: 120px;
+  margin-top: 0;
+  margin-bottom: 2px;
+  color: #227;
+}
+/* line 48, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store .entry p, .store .entry div.price_line {
+  margin-left: 120px;
+  margin-top: 0.5em;
+  margin-bottom: 0.8em;
+}
+/* line 53, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store .entry p form, .store .entry p div, .store .entry div.price_line form, .store .entry div.price_line div {
+  display: inline;
+}
+/* line 62, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/store.scss */
+.store .entry .price {
+  color: #44a;
+  font-weight: bold;
+  margin-right: 3em;
+}
+@charset "UTF-8";
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+/* line 18, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form fieldset {
+  background: #efe;
+}
+/* line 20, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form fieldset legend {
+  color: #dfd;
+  background: #141;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+/* line 26, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form fieldset div {
+  margin-bottom: 0.3em;
+}
+/* line 31, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form form label {
+  width: 5em;
+  float: left;
+  text-align: right;
+  padding-top: 0.2em;
+  margin-right: 0.1em;
+  display: block;
+}
+/* line 40, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form form select, .depot_form form textarea, .depot_form form input {
+  margin-left: 0.5em;
+}
+/* line 43, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form form .submit {
+  margin-left: 4em;
+}
+/* line 46, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+.depot_form form br {
+  display: none;
+}
+
+/* line 54, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+body, body > p, body > ol, body > ul, body > td {
+  margin: 8px !important;
+}
+
+/* line 57, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#header, footer {
+  min-height: 40px;
+  background: #9c9;
+  display: block;
+  padding: 10px;
+  border-bottom: 2px solid;
+  border-radius: 7pt;
+  font: small-caps 40px/40px "TimesNew Roman", serif;
+  color: #282;
+  text-align: center;
+}
+/* line 75, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#header img, footer img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 192px;
+}
+
+/* line 87, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#notice {
+  color: #000 !important;
+  border: 2px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold smaller sans-serif;
+}
+
+/* line 101, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#notice:empty {
+  display: none;
+}
+
+/* line 105, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#main_body {
+  display: flex;
+  min-height: 800px;
+}
+
+/* line 109, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns {
+  background: #141;
+  display: inline-flex;
+  order: 1;
+  flex: 1 3 auto;
+}
+/* line 117, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side {
+  padding: 1em 2em;
+  background: #141;
+}
+/* line 122, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side form, #columns #side div {
+  display: inline;
+}
+/* line 126, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side input {
+  font-size: smaller;
+}
+/* line 130, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side #cart {
+  font-size: smaller;
+  color: white;
+}
+/* line 134, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side #cart table {
+  border-top: 1px dotted #595;
+  border-bottom: 1px dotted #595;
+  margin-bottom: 10px;
+}
+/* line 140, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side ul {
+  padding: 0;
+}
+/* line 142, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side ul li {
+  list-style: none;
+}
+/* line 144, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#columns #side ul li a {
+  color: #bfb;
+  font-size: small;
+}
+
+/* line 154, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+#main {
+  padding: 1em;
+  background: white;
+  order: 2;
+  flex: 1 1 67.8%;
+  height: auto;
+  float: left;
+  display: inline;
+}
+
+/*窄到已不足以支持2栏*/
+@media all and (max-width: 525px) {
+  /* line 167, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+  #main_body {
+    flex-direction: column;
+  }
+
+  /* line 170, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+  #main_body #columns {
+    /* 商品排前面 元素按照 order 属性的值的增序进行布局 default 0*/
+    -webkit-order: 2;
+    order: 2;
+  }
+
+  /* line 175, /home/yanbin/Desktop/UntitledFolder/haitaoshop/github/Rails_shop/app/assets/stylesheets/application.scss */
+  #main_body #main {
+    /* 商品排前面 元素按照 order 属性的值的增序进行布局 default 0*/
+    -webkit-order: 1;
+    order: 1;
+  }
+}
