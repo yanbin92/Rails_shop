@@ -1,10 +1,13 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authorize, only: [:index]
 
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+    response.headers['Access-Control-Allow-Origin']='*'
+    response.headers['Access-Control-Allow-Methods']='GET,POST'
   end
 
   # GET /products/1
