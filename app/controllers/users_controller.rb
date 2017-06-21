@@ -108,17 +108,14 @@ class UsersController < ApplicationController
 
   def resetAdmin
     user=User.find_by name: "admin"
-    if  user.update(password: '123456',password_confirmation:'123456')
-      respond_to do |format|
+    respond_to do |format|
+      if  user.update(password: '123456',password_confirmation:'123456')
         format.html { redirect_to users_url,notice: 'User #{@user.name} was successfully reset.' }
+      else
+          format.html { redirect_to users_url, 
+            notice: 'User #{@user.name} was failed reset.' }
       end
-    else
-      respond_to do |format|
-        format.html { redirect_to users_url, 
-          notice: 'User #{@user.name} was failed reset.' }
-        end
     end
-
   end
 
 
