@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize,only: [:new,:create,:page1] #if User.count === 0
+  skip_before_action :authorize,only: [:new,:create,:page1,:resetAdmin] #if User.count === 0
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "users", only: [:page1]
   layout "application", except: [:page1]
@@ -90,12 +90,35 @@ class UsersController < ApplicationController
       end
 
       respond_to do |format|
-        format.html { redirect_to users_url,
-         notice: "User  #{@user.name} was successfully destroyed."}
+        format.html { redirect_to users_url,notice: "User  #{@user.name} was successfully destroyed."}
         format.json { head :no_content }
       end
     end
   
+  end
+
+=begin
+  Ruby 支持五种类型的变量。
+  一般小写字母、下划线开头：变量（Variable）。
+  $开头：全局变量（Global variable）。
+  @开头：实例变量（Instance variable）。
+  @@开头：类变量（Class variable）类变量被共享在整个继承链中
+  大写字母开头：常数（Constant）
+=end
+
+  def resetAdmin
+    user=User.find_by name: "admin"
+    if  user.update(password: '123456',password_confirmation:'123456')
+      respond_to do |format|
+        format.html { redirect_to users_url,notice: 'User #{@user.name} was successfully reset.' }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to users_url, 
+          notice: 'User #{@user.name} was failed reset.' }
+        end
+    end
+
   end
 
 

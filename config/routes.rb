@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   controller :users do
    get 'users/page1' => :page1
+   get 'users/reset' =>:resetAdmin
   end
   controller :sessions do
     get 'login' => :new
