@@ -25,35 +25,47 @@
 	border-bottom:1px dotted #77d;
 
 	min-height:100px;
+	max-height:340px;
+ 	display: flex;
+ 	flex-direction: row;
+ 	flex-wrap:wrap;//wrap：换行，第一行在上方。
+	justify-content:flex-start;
+ 	align-items:center;//属性定义项目在交叉轴上如何对齐
+ 	
+		.img_container{
+			width:20%;
 
-
-		img {
-			width:110px;
-			margin-right:5px;
-			margin-bottom:5px;
-			position:absolute;
+			img {
+				width:100%;
+				
+				margin-right:5px;
+				margin-bottom:5px;
+		
+			}
 		}
 
 
-		h3 {
-			font-size:120%;
-			font-family:sans-serif;
-			margin-left:120px;
-			margin-top:0;
-			margin-bottom:2px;
-			color:#227;
-		}
+
+		.text_container{
+			width:79%;
+	
+			h3 {
+				font-size:120%;
+				font-family:sans-serif;
+				margin-top:0;
+				margin-bottom:2px;
+				color:#227;
+			}
 
 
-		p, div.price_line{
-			margin-left:120px;
+			p, div.price_line{
 			margin-top:0.5em;
 			margin-bottom:0.8em;
 
-			form,div {
-				display: inline
+				form,div {
+					display: inline
 
-			}
+				}
 
 
 			}
@@ -64,6 +76,11 @@
 			font-weight:bold;
 			margin-right:3em;
 		}
+		}
+
+	
+
+
 	}
 }
 
