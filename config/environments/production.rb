@@ -25,7 +25,7 @@ Rails.application.configure do
   #如果 Gemfile 中包含 sass-rails gem，Rails 就会自动使用这个 gem 压缩 CSS 静态资源文件，而无需设置 config.assets.css_compressor 选项。
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
