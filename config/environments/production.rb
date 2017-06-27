@@ -25,6 +25,16 @@ Rails.application.configure do
   #如果 Gemfile 中包含 sass-rails gem，Rails 就会自动使用这个 gem 压缩 CSS 静态资源文件，而无需设置 config.assets.css_compressor 选项。
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
+=begin
+在某些情况下，我们需要使用实时编译。在实时编译模式下，Asset Pipeline 中的所有静态资源文件都由 Sprockets 直接处理。
+    通过如下设置可以启用实时编译：
+    config.assets.compile = true
+    如前文所述，静态资源文件会在首次请求时被编译和缓存，辅助方法会把清单文件中的文件名转换为带 SHA256 哈希值的版本。
+    Sprockets 还会把 Cache-Control HTTP 首部设置为 max-age=31536000，
+    意思是服务器和客户端浏览器的所有缓存的过期时间是 1 年。
+    这样在本地浏览器缓存或中间缓存中找到所需静态资源文件的可能性会大大增加，从而减少从服务器上获取静态资源文件的请求次数。
+   但是实时编译模式会使用更多内存，性能也比默认设置更差，因此并不推荐使用。
+=end
   config.assets.compile = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
