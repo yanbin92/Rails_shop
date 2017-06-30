@@ -159,7 +159,22 @@ body, body > p, body > ol, body > ul, body > td {margin:8px !important}
 		float:left; 
 		display:inline;
 	}
-/*窄到已不足以支持2栏*/
+/*
+	<link rel="stylesheet" href="print.css" media="print">
+	
+	除了在样式表链接中使用 media 属性之外，我们还可以通过另外两种方法应用可以嵌入 CSS 文件的媒体查询：@media 和 @import。出于性能方面的考虑，我们建议开发者优先考虑使用前两种方法，尽量避免使用 @import 语法（请参阅避免 CSS 导入）。
+
+
+	@media print {
+	  /* print style sheets go here */
+	}
+	@import url(print.css) print;
+
+	尽管我们可以查询多个不同的项目，但自适应网页设计最常使用的项目为：min-width、max-width、min-height 和 max-height。
+	//orientation=portrait	高度大于或等于宽度的任意浏览器适用的规则。
+	//orientation=landscape	宽度大于高度的任意浏览器适用的规则。
+	窄到已不足以支持2栏
+*/
 @media all and (max-width:525px)
 {
 
