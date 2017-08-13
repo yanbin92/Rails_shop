@@ -26,4 +26,16 @@
 
 //清单文件中的指令是按照从上到下的顺序处理的，但我们无法确定 require_tree 指令包含文件的顺序，因此不应该依赖于这些文件的顺序。如果想要确保连接文件时某些 JavaScript 文件出现在其他 JavaScript 文件之前，
 //可以在清单文件中先行加载这些文件。注意，require 系列指令不会重复加载文件。
+$(function(){
+  var menu = document.querySelector('#menu');
+  var main = document.querySelector('#main_body');
+  var drawer = document.querySelector('.nav');
 
+  menu.addEventListener('click', function(e) {
+    drawer.classList.toggle('open');
+    e.stopPropagation();
+  });
+  main.addEventListener('click', function() {
+    drawer.classList.remove('open');
+  });
+})

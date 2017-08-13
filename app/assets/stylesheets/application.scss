@@ -52,6 +52,10 @@
 
 body, body > p, body > ol, body > ul, body > td {margin:8px !important}
 
+.header__menu {
+	  display: none;
+	}
+
 
 #header,footer{
 
@@ -71,6 +75,7 @@ body, body > p, body > ol, body > ul, body > td {margin:8px !important}
 
 	text-align:center;
 
+	
 	img {
 		position:absolute;
 
@@ -166,9 +171,9 @@ body, body > p, body > ol, body > ul, body > td {margin:8px !important}
 
 
 	@media print {
-	  /* print style sheets go here */
+	  
 	}
-	@import url(print.css) print;
+	
 
 	尽管我们可以查询多个不同的项目，但自适应网页设计最常使用的项目为：min-width、max-width、min-height 和 max-height。
 	//orientation=portrait	高度大于或等于宽度的任意浏览器适用的规则。
@@ -193,6 +198,61 @@ body, body > p, body > ol, body > ul, body > td {margin:8px !important}
    }
 }
 
+@media screen and (max-width: 549px) {
+  .header__logo {
+    height: 48px;
+    margin-right: 0.5em;
+  }
+  .header__title {
+    margin-left: 0;
+    font-size: 2em;
+    vertical-align: bottom; 
+  }
+  .nav {
+    z-index: 10;
+    background-color: #fff;
+    width: 300px;
+    height:100%;
+    position: absolute;
+    top:0px;
+    left:0;
+    /* This trasform moves the drawer off canvas. */
+    -webkit-transform: translate(-450px, 0);
+    transform: translate(-450px, 0);
+    /* Optionally, we animate the drawer. */
+    transition: transform 0.3s ease;
+  }
+  .nav.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  .nav__item {
+  	margin-top:10px;
+    display: list-item;
+    border-bottom: 1px solid #E0E0E0;
+    width: 100%;
+    text-align: left;
+  }
+  .header__menu {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top:0;
+    padding: 0.5em;
+  }
+  .header__menu svg {
+    width: 32px;
+    fill: #E0E0E0;
+  }
+  #columns #side ul li a {
+  color:#333;
+  font-size:medim;
+  }
+  #menu:hover{
+  	color:transparent;
+  	background:transparent;
+  }
+}
 
 
 
