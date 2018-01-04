@@ -73,3 +73,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'activemerchant','~> 1.58'
 gem 'haml','~> 4.0'
 gem 'kaminari','~> 0.16'
+gem 'carrierwave', '~> 1.0'

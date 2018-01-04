@@ -13,6 +13,12 @@
  *= require_tree .
  *= require_self
  */
+ body{
+ 	display:flex;
+ 	flex-direction: column ;
+ 	justify-content: flex-start;
+ 	 flex-wrap:  wrap ;
+ }
 .depot_form{
 	fieldset{
 		background: #efe;
@@ -63,7 +69,6 @@ body, body > p, body > ol, body > ul, body > td {margin:8px !important}
 
 	background:#9c9;
 
-	display:block;
 
 	padding:10px;
 
@@ -105,10 +110,17 @@ body, body > p, body > ol, body > ul, body > td {margin:8px !important}
 #notice:empty{
 	display:none
 }
-
+#header{
+	order:1;
+}
 #main_body{
+flex-basis:100%;
+	order:2;
 	display:flex;
 	min-height: 800px;
+}
+footer{
+	order:3;
 }
 #columns
 {
