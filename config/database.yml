@@ -28,7 +28,7 @@ production:
   encoding: utf8
   reconnect: false
   pool: 5
-  databse: postgres://twjjavjjtqnbul:b606eb25aa6b4b6fc5eee4d3a81606cf1e316f50ea7246934ab0b045e6815bd3@ec2-54-163-246-165.compute-1.amazonaws.com:5432/dd53vvt81b8m24
+  databse: postgres://selnyrwhrmvpub:fdd42647b86b8c1a93cc8b60901b5f835f1d3133cc15a26c3887ee7d44e4f1ba@ec2-54-227-247-225.compute-1.amazonaws.com:5432/dek01ds50opcj1
   # databse: db/rails_db
   # username: postgres
   # password: 112233
